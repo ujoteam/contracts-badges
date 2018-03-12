@@ -1,0 +1,38 @@
+{
+  "name": "ujo-contracts-badges",
+  "version": "0.0.1",
+  "description": "The Ujo Contract Badges",
+  "main": "index.js",
+  "scripts": {
+    "lint": "npm run lint:js && npm run lint:sol",
+    "lint:js": "eslint test/**/*.js migrations/**/*.js",
+    "lint:sol": "solhint contracts/*.sol",
+    "pretest": "npm run lint",
+    "test": "truffle test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UjoTeam/contracts-badges.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/UjoTeam/contracts-badges/issues"
+  },
+  "homepage": "https://github.com/UjoTeam/contracts-badges#readme",
+  "dependencies": {
+    "bignumber.js": "^6.0.0",
+    "ujo-contracts-handlers": "git+ssh://git@github.com:UjoTeam/contracts-handlers.git#aa0af79",
+    "truffle": "4.0.6",
+    "truffle-contract": "3.0.1",
+    "truffle-hdwallet-provider": "0.0.3"
+  },
+  "devDependencies": {
+    "eslint": "4.13.1",
+    "eslint-config-airbnb": "16.1.0",
+    "eslint-plugin-import": "2.8.0",
+    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-react": "7.5.1",
+    "solhint": "1.1.9"
+  }
+}
