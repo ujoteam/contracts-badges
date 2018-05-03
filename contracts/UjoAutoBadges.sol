@@ -1,13 +1,16 @@
-pragma solidity 0.4.19;
-import "./ERC721.sol";
+pragma solidity ^0.4.21;
+import "./eip721/EIP721.sol";
 
 
-contract UjoBadges is ERC721 {
+contract UjoAutoBadges is EIP721 {
+
 
     address public admin;
     uint256 public counter = 0;
     mapping (address => bool) public approvedHandlers;
     mapping (uint256 => AdditionalTokenData) public additionalData;
+
+    event LogVerify(address indexed verifier, uint256 indexed tokenId);
 
     struct AdditionalTokenData {
         string cid;
@@ -15,10 +18,13 @@ contract UjoBadges is ERC721 {
         uint256[] amounts;
         address oracle;
         uint256 minted;
+        address[] verifiedBy;
     }
 
-    function UjoBadges(address _admin) public {
+    function UjoAutoBadges(address _admin) public {
         admin = _admin;
+        name = "Ujo Badges";
+        symbol = "UJO";
     }
 
     function getCid(uint256 _tokenId) public view returns (string) {
@@ -41,6 +47,20 @@ contract UjoBadges is ERC721 {
         return additionalData[_tokenId].minted;
     }
 
+    function getVerifiers(uint256 _tokenId) public view returns (address[]) {
+        return additionalData[_tokenId].verifiedBy;
+    }
+
+    // additional helper function not in EIP721.
+    function getAllTokens(address _owner) public view returns (uint256[]) {
+        uint size = ownedTokens[_owner].length;
+        uint[] memory result = new uint256[](size);
+        for (uint i = 0; i < size; i++) {
+            result[i] = ownedTokens[_owner][i];
+        }
+        return result;
+    }
+
     modifier onlyAdmin() {
         require(msg.sender == admin);
         _;
@@ -51,6 +71,18 @@ contract UjoBadges is ERC721 {
         _;
     }
 
+    /*
+    Since badges are automatically created from any release purchase,
+    any purchase that does not conform to the expected criteria set in the off-chain
+    license is not regarded as legitimate. In short term, Ujo, verifies this off-chain.
+    However, over time, anyone can submit verifications & accordingly check on-chain if the
+    badges were issued according to the right criteria.
+    */
+    function verifyBadge(uint256 _tokenId) public {
+        additionalData[_tokenId].verifiedBy.push(msg.sender);
+        emit LogVerify(msg.sender, _tokenId);
+    }
+
     function setApprovedHandler(address _handler, bool _state) public onlyAdmin {
         approvedHandlers[_handler] = _state;
     }
@@ -59,8 +91,9 @@ contract UjoBadges is ERC721 {
         admin = _newAdmin;
     }
 
-    function setMetadata(uint256 _tokenId, string _metadata) public onlyAdmin {
-        tokenMetadata[_tokenId] = _metadata;
+    function setTokenURI(uint256 _tokenID, string URI) public {
+        require(msg.sender == admin);
+        tokenURIs[_tokenID] = URI;
     }
 
     function receiveNotification(string _cid,
@@ -77,15 +110,13 @@ contract UjoBadges is ERC721 {
         aData.minted = now; //solhint-disable-line not-rely-on-time
         additionalData[counter] = aData;
 
-        Transfer(0, _buyer, counter);
-        totalSupply += 1;
+        emit Transfer(0, _buyer, counter);
         counter += 1; // every new token gets a new ID
     }
 
     function burnToken(uint256 _tokenId) public {
-        require(tokenOwner[_tokenId] == msg.sender); //token should be in control of owner
+        require(ownerOfToken[_tokenId] == msg.sender); //token should be in control of owner
         removeToken(msg.sender, _tokenId);
-        Transfer(msg.sender, 0, _tokenId);
-        totalSupply -= 1;
+        emit Transfer(msg.sender, 0, _tokenId);
     }
 }

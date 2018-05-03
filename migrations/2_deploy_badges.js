@@ -1,6 +1,6 @@
 const TruffleContract = require('truffle-contract');
 
-const Badges = artifacts.require('./UjoBadges.sol');
+const Badges = artifacts.require('./UjoAutoBadges.sol');
 
 const HandlerJSON = require('ujo-contracts-handlers');
 
