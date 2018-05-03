@@ -4,9 +4,10 @@ const Badges = artifacts.require('./UjoAutoBadges.sol');
 
 const HandlerJSON = require('ujo-contracts-handlers');
 
-const Handler = TruffleContract(HandlerJSON);
+const Handler = TruffleContract(HandlerJSON.ETHUSDHandler);
 
-module.exports = (deployer, network) => {
+
+module.exports = async (deployer, network) => {
   // admin: 0x1fbeC754f37fC179d5332c2cA9131B19Ce6AE862 [account 2 on mnemomic]
   if (network === 'rinkeby') {
     let handlerInstance;

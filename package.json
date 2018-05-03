@@ -22,7 +22,7 @@
   "homepage": "https://github.com/UjoTeam/contracts-badges#readme",
   "dependencies": {
     "bignumber.js": "^6.0.0",
-    "ujo-contracts-handlers": "git+ssh://git@github.com:UjoTeam/contracts-handlers.git#aa0af79",
+    "ujo-contracts-handlers": "git+ssh://git@github.com:UjoTeam/contracts-handlers.git#77c4d64",
     "truffle": "4.1.7",
     "truffle-contract": "3.0.1",
     "truffle-hdwallet-provider": "0.0.3"
