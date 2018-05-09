@@ -8,26 +8,26 @@ contract UjoAutoBadges is EIP721 {
     address public admin;
     uint256 public counter = 0;
     mapping (address => bool) public approvedHandlers;
-    mapping (uint256 => AdditionalTokenData) public additionalData;
+    // mapping (uint256 => AdditionalTokenData) public additionalData;
+    mapping (uint256 => address[]) public verifiedBy;
 
     event LogVerify(address indexed verifier, uint256 indexed tokenId);
 
-    struct AdditionalTokenData {
+    /* struct AdditionalTokenData {
         string cid;
         address[] beneficiaries;
         uint256[] amounts;
         address oracle;
         uint256 minted;
         address[] verifiedBy;
-    }
+    }*/
 
     function UjoAutoBadges(address _admin) public {
         admin = _admin;
         name = "Ujo Badges";
         symbol = "UJO";
     }
-
-    function getCid(uint256 _tokenId) public view returns (string) {
+    /* function getCid(uint256 _tokenId) public view returns (string) {
         return additionalData[_tokenId].cid;
     }
 
@@ -45,10 +45,10 @@ contract UjoAutoBadges is EIP721 {
 
     function getMinted(uint256 _tokenId) public view returns(uint256) {
         return additionalData[_tokenId].minted;
-    }
+    }*/
 
     function getVerifiers(uint256 _tokenId) public view returns (address[]) {
-        return additionalData[_tokenId].verifiedBy;
+        return verifiedBy[_tokenId];
     }
 
     // additional helper function not in EIP721.
@@ -79,7 +79,7 @@ contract UjoAutoBadges is EIP721 {
     badges were issued according to the right criteria.
     */
     function verifyBadge(uint256 _tokenId) public {
-        additionalData[_tokenId].verifiedBy.push(msg.sender);
+        verifiedBy[_tokenId].push(msg.sender);
         emit LogVerify(msg.sender, _tokenId);
     }
 
@@ -102,13 +102,13 @@ contract UjoAutoBadges is EIP721 {
     address[] _beneficiaries,
     uint256[] _amounts) public payable onlyApprovedHandler {
         addToken(_buyer, counter);
-        AdditionalTokenData memory aData;
+        /* AdditionalTokenData memory aData;
         aData.cid = _cid;
         aData.beneficiaries = _beneficiaries;
         aData.amounts = _amounts;
         aData.oracle = _oracle;
         aData.minted = now; //solhint-disable-line not-rely-on-time
-        additionalData[counter] = aData;
+        additionalData[counter] = aData;*/
 
         emit Transfer(0, _buyer, counter);
         counter += 1; // every new token gets a new ID

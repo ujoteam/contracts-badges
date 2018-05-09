@@ -31,14 +31,14 @@
     "absolutePath": "/Users/simondlr/code/ethereum/contracts-badges/contracts/eip721/EIP721MetadataInterface.sol",
     "exportedSymbols": {
       "EIP721MetadataInterface": [
-        1406
+        1292
       ]
     },
-    "id": 1407,
+    "id": 1293,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1398,
+        "id": 1284,
         "literals": [
           "solidity",
           "^",
@@ -54,9 +54,9 @@
         "contractKind": "interface",
         "documentation": "@title ERC-721 Non-Fungible Token Standard, optional metadata extension\n @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md\n  Note: the ERC-165 identifier for this interface is 0x5b5e139f",
         "fullyImplemented": false,
-        "id": 1406,
+        "id": 1292,
         "linearizedBaseContracts": [
-          1406
+          1292
         ],
         "name": "EIP721MetadataInterface",
         "nodeType": "ContractDefinition",
@@ -64,7 +64,7 @@
           {
             "body": null,
             "documentation": "@notice A distinct Uniform Resource Identifier (URI) for a given asset.\n @dev Throws if `_tokenId` is not a valid NFT. URIs are defined in RFC\n  3986. The URI may point to a JSON file that conforms to the \"ERC721\n  Metadata JSON Schema\".",
-            "id": 1405,
+            "id": 1291,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -72,15 +72,15 @@
             "name": "tokenURI",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1401,
+              "id": 1287,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1400,
+                  "id": 1286,
                   "name": "_tokenId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1405,
+                  "scope": 1291,
                   "src": "1251:16:7",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -89,7 +89,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1399,
+                    "id": 1285,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1251:7:7",
@@ -106,15 +106,15 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 1404,
+              "id": 1290,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1403,
+                  "id": 1289,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1405,
+                  "scope": 1291,
                   "src": "1292:6:7",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -123,7 +123,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 1402,
+                    "id": 1288,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "1292:6:7",
@@ -138,14 +138,14 @@
               ],
               "src": "1291:8:7"
             },
-            "scope": 1406,
+            "scope": 1292,
             "src": "1233:67:7",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 1407,
+        "scope": 1293,
         "src": "659:643:7"
       }
     ],
@@ -155,14 +155,14 @@
     "absolutePath": "/Users/simondlr/code/ethereum/contracts-badges/contracts/eip721/EIP721MetadataInterface.sol",
     "exportedSymbols": {
       "EIP721MetadataInterface": [
-        1406
+        1292
       ]
     },
-    "id": 1407,
+    "id": 1293,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1398,
+        "id": 1284,
         "literals": [
           "solidity",
           "^",
@@ -178,9 +178,9 @@
         "contractKind": "interface",
         "documentation": "@title ERC-721 Non-Fungible Token Standard, optional metadata extension\n @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md\n  Note: the ERC-165 identifier for this interface is 0x5b5e139f",
         "fullyImplemented": false,
-        "id": 1406,
+        "id": 1292,
         "linearizedBaseContracts": [
-          1406
+          1292
         ],
         "name": "EIP721MetadataInterface",
         "nodeType": "ContractDefinition",
@@ -188,7 +188,7 @@
           {
             "body": null,
             "documentation": "@notice A distinct Uniform Resource Identifier (URI) for a given asset.\n @dev Throws if `_tokenId` is not a valid NFT. URIs are defined in RFC\n  3986. The URI may point to a JSON file that conforms to the \"ERC721\n  Metadata JSON Schema\".",
-            "id": 1405,
+            "id": 1291,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -196,15 +196,15 @@
             "name": "tokenURI",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1401,
+              "id": 1287,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1400,
+                  "id": 1286,
                   "name": "_tokenId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1405,
+                  "scope": 1291,
                   "src": "1251:16:7",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -213,7 +213,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1399,
+                    "id": 1285,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1251:7:7",
@@ -230,15 +230,15 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 1404,
+              "id": 1290,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1403,
+                  "id": 1289,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1405,
+                  "scope": 1291,
                   "src": "1292:6:7",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -247,7 +247,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 1402,
+                    "id": 1288,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "1292:6:7",
@@ -262,14 +262,14 @@
               ],
               "src": "1291:8:7"
             },
-            "scope": 1406,
+            "scope": 1292,
             "src": "1233:67:7",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 1407,
+        "scope": 1293,
         "src": "659:643:7"
       }
     ],
@@ -281,5 +281,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-05-07T21:27:07.876Z"
+  "updatedAt": "2018-05-09T21:20:21.986Z"
 }

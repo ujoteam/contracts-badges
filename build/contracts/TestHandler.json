@@ -71,8 +71,8 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x608060405234801561001057600080fd5b506040516020806106cd83398101806040528101908080519060200190929190505050806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505061064a806100836000396000f300608060405260043610610057576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680631a6462401461005c57806325e4e9bf146100b3578063a08d5b6f146101e2575b600080fd5b34801561006857600080fd5b50610071610225565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156100bf57600080fd5b506101e0600480360381019080803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509192919290803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001908201803590602001908080602002602001604051908101604052809392919081815260200183836020028082843782019150505050505091929192908035906020019082018035906020019080806020026020016040519081016040528093929190818152602001838360200280828437820191505050505050919291929050505061024a565b005b3480156101ee57600080fd5b50610223600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610458565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16637dab14eb86868686866040518663ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180806020018673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018060200180602001848103845289818151815260200191508051906020019080838360005b83811015610363578082015181840152602081019050610348565b50505050905090810190601f1680156103905780820380516001836020036101000a031916815260200191505b50848103835286818151815260200191508051906020019060200280838360005b838110156103cc5780820151818401526020810190506103b1565b50505050905001848103825285818151815260200191508051906020019060200280838360005b8381101561040e5780820151818401526020810190506103f3565b5050505090500198505050505050505050600060405180830381600087803b15801561043957600080fd5b505af115801561044d573d6000803e3d6000fd5b505050505050505050565b6060806000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16637dab14eb60008584866040518563ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180806020018673ffffffffffffffffffffffffffffffffffffffff1681526020018573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018060200180602001848103845260038152602001807f6369640000000000000000000000000000000000000000000000000000000000815250602001848103835286818151815260200191508051906020019060200280838360005b8381101561059557808201518184015260208101905061057a565b50505050905001848103825285818151815260200191508051906020019060200280838360005b838110156105d75780820151818401526020810190506105bc565b50505050905001975050505050505050600060405180830381600087803b15801561060157600080fd5b505af1158015610615573d6000803e3d6000fd5b505050505050505600a165627a7a7230582090de829052c0f15443d0d07053af7465af873f5c3a864fbcd5c99df5370842190029",
-  "deployedBytecode": "0x608060405260043610610057576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680631a6462401461005c57806325e4e9bf146100b3578063a08d5b6f146101e2575b600080fd5b34801561006857600080fd5b50610071610225565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156100bf57600080fd5b506101e0600480360381019080803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509192919290803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001908201803590602001908080602002602001604051908101604052809392919081815260200183836020028082843782019150505050505091929192908035906020019082018035906020019080806020026020016040519081016040528093929190818152602001838360200280828437820191505050505050919291929050505061024a565b005b3480156101ee57600080fd5b50610223600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610458565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16637dab14eb86868686866040518663ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180806020018673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018060200180602001848103845289818151815260200191508051906020019080838360005b83811015610363578082015181840152602081019050610348565b50505050905090810190601f1680156103905780820380516001836020036101000a031916815260200191505b50848103835286818151815260200191508051906020019060200280838360005b838110156103cc5780820151818401526020810190506103b1565b50505050905001848103825285818151815260200191508051906020019060200280838360005b8381101561040e5780820151818401526020810190506103f3565b5050505090500198505050505050505050600060405180830381600087803b15801561043957600080fd5b505af115801561044d573d6000803e3d6000fd5b505050505050505050565b6060806000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16637dab14eb60008584866040518563ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180806020018673ffffffffffffffffffffffffffffffffffffffff1681526020018573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018060200180602001848103845260038152602001807f6369640000000000000000000000000000000000000000000000000000000000815250602001848103835286818151815260200191508051906020019060200280838360005b8381101561059557808201518184015260208101905061057a565b50505050905001848103825285818151815260200191508051906020019060200280838360005b838110156105d75780820151818401526020810190506105bc565b50505050905001975050505050505050600060405180830381600087803b15801561060157600080fd5b505af1158015610615573d6000803e3d6000fd5b505050505050505600a165627a7a7230582090de829052c0f15443d0d07053af7465af873f5c3a864fbcd5c99df5370842190029",
+  "bytecode": "0x608060405234801561001057600080fd5b506040516020806106cd83398101806040528101908080519060200190929190505050806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505061064a806100836000396000f300608060405260043610610057576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680631a6462401461005c57806325e4e9bf146100b3578063a08d5b6f146101e2575b600080fd5b34801561006857600080fd5b50610071610225565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156100bf57600080fd5b506101e0600480360381019080803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509192919290803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001908201803590602001908080602002602001604051908101604052809392919081815260200183836020028082843782019150505050505091929192908035906020019082018035906020019080806020026020016040519081016040528093929190818152602001838360200280828437820191505050505050919291929050505061024a565b005b3480156101ee57600080fd5b50610223600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610458565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16637dab14eb86868686866040518663ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180806020018673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018060200180602001848103845289818151815260200191508051906020019080838360005b83811015610363578082015181840152602081019050610348565b50505050905090810190601f1680156103905780820380516001836020036101000a031916815260200191505b50848103835286818151815260200191508051906020019060200280838360005b838110156103cc5780820151818401526020810190506103b1565b50505050905001848103825285818151815260200191508051906020019060200280838360005b8381101561040e5780820151818401526020810190506103f3565b5050505090500198505050505050505050600060405180830381600087803b15801561043957600080fd5b505af115801561044d573d6000803e3d6000fd5b505050505050505050565b6060806000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16637dab14eb60008584866040518563ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180806020018673ffffffffffffffffffffffffffffffffffffffff1681526020018573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018060200180602001848103845260038152602001807f6369640000000000000000000000000000000000000000000000000000000000815250602001848103835286818151815260200191508051906020019060200280838360005b8381101561059557808201518184015260208101905061057a565b50505050905001848103825285818151815260200191508051906020019060200280838360005b838110156105d75780820151818401526020810190506105bc565b50505050905001975050505050505050600060405180830381600087803b15801561060157600080fd5b505af1158015610615573d6000803e3d6000fd5b505050505050505600a165627a7a723058205f8481d914005bb87db2ecb9c1c7ae3c9ff03d7bdc74c764a8e4655bcb9d51590029",
+  "deployedBytecode": "0x608060405260043610610057576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680631a6462401461005c57806325e4e9bf146100b3578063a08d5b6f146101e2575b600080fd5b34801561006857600080fd5b50610071610225565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156100bf57600080fd5b506101e0600480360381019080803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509192919290803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001908201803590602001908080602002602001604051908101604052809392919081815260200183836020028082843782019150505050505091929192908035906020019082018035906020019080806020026020016040519081016040528093929190818152602001838360200280828437820191505050505050919291929050505061024a565b005b3480156101ee57600080fd5b50610223600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610458565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16637dab14eb86868686866040518663ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180806020018673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018060200180602001848103845289818151815260200191508051906020019080838360005b83811015610363578082015181840152602081019050610348565b50505050905090810190601f1680156103905780820380516001836020036101000a031916815260200191505b50848103835286818151815260200191508051906020019060200280838360005b838110156103cc5780820151818401526020810190506103b1565b50505050905001848103825285818151815260200191508051906020019060200280838360005b8381101561040e5780820151818401526020810190506103f3565b5050505090500198505050505050505050600060405180830381600087803b15801561043957600080fd5b505af115801561044d573d6000803e3d6000fd5b505050505050505050565b6060806000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16637dab14eb60008584866040518563ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180806020018673ffffffffffffffffffffffffffffffffffffffff1681526020018573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018060200180602001848103845260038152602001807f6369640000000000000000000000000000000000000000000000000000000000815250602001848103835286818151815260200191508051906020019060200280838360005b8381101561059557808201518184015260208101905061057a565b50505050905001848103825285818151815260200191508051906020019060200280838360005b838110156105d75780820151818401526020810190506105bc565b50505050905001975050505050505050600060405180830381600087803b15801561060157600080fd5b505af1158015610615573d6000803e3d6000fd5b505050505050505600a165627a7a723058205f8481d914005bb87db2ecb9c1c7ae3c9ff03d7bdc74c764a8e4655bcb9d51590029",
   "sourceMap": "87:721:1:-;;;149:93;8:9:-1;5:2;;;30:1;27;20:12;5:2;149:93:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;227:7;204:6;;:31;;;;;;;;;;;;;;;;;;149:93;87:721;;;;;;",
   "deployedSourceMap": "87:721:1:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;115:27;;8:9:-1;5:2;;;30:1;27;20:12;5:2;115:27:1;;;;;;;;;;;;;;;;;;;;;;;;;;;465:341;;8:9:-1;5:2;;;30:1;27;20:12;5:2;465:341:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;248:211;;8:9:-1;5:2;;;30:1;27;20:12;5:2;248:211:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;115:27;;;;;;;;;;;;;:::o;465:341::-;723:6;;;;;;;;;;;:26;;;750:4;756:7;765;774:14;790:8;723:76;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;723:76:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;723:76:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;723:76:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;723:76:1;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;723:76:1;;;;465:341;;;;;:::o;248:211::-;309:24;343:30;383:6;;;;;;;;;;;:26;;;417:1;420:7;429:13;444:7;383:69;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;383:69:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;383:69:1;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;383:69:1;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;383:69:1;;;;248:211;;;:::o",
   "source": "pragma solidity ^0.4.21;\nimport \"./UjoAutoBadges.sol\"; // todo, change to interface.\n\n\ncontract TestHandler {\n\n    UjoAutoBadges public badges;\n\n    function TestHandler(address _badges) public {\n        badges = UjoAutoBadges(_badges);\n    }\n\n    function testSimplePayment(address _minter) public {\n        uint256[] memory amounts;\n        address[] memory beneficiaries;\n        badges.receiveNotification(\"cid\", 0, _minter, beneficiaries, amounts);\n    }\n\n    function testFullPayment(string _cid, address _oracle, address _minter, address[] _beneficiaries, uint256[] _amounts) public {\n        // (cid, oracle, buyer, addresses, amounts)\n        // general validation would usually be here before forwarding.\n        badges.receiveNotification(_cid, _oracle, _minter, _beneficiaries, _amounts);\n    }\n}\n",
@@ -104,7 +104,7 @@
         "id": 59,
         "nodeType": "ImportDirective",
         "scope": 127,
-        "sourceUnit": 547,
+        "sourceUnit": 424,
         "src": "25:29:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -132,7 +132,7 @@
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_UjoAutoBadges_$546",
+              "typeIdentifier": "t_contract$_UjoAutoBadges_$423",
               "typeString": "contract UjoAutoBadges"
             },
             "typeName": {
@@ -140,10 +140,10 @@
               "id": 60,
               "name": "UjoAutoBadges",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 546,
+              "referencedDeclaration": 423,
               "src": "115:13:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_UjoAutoBadges_$546",
+                "typeIdentifier": "t_contract$_UjoAutoBadges_$423",
                 "typeString": "contract UjoAutoBadges"
               }
             },
@@ -173,7 +173,7 @@
                       "referencedDeclaration": 61,
                       "src": "204:6:1",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_UjoAutoBadges_$546",
+                        "typeIdentifier": "t_contract$_UjoAutoBadges_$423",
                         "typeString": "contract UjoAutoBadges"
                       }
                     },
@@ -207,10 +207,10 @@
                         "name": "UjoAutoBadges",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 546,
+                        "referencedDeclaration": 423,
                         "src": "213:13:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_UjoAutoBadges_$546_$",
+                          "typeIdentifier": "t_type$_t_contract$_UjoAutoBadges_$423_$",
                           "typeString": "type(contract UjoAutoBadges)"
                         }
                       },
@@ -224,13 +224,13 @@
                       "nodeType": "FunctionCall",
                       "src": "213:22:1",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_UjoAutoBadges_$546",
+                        "typeIdentifier": "t_contract$_UjoAutoBadges_$423",
                         "typeString": "contract UjoAutoBadges"
                       }
                     },
                     "src": "204:31:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_UjoAutoBadges_$546",
+                      "typeIdentifier": "t_contract$_UjoAutoBadges_$423",
                       "typeString": "contract UjoAutoBadges"
                     }
                   },
@@ -502,7 +502,7 @@
                         "referencedDeclaration": 61,
                         "src": "383:6:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_UjoAutoBadges_$546",
+                          "typeIdentifier": "t_contract$_UjoAutoBadges_$423",
                           "typeString": "contract UjoAutoBadges"
                         }
                       },
@@ -513,7 +513,7 @@
                       "lValueRequested": false,
                       "memberName": "receiveNotification",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 517,
+                      "referencedDeclaration": 394,
                       "src": "383:26:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_payable$_t_string_memory_ptr_$_t_address_$_t_address_$_t_array$_t_address_$dyn_memory_ptr_$_t_array$_t_uint256_$dyn_memory_ptr_$returns$__$",
@@ -702,7 +702,7 @@
                         "referencedDeclaration": 61,
                         "src": "723:6:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_UjoAutoBadges_$546",
+                          "typeIdentifier": "t_contract$_UjoAutoBadges_$423",
                           "typeString": "contract UjoAutoBadges"
                         }
                       },
@@ -713,7 +713,7 @@
                       "lValueRequested": false,
                       "memberName": "receiveNotification",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 517,
+                      "referencedDeclaration": 394,
                       "src": "723:26:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_payable$_t_string_memory_ptr_$_t_address_$_t_address_$_t_array$_t_address_$dyn_memory_ptr_$_t_array$_t_uint256_$dyn_memory_ptr_$returns$__$",
@@ -952,7 +952,7 @@
         "id": 59,
         "nodeType": "ImportDirective",
         "scope": 127,
-        "sourceUnit": 547,
+        "sourceUnit": 424,
         "src": "25:29:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -980,7 +980,7 @@
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_UjoAutoBadges_$546",
+              "typeIdentifier": "t_contract$_UjoAutoBadges_$423",
               "typeString": "contract UjoAutoBadges"
             },
             "typeName": {
@@ -988,10 +988,10 @@
               "id": 60,
               "name": "UjoAutoBadges",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 546,
+              "referencedDeclaration": 423,
               "src": "115:13:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_UjoAutoBadges_$546",
+                "typeIdentifier": "t_contract$_UjoAutoBadges_$423",
                 "typeString": "contract UjoAutoBadges"
               }
             },
@@ -1021,7 +1021,7 @@
                       "referencedDeclaration": 61,
                       "src": "204:6:1",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_UjoAutoBadges_$546",
+                        "typeIdentifier": "t_contract$_UjoAutoBadges_$423",
                         "typeString": "contract UjoAutoBadges"
                       }
                     },
@@ -1055,10 +1055,10 @@
                         "name": "UjoAutoBadges",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 546,
+                        "referencedDeclaration": 423,
                         "src": "213:13:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_UjoAutoBadges_$546_$",
+                          "typeIdentifier": "t_type$_t_contract$_UjoAutoBadges_$423_$",
                           "typeString": "type(contract UjoAutoBadges)"
                         }
                       },
@@ -1072,13 +1072,13 @@
                       "nodeType": "FunctionCall",
                       "src": "213:22:1",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_UjoAutoBadges_$546",
+                        "typeIdentifier": "t_contract$_UjoAutoBadges_$423",
                         "typeString": "contract UjoAutoBadges"
                       }
                     },
                     "src": "204:31:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_UjoAutoBadges_$546",
+                      "typeIdentifier": "t_contract$_UjoAutoBadges_$423",
                       "typeString": "contract UjoAutoBadges"
                     }
                   },
@@ -1350,7 +1350,7 @@
                         "referencedDeclaration": 61,
                         "src": "383:6:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_UjoAutoBadges_$546",
+                          "typeIdentifier": "t_contract$_UjoAutoBadges_$423",
                           "typeString": "contract UjoAutoBadges"
                         }
                       },
@@ -1361,7 +1361,7 @@
                       "lValueRequested": false,
                       "memberName": "receiveNotification",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 517,
+                      "referencedDeclaration": 394,
                       "src": "383:26:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_payable$_t_string_memory_ptr_$_t_address_$_t_address_$_t_array$_t_address_$dyn_memory_ptr_$_t_array$_t_uint256_$dyn_memory_ptr_$returns$__$",
@@ -1550,7 +1550,7 @@
                         "referencedDeclaration": 61,
                         "src": "723:6:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_UjoAutoBadges_$546",
+                          "typeIdentifier": "t_contract$_UjoAutoBadges_$423",
                           "typeString": "contract UjoAutoBadges"
                         }
                       },
@@ -1561,7 +1561,7 @@
                       "lValueRequested": false,
                       "memberName": "receiveNotification",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 517,
+                      "referencedDeclaration": 394,
                       "src": "723:26:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_payable$_t_string_memory_ptr_$_t_address_$_t_address_$_t_array$_t_address_$dyn_memory_ptr_$_t_array$_t_uint256_$dyn_memory_ptr_$returns$__$",
@@ -1779,5 +1779,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-05-07T21:27:07.869Z"
+  "updatedAt": "2018-05-09T21:20:21.980Z"
 }

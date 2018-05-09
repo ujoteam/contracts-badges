@@ -29,7 +29,7 @@ module.exports = async (deployer, network) => {
     deployer.then(() => Handler.deployed())
       .then((returnedHandlerInstance) => {
         handlerInstance = returnedHandlerInstance;
-        return deployer.deploy(Badges, '0x1fbeC754f37fC179d5332c2cA9131B19Ce6AE862');
+        return deployer.deploy(Badges, '0xc293fb50262e7d6dfaca1e0ce72472f517413fa5');
       }).then(() => Badges.deployed())
       .then(deployedBadges => deployedBadges.setApprovedHandler(handlerInstance.address, true));
   }
