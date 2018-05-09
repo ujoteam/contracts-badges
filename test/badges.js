@@ -25,27 +25,9 @@ contract('Auto Badges', (accounts) => {
     const adminBalance = await badges.balanceOf.call(accounts[0]);
     const owner = await badges.ownerOf.call(0);
 
-    /*
-    string cid;
-    address[] beneficiaries;
-    uint256[] amounts;
-    address oracle;
-    uint256 minted;
-    */
-    const cid = await badges.getCid.call(0);
-    const beneficiaries = await badges.getBeneficiaries.call(0);
-    const amounts = await badges.getAmounts.call(0);
-    const oracleUsed = await badges.getOracle.call(0);
-
     assert.strictEqual(totalSupply.toString(), '1');
     assert.strictEqual(adminBalance.toString(), '1');
     assert.strictEqual(accounts[0], owner);
-
-    assert.strictEqual(cid, 'cid');
-    assert.sameDeepMembers(beneficiaries, [accounts[1], accounts[2]]);
-    assert.strictEqual(amounts[0].toString(), '1000000000000000000');
-    assert.strictEqual(amounts[1].toString(), '1000000000000000000');
-    assert.strictEqual(oracleUsed, oracle.address);
   });
 
   it('creation: create one token then retrieve one that does not exist (should fail)', async () => {

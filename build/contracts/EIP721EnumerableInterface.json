@@ -68,14 +68,14 @@
     "absolutePath": "/Users/simondlr/code/ethereum/contracts-badges/contracts/eip721/EIP721EnumerableInterface.sol",
     "exportedSymbols": {
       "EIP721EnumerableInterface": [
-        1288
+        1174
       ]
     },
-    "id": 1289,
+    "id": 1175,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1266,
+        "id": 1152,
         "literals": [
           "solidity",
           "^",
@@ -91,9 +91,9 @@
         "contractKind": "interface",
         "documentation": "@title ERC-721 Non-Fungible Token Standard, optional enumeration extension\n @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md\n  Note: the ERC-165 identifier for this interface is 0x780e9d63",
         "fullyImplemented": false,
-        "id": 1288,
+        "id": 1174,
         "linearizedBaseContracts": [
-          1288
+          1174
         ],
         "name": "EIP721EnumerableInterface",
         "nodeType": "ContractDefinition",
@@ -101,7 +101,7 @@
           {
             "body": null,
             "documentation": "@notice Count NFTs tracked by this contract\n @return A count of valid NFTs tracked by this contract, where each one of\n  them has an assigned and queryable owner not equal to the zero address",
-            "id": 1271,
+            "id": 1157,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -109,22 +109,22 @@
             "name": "totalSupply",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1267,
+              "id": 1153,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "523:2:5"
             },
             "payable": false,
             "returnParameters": {
-              "id": 1270,
+              "id": 1156,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1269,
+                  "id": 1155,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1271,
+                  "scope": 1157,
                   "src": "549:7:5",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -133,7 +133,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1268,
+                    "id": 1154,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "549:7:5",
@@ -148,7 +148,7 @@
               ],
               "src": "548:9:5"
             },
-            "scope": 1288,
+            "scope": 1174,
             "src": "503:55:5",
             "stateMutability": "view",
             "superFunction": null,
@@ -157,7 +157,7 @@
           {
             "body": null,
             "documentation": "@notice Enumerate valid NFTs\n @dev Throws if `_index` >= `totalSupply()`.\n @param _index A counter less than `totalSupply()`\n @return The token identifier for the `_index`th NFT,\n  (sort order not specified)",
-            "id": 1278,
+            "id": 1164,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -165,15 +165,15 @@
             "name": "tokenByIndex",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1274,
+              "id": 1160,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1273,
+                  "id": 1159,
                   "name": "_index",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1278,
+                  "scope": 1164,
                   "src": "830:14:5",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -182,7 +182,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1272,
+                    "id": 1158,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "830:7:5",
@@ -199,15 +199,15 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 1277,
+              "id": 1163,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1276,
+                  "id": 1162,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1278,
+                  "scope": 1164,
                   "src": "869:7:5",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -216,7 +216,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1275,
+                    "id": 1161,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "869:7:5",
@@ -231,7 +231,7 @@
               ],
               "src": "868:9:5"
             },
-            "scope": 1288,
+            "scope": 1174,
             "src": "808:70:5",
             "stateMutability": "view",
             "superFunction": null,
@@ -240,7 +240,7 @@
           {
             "body": null,
             "documentation": "@notice Enumerate NFTs assigned to an owner\n @dev Throws if `_index` >= `balanceOf(_owner)` or if\n  `_owner` is the zero address, representing invalid NFTs.\n @param _owner An address where we are interested in NFTs owned by them\n @param _index A counter less than `balanceOf(_owner)`\n @return The token identifier for the `_index`th NFT assigned to `_owner`,\n   (sort order not specified)",
-            "id": 1287,
+            "id": 1173,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -248,15 +248,15 @@
             "name": "tokenOfOwnerByIndex",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1283,
+              "id": 1169,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1280,
+                  "id": 1166,
                   "name": "_owner",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1287,
+                  "scope": 1173,
                   "src": "1352:14:5",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -265,7 +265,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1279,
+                    "id": 1165,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1352:7:5",
@@ -279,10 +279,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 1282,
+                  "id": 1168,
                   "name": "_index",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1287,
+                  "scope": 1173,
                   "src": "1368:14:5",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -291,7 +291,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1281,
+                    "id": 1167,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1368:7:5",
@@ -308,15 +308,15 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 1286,
+              "id": 1172,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1285,
+                  "id": 1171,
                   "name": "_tokenId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1287,
+                  "scope": 1173,
                   "src": "1407:16:5",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -325,7 +325,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1284,
+                    "id": 1170,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1407:7:5",
@@ -340,14 +340,14 @@
               ],
               "src": "1406:18:5"
             },
-            "scope": 1288,
+            "scope": 1174,
             "src": "1323:102:5",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 1289,
+        "scope": 1175,
         "src": "247:1180:5"
       }
     ],
@@ -357,14 +357,14 @@
     "absolutePath": "/Users/simondlr/code/ethereum/contracts-badges/contracts/eip721/EIP721EnumerableInterface.sol",
     "exportedSymbols": {
       "EIP721EnumerableInterface": [
-        1288
+        1174
       ]
     },
-    "id": 1289,
+    "id": 1175,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1266,
+        "id": 1152,
         "literals": [
           "solidity",
           "^",
@@ -380,9 +380,9 @@
         "contractKind": "interface",
         "documentation": "@title ERC-721 Non-Fungible Token Standard, optional enumeration extension\n @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md\n  Note: the ERC-165 identifier for this interface is 0x780e9d63",
         "fullyImplemented": false,
-        "id": 1288,
+        "id": 1174,
         "linearizedBaseContracts": [
-          1288
+          1174
         ],
         "name": "EIP721EnumerableInterface",
         "nodeType": "ContractDefinition",
@@ -390,7 +390,7 @@
           {
             "body": null,
             "documentation": "@notice Count NFTs tracked by this contract\n @return A count of valid NFTs tracked by this contract, where each one of\n  them has an assigned and queryable owner not equal to the zero address",
-            "id": 1271,
+            "id": 1157,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -398,22 +398,22 @@
             "name": "totalSupply",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1267,
+              "id": 1153,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "523:2:5"
             },
             "payable": false,
             "returnParameters": {
-              "id": 1270,
+              "id": 1156,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1269,
+                  "id": 1155,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1271,
+                  "scope": 1157,
                   "src": "549:7:5",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -422,7 +422,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1268,
+                    "id": 1154,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "549:7:5",
@@ -437,7 +437,7 @@
               ],
               "src": "548:9:5"
             },
-            "scope": 1288,
+            "scope": 1174,
             "src": "503:55:5",
             "stateMutability": "view",
             "superFunction": null,
@@ -446,7 +446,7 @@
           {
             "body": null,
             "documentation": "@notice Enumerate valid NFTs\n @dev Throws if `_index` >= `totalSupply()`.\n @param _index A counter less than `totalSupply()`\n @return The token identifier for the `_index`th NFT,\n  (sort order not specified)",
-            "id": 1278,
+            "id": 1164,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -454,15 +454,15 @@
             "name": "tokenByIndex",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1274,
+              "id": 1160,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1273,
+                  "id": 1159,
                   "name": "_index",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1278,
+                  "scope": 1164,
                   "src": "830:14:5",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -471,7 +471,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1272,
+                    "id": 1158,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "830:7:5",
@@ -488,15 +488,15 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 1277,
+              "id": 1163,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1276,
+                  "id": 1162,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1278,
+                  "scope": 1164,
                   "src": "869:7:5",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -505,7 +505,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1275,
+                    "id": 1161,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "869:7:5",
@@ -520,7 +520,7 @@
               ],
               "src": "868:9:5"
             },
-            "scope": 1288,
+            "scope": 1174,
             "src": "808:70:5",
             "stateMutability": "view",
             "superFunction": null,
@@ -529,7 +529,7 @@
           {
             "body": null,
             "documentation": "@notice Enumerate NFTs assigned to an owner\n @dev Throws if `_index` >= `balanceOf(_owner)` or if\n  `_owner` is the zero address, representing invalid NFTs.\n @param _owner An address where we are interested in NFTs owned by them\n @param _index A counter less than `balanceOf(_owner)`\n @return The token identifier for the `_index`th NFT assigned to `_owner`,\n   (sort order not specified)",
-            "id": 1287,
+            "id": 1173,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -537,15 +537,15 @@
             "name": "tokenOfOwnerByIndex",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1283,
+              "id": 1169,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1280,
+                  "id": 1166,
                   "name": "_owner",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1287,
+                  "scope": 1173,
                   "src": "1352:14:5",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -554,7 +554,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1279,
+                    "id": 1165,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1352:7:5",
@@ -568,10 +568,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 1282,
+                  "id": 1168,
                   "name": "_index",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1287,
+                  "scope": 1173,
                   "src": "1368:14:5",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -580,7 +580,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1281,
+                    "id": 1167,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1368:7:5",
@@ -597,15 +597,15 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 1286,
+              "id": 1172,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1285,
+                  "id": 1171,
                   "name": "_tokenId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1287,
+                  "scope": 1173,
                   "src": "1407:16:5",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -614,7 +614,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1284,
+                    "id": 1170,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1407:7:5",
@@ -629,14 +629,14 @@
               ],
               "src": "1406:18:5"
             },
-            "scope": 1288,
+            "scope": 1174,
             "src": "1323:102:5",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 1289,
+        "scope": 1175,
         "src": "247:1180:5"
       }
     ],
@@ -648,5 +648,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-05-07T21:27:07.870Z"
+  "updatedAt": "2018-05-09T21:20:21.985Z"
 }
