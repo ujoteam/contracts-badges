@@ -1,5 +1,8 @@
 ## Collectible EIP721 Badges
 
+[![codecov](https://codecov.io/gh/UjoTeam/contracts-badges/branch/master/graph/badge.svg)](https://codecov.io/gh/UjoTeam/contracts-badges)  
+[![CircleCI](https://circleci.com/gh/UjoTeam/contracts-badges.svg?style=svg)](https://circleci.com/gh/UjoTeam/contracts-badges)  
+
 These contracts manages the collectibles that are minted when buying releases.
 
 Auto Badges are minted automatically from a given handler.   
