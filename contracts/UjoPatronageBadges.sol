@@ -1,7 +1,7 @@
 pragma solidity ^0.4.21;
 import "./eip721/EIP721.sol";
 import "./utils/strings.sol";
-
+import "../node_modules/ujo-contracts-oracle/contracts/IUSDETHOracle.sol";
 
 contract UjoPatronageBadges is EIP721 {
     using strings for *;
@@ -21,12 +21,17 @@ contract UjoPatronageBadges is EIP721 {
 
     address public admin;
 
+    IUSDETHOracle public oracle;
     // todo: add oracle
 
     function UjoPatronageBadges(address _admin) public {
         admin = _admin; // sets oracle used.
         name = "Ujo Patronage Badges";
         symbol = "UJOP";
+    }
+
+    function setOracle(address _oracle) public onlyAdmin {
+        oracle = IUSDETHOracle(_oracle);
     }
 
     // additional helper function not in EIP721.
@@ -54,6 +59,13 @@ contract UjoPatronageBadges is EIP721 {
         // todo: if less than $5, revert.
 
         // compute badge information & mint it.
+        //price of one wei for calculation purposes
+        uint256 val = oracle.getUintPrice() / 1000000000000000000;
+        if(msg.value * val < 5){
+            revert();
+        }
+        _beneficiary.transfer(5 / val);
+        msg.sender.transfer(msg.value - 5/val);
         uint256 tokenId = computeID(_cid, _beneficiary, totalMintedBadgesPerCidAndBeneficiary[_cid][_beneficiary]);
         badgeNumber[tokenId] = totalMintedBadgesPerCidAndBeneficiary[_cid][_beneficiary];
         cidOfBadge[tokenId] = _cid;
