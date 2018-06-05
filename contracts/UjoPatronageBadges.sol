@@ -70,11 +70,18 @@ contract UjoPatronageBadges is EIP721 {
         // this is to ensure that we also track the number of badges per artist.
         // steps as it unfolds:
         // 1) turn integer counter into a string
-        // 2) turn beneficiary address into a string (todo)
-        // 3) concatenate the cid + beneficiary + counter (todo)
+        // 2) turn beneficiary address into a string
+        // 3) concatenate the cid + beneficiary + counter
         // 4) get a hash of the combination.
         // 5) get integer value of hash.
-        return uint256(keccak256(_cid.toSlice().concat(bytes32ToString(bytes32(_counter)).toSlice()))); // concatenate cid + counter
+        return uint256(keccak256(_cid.toSlice().concat(bytes32ToString(bytes32(_counter)).toSlice()).toSlice().concat(toString(_beneficiary).toSlice()))); // concatenate cid + counter + beneficiary
+    }
+
+    function toString(address x) returns (string) {
+        bytes memory b = new bytes(20);
+        for (uint i = 0; i < 20; i++)
+            b[i] = byte(uint8(uint(x) / (2**(8*(19 - i)))));
+        return string(b);
     }
 
     function changeAdmin(address _newAdmin) public onlyAdmin {
