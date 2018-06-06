@@ -27,4 +27,11 @@ module.exports = {
       port: 8555, // If you change this, also set the port option in .solcover.js.
     },
   },
+  mocha: {
+    reporter: 'eth-gas-reporter',
+    reporterOptions: {
+      currency: 'USD',
+      gasPrice: 21,
+    },
+  },
 };
