@@ -6,13 +6,21 @@ const testOracle = artifacts.require('TestOracle');
 let badges;
 let handler;
 let oracle;
+let gasForBadgesDeployment;
 
 // NOTE: This disable is for all the event logs args having underscores
 /* eslint-disable no-underscore-dangle */
 
 contract('Auto Badges', (accounts) => {
+  before(async () => {
+    const gasEstimate = await web3.eth.estimateGas({ data: ujoBadges.bytecode });
+
+    // for some reason it needs to bumped otherwise it's not enough gas.
+    gasForBadgesDeployment = parseInt((gasEstimate * 110) / 100, 10);
+  });
+
   beforeEach(async () => {
-    badges = await ujoBadges.new(accounts[0], { gas: 50000000, from: accounts[0] });
+    badges = await ujoBadges.new(accounts[0], { gas: gasForBadgesDeployment, from: accounts[0] });
     handler = await testHandler.new(badges.address, { from: accounts[0] });
     oracle = await testOracle.new({ from: accounts[0] });
     await badges.setApprovedHandler(handler.address, true, { from: accounts[0] });
