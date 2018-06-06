@@ -12,7 +12,7 @@ let oracle;
 
 contract('Auto Badges', (accounts) => {
   beforeEach(async () => {
-    badges = await ujoBadges.new(accounts[0], { gas: 6720000, from: accounts[0] });
+    badges = await ujoBadges.new(accounts[0], { gas: 50000000, from: accounts[0] });
     handler = await testHandler.new(badges.address, { from: accounts[0] });
     oracle = await testOracle.new({ from: accounts[0] });
     await badges.setApprovedHandler(handler.address, true, { from: accounts[0] });

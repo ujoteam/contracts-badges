@@ -21,5 +21,10 @@ module.exports = {
       gas: 4700000,
       gasPrice: 20000000000,
     },
+    coverage: {
+      host: 'localhost',
+      network_id: '*',
+      port: 8555, // If you change this, also set the port option in .solcover.js.
+    },
   },
 };
