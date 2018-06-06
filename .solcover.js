@@ -1,4 +1,4 @@
 module.exports = {
-    testrpcOptions: '--gasLimit=0x6ACFC0',
+    testrpcOptions: '-p 8555 -l 0x2FAF080', // 50 million
     skipFiles: ['utils/strings.sol']
 };
