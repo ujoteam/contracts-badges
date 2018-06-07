@@ -22,7 +22,6 @@ contract UjoPatronageBadges is EIP721 {
     address public admin;
 
     IUSDETHOracle public oracle;
-    // todo: add oracle
 
     function UjoPatronageBadges(address _admin) public {
         admin = _admin; // sets oracle used.
@@ -51,21 +50,20 @@ contract UjoPatronageBadges is EIP721 {
 
     // cid == any IPFS object
     function mint(string _cid, address _beneficiary) public payable {
-        // todo: check if paid enough through oracle price
-        // todo: only type now is: > $5 via oracle. Send back remainder.
+        //  check if paid enough through oracle price
+        //  only type now is: > $5 via oracle. Send back remainder.
 
-        // todo: forward ETH equivalent to $5.
-        // todo: send back remainder.
-        // todo: if less than $5, revert.
+        //  forward ETH equivalent to $5.
+        //  send back remainder.
+        // if less than $5, revert.
 
         // compute badge information & mint it.
         //price of one wei for calculation purposes
-        uint256 val = oracle.getUintPrice() / 1000000000000000000;
-        if(msg.value * val < 5){
-            revert();
-        }
-        _beneficiary.transfer(5 / val);
-        msg.sender.transfer(msg.value - 5/val);
+        uint val = oracle.getUintPrice();
+        uint five = (1 ether /val) * 5;
+        require(msg.value >= five);
+        _beneficiary.transfer(five);
+        msg.sender.transfer(msg.value - five);
         uint256 tokenId = computeID(_cid, _beneficiary, totalMintedBadgesPerCidAndBeneficiary[_cid][_beneficiary]);
         badgeNumber[tokenId] = totalMintedBadgesPerCidAndBeneficiary[_cid][_beneficiary];
         cidOfBadge[tokenId] = _cid;
