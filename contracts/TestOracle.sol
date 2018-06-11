@@ -16,7 +16,7 @@ contract TestOracle {
     function getUintPrice() public view returns (uint) {
         return price;
     }
-
+    
     function setPrice(uint _price) public {
         lastUpdated = now; // solhint-disable-line not-rely-on-time
         price = _price;
