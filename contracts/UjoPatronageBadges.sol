@@ -64,7 +64,7 @@ contract UjoPatronageBadges is EIP721 {
         require(msg.value >= five);
         _beneficiary.transfer(five);
         msg.sender.transfer(msg.value - five);
-        uint256 tokenId = computeID(_cid, _beneficiary, totalMintedBadgesPerCidAndBeneficiary[_cid][_beneficiary]);
+        uint256 tokenId = computeID(_cid, totalMintedBadgesPerCidAndBeneficiary[_cid][_beneficiary], _beneficiary);
         badgeNumber[tokenId] = totalMintedBadgesPerCidAndBeneficiary[_cid][_beneficiary];
         cidOfBadge[tokenId] = _cid;
         beneficiaryOfBadge[tokenId] = _beneficiary;
@@ -75,7 +75,7 @@ contract UjoPatronageBadges is EIP721 {
     }
 
 
-    function computeID(string _cid, address _beneficiary, uint256 _counter) public returns (uint256) {
+    function computeID(string _cid, uint256 _counter, address _beneficiary) public returns (uint256) {
         // determine unique uint ID combining the CID with the number per CID.
         // this is to ensure that we also track the number of badges per artist.
         // steps as it unfolds:
