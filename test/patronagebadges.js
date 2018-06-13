@@ -41,19 +41,19 @@ contract('Auto Badges', (accounts) => {
   });
 
   it('creation: create 5 tokens, burn 3, create 3 more.', async () => {
-    await badges.mint('cid', accounts[1], { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
-    await badges.mint('cid', accounts[1], { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
-    await badges.mint('cid2', accounts[2], { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
-    await badges.mint('cid2', accounts[2], { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
+    await badges.mint('cid', accounts[1], 5, { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
+    await badges.mint('cid', accounts[1], 5, { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
+    await badges.mint('cid2', accounts[2], 5, { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
+    await badges.mint('cid2', accounts[2], 5, { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
     const allTokens = await badges.getAllTokens.call(accounts[0]);
-    const jscomputedid1 = web3.utils.soliditySha3('cid', accounts[1], 0);
-    const jscomputedid2 = web3.utils.soliditySha3('cid', accounts[1], 1);
-    const jscomputedid3 = web3.utils.soliditySha3('cid2', accounts[2], 0);
-    const jscomputedid4 = web3.utils.soliditySha3('cid2', accounts[2], 1);
-    const computedID1 = await badges.computeID.call('cid', accounts[1], 0);
-    const computedID2 = await badges.computeID.call('cid', accounts[1], 1);
-    const computedID3 = await badges.computeID.call('cid2', accounts[2], 0);
-    const computedID4 = await badges.computeID.call('cid2', accounts[2], 1);
+    const jscomputedid1 = web3.utils.soliditySha3('cid', accounts[1], 5, 0);
+    const jscomputedid2 = web3.utils.soliditySha3('cid', accounts[1], 5, 1);
+    const jscomputedid3 = web3.utils.soliditySha3('cid2', accounts[2], 5, 0);
+    const jscomputedid4 = web3.utils.soliditySha3('cid2', accounts[2], 5, 1);
+    const computedID1 = await badges.computeID.call('cid', accounts[1], 5, 0);
+    const computedID2 = await badges.computeID.call('cid', accounts[1], 5, 1);
+    const computedID3 = await badges.computeID.call('cid2', accounts[2], 5, 0);
+    const computedID4 = await badges.computeID.call('cid2', accounts[2], 5, 1);
     console.log(allTokens[0]);
     console.log(web3.utils.toHex(computedID1));
     console.log(jscomputedid1);

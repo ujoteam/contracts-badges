@@ -8,17 +8,20 @@ contract UjoPatronageBadges is EIP721 {
     using strings for *;
     // enumeration
 
-    // cid -> beneficiary -> total
-    mapping (string => mapping(address => uint256)) internal totalMintedBadgesPerCidAndBeneficiary;
+    // cid -> beneficiary -> usd -> total
+    mapping (string => mapping(address => mapping(uint256 => uint256))) internal totalMintedBadgesPerCombination;
 
-    // token ID -> number towards combo of CID + beneficiary.
+    // token ID -> badge number (derived when it is minted).
     mapping (uint256 => uint256) public badgeNumber;
 
     // token ID -> what CID it pertains to.
     mapping (uint256 => string) public cidOfBadge;
 
-    // token ID -> what beneficiary it pertains
+    // token ID -> what beneficiary it pertains to.
     mapping (uint256 => address) public beneficiaryOfBadge;
+
+    // token ID -> what usd cost it pertains to.
+    mapping (uint256 => uint256) public usdCostOfBadge;
 
     address public admin;
 
@@ -50,37 +53,38 @@ contract UjoPatronageBadges is EIP721 {
     }
 
     // cid == any IPFS object
-    function mint(string _cid, address _beneficiary) public payable {
+    function mint(string _cid, address _beneficiary, uint256 _usdCost) public payable {
         //price of one wei for calculation purposes
-        uint256 exchangeRate = oracle.getUintPrice();
-        uint fiveDollarInWei = (1 ether / exchangeRate) * 5;
+        uint256 exchangeRate = oracle.getUintPrice(); // todo: what if this is broken?
+        require(exchangeRate > 0);
+        uint usdCostInWei = (1 ether / exchangeRate) * _usdCost;
 
-        require(msg.value >= fiveDollarInWei);
+        require(msg.value >= usdCostInWei);
 
         // compute badge information & mint it.
-        uint256 tokenId = computeID(_cid, _beneficiary, totalMintedBadgesPerCidAndBeneficiary[_cid][_beneficiary]);
-        badgeNumber[tokenId] = totalMintedBadgesPerCidAndBeneficiary[_cid][_beneficiary];
+        uint256 tokenId = computeID(_cid, _beneficiary, _usdCost, totalMintedBadgesPerCombination[_cid][_beneficiary][_usdCost]);
+        badgeNumber[tokenId] = totalMintedBadgesPerCombination[_cid][_beneficiary][_usdCost];
         cidOfBadge[tokenId] = _cid;
         beneficiaryOfBadge[tokenId] = _beneficiary;
+        usdCostOfBadge[tokenId] = _usdCost;
         tokenURIs[tokenId] = _cid;
         addToken(msg.sender, tokenId);
 
-        totalMintedBadgesPerCidAndBeneficiary[_cid][_beneficiary] += 1;
-
+        totalMintedBadgesPerCombination[_cid][_beneficiary][_usdCost] += 1;
 
         //  check if paid enough through oracle price
         //  only type now is: > $5 via oracle. Send back remainder.
         //  forward ETH equivalent to $5.
         //  send back remainder.
         // if less than $5, revert.
-        if (msg.value > fiveDollarInWei) {
-            msg.sender.transfer(msg.value - fiveDollarInWei);
+        if (msg.value > usdCostInWei) {
+            msg.sender.transfer(msg.value - usdCostInWei);
         }
 
-        _beneficiary.transfer(fiveDollarInWei);
+        _beneficiary.transfer(usdCostInWei);
     }
 
-    function computeID(string _cid, address _beneficiary, uint256 _counter) public returns (uint256) {
+    function computeID(string _cid, address _beneficiary, uint256 _usdCost, uint256 _counter) public returns (uint256) {
         // determine unique uint ID combining the CID with the number per CID.
         // this is to ensure that we also track the number of badges per artist.
         // steps as it unfolds:
@@ -91,7 +95,7 @@ contract UjoPatronageBadges is EIP721 {
         // 5) get integer value of hash.
 
         // solhint-disable-next-line max-line-length
-        return uint256(keccak256(_cid.toSlice().concat(toString(_beneficiary).toSlice()).toSlice().concat(bytes32ToString(bytes32(_counter)).toSlice()))); // concatenate cid + beneficiary + counter
+        return uint256(keccak256(_cid.toSlice().concat(toString(_beneficiary).toSlice()).toSlice().concat(bytes32ToString(bytes32(_usdCost)).toSlice()).toSlice().concat(bytes32ToString(bytes32(_counter)).toSlice()))); // concatenate cid + beneficiary + counter
     }
 
     function changeAdmin(address _newAdmin) public onlyAdmin {
@@ -111,8 +115,8 @@ contract UjoPatronageBadges is EIP721 {
         emit Transfer(msg.sender, 0, _tokenId);
     }
 
-    function getTotalMintedPerCIDAndBeneficiary(string _cid, address _beneficiary) public view returns (uint256) {
-        return totalMintedBadgesPerCidAndBeneficiary[_cid][_beneficiary];
+    function getTotalMintedPerCombination(string _cid, address _beneficiary, uint256 _usdCost) public view returns (uint256) {
+        return totalMintedBadgesPerCombination[_cid][_beneficiary][_usdCost];
     }
 
     /*-- internal functions for string CID generation --*/
