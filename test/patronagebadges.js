@@ -55,16 +55,18 @@ contract('Auto Badges', (accounts) => {
   //   assertRevert(await badges.mint('cid', accounts[1], {from: accounts[0], value: web3.utils.toWei("4", "ether")}));
   // })
 
-  // it("should send the right amount of money to the benficiary and to the payer", async() => {
-  //   var beforeBalanceSender = await web3.eth.getBalance(accounts[0]);
-  //   console.log(beforeBalanceSender);
-  //   // const beforeBalanceBen = await web3.eth.getBalance(accounts[1]);
-  //   await badges.mint('cid', accounts[1], {from:accounts[0], value:web3.utils.toWei("6","ether")});
-  //   var newBalSender = await web3.eth.getBalance(accounts[0]);
-  //   console.log(newBalSender);
-  //   assert.equal((await web3.eth.getBalance(accounts[0])), beforeBalanceSender - 5);
-  //   // assert.equal((await web3.eth.getBalance(accounts[1]).toNumber()), beforeBalanceBen.toNumber() + 5);
-  // })
+  it("should send the right amount of money to the benficiary and to the payer", async() => {
+    var beforeBalanceSender = await web3.eth.getBalance(accounts[0]);
+    var beforeBalanceBen = await web3.eth.getBalance(accounts[1]);
+    await badges.mint('cid', accounts[1], {from:accounts[0], value:web3.utils.toWei("6","ether")});
+    var newBalSender = await web3.eth.getBalance(accounts[0]);
+    var newBalBen = await web3.eth.getBalance(accounts[1]);
+    var five_ether = web3.utils.toWei("5", "ether");
+    var expectedBalSender = beforeBalanceSender - five_ether;
+    var expectedBalBen =beforeBalanceBen + five_ether;
+    assert.equal(newBalSender.toString(), expectedBalSender.toString());
+    assert.equal(newBalBen.toString(), expectedBalBen.toString());
+  })
 });
 
 function checkHexEquality(hex1, hex2) {
