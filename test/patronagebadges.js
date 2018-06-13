@@ -82,13 +82,16 @@ contract('Auto Badges', (accounts) => {
   it('should send the right amount of money to the benficiary and to the payer', async () => {
     const beforeBalanceSender = await web3.eth.getBalance(accounts[0]);
     const beforeBalanceBen = await web3.eth.getBalance(accounts[1]);
-    await badges.mint('cid', accounts[1], { from: accounts[0], value: web3.utils.toWei('6', 'ether') });
+    const result = await badges.mint('cid', accounts[1], 5, { from: accounts[0], value: web3.utils.toWei('6', 'ether') });
+    const gasPrice = (await web3.eth.getTransaction(result.tx)).gasPrice;
+    const gasUsed = (await web3.eth.getTransactionReceipt(result.tx)).gasUsed;
+    const gasCost = gasUsed * gasPrice;
     const newBalSender = await web3.eth.getBalance(accounts[0]);
     const newBalBen = await web3.eth.getBalance(accounts[1]);
     const fiveEther = web3.utils.toWei('5', 'ether');
-    const expectedBalSender = beforeBalanceSender - fiveEther;
-    const expectedBalBen = beforeBalanceBen + fiveEther;
+    const expectedBalSender = parseInt(beforeBalanceSender) - parseInt(fiveEther) - parseInt(gasCost);
+    const expectedBalBen = parseInt(beforeBalanceBen) + parseInt(fiveEther);
     assert.equal(newBalSender.toString(), expectedBalSender.toString());
-    assert.equal(newBalBen.toString(), expectedBalBen.toString());
+    assert.equal(newBalBen, expectedBalBen);
   });
 });
