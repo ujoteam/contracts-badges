@@ -8,13 +8,16 @@ let handler;
 let oracle;
 let gasForBadgesDeployment;
 
+const Web3 = require('web3');
+
+const web3 = new Web3(Web3.givenProvider || 'ws://localhost:8545');
+
 // NOTE: This disable is for all the event logs args having underscores
 /* eslint-disable no-underscore-dangle */
 
 contract('Auto Badges', (accounts) => {
   before(async () => {
     const gasEstimate = await web3.eth.estimateGas({ data: ujoBadges.bytecode });
-
     // for some reason it needs to bumped otherwise it's not enough gas.
     gasForBadgesDeployment = parseInt((gasEstimate * 110) / 100, 10);
   });
@@ -27,7 +30,7 @@ contract('Auto Badges', (accounts) => {
   });
 
   it('creation: create one token', async () => {
-    await handler.testFullPayment('cid', oracle.address, accounts[0], [accounts[1], accounts[2]], [web3.toWei(1, 'ether'), web3.toWei(1, 'ether')], { from: accounts[0] });
+    await handler.testFullPayment('cid', oracle.address, accounts[0], [accounts[1], accounts[2]], [web3.utils.toWei('1', 'ether'), web3.utils.toWei('1', 'ether')], { from: accounts[0] });
 
     const totalSupply = await badges.totalSupply.call();
     const adminBalance = await badges.balanceOf.call(accounts[0]);

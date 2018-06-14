@@ -1,7 +1,7 @@
 pragma solidity ^0.4.21;
 import "./eip721/EIP721.sol";
 import "./utils/strings.sol";
-import "../node_modules/ujo-contracts-oracle/contracts/IUSDETHOracle.sol";
+import "./IUSDETHOracle.sol";
 
 
 contract UjoPatronageBadges is EIP721 {

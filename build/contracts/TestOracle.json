@@ -28,26 +28,40 @@
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "getUintPrice",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
   ],
-  "bytecode": "0x60806040526040805190810160405280600181526020017f31000000000000000000000000000000000000000000000000000000000000008152506000908051906020019061004f929190610062565b5034801561005c57600080fd5b50610107565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106100a357805160ff19168380011785556100d1565b828001600101855582156100d1579182015b828111156100d05782518255916020019190600101906100b5565b5b5090506100de91906100e2565b5090565b61010491905b808211156101005760008160009055506001016100e8565b5090565b90565b6102d3806101166000396000f30060806040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680635d1b0088146100515780639852a59c146100e1575b600080fd5b34801561005d57600080fd5b5061006661014a565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156100a657808201518184015260208101905061008b565b50505050905090810190601f1680156100d35780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b3480156100ed57600080fd5b50610148600480360381019080803590602001908201803590602001908080601f01602080910402602001604051908101604052809392919081815260200183838082843782019150505050505091929192905050506101e8565b005b60008054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156101e05780601f106101b5576101008083540402835291602001916101e0565b820191906000526020600020905b8154815290600101906020018083116101c357829003601f168201915b505050505081565b80600090805190602001906101fe929190610202565b5050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061024357805160ff1916838001178555610271565b82800160010185558215610271579182015b82811115610270578251825591602001919060010190610255565b5b50905061027e9190610282565b5090565b6102a491905b808211156102a0576000816000905550600101610288565b5090565b905600a165627a7a7230582077c82ef119abfdc7b878c00ae3eecab046292f5ae50debffda83d81b9a336ccd0029",
-  "deployedBytecode": "0x60806040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680635d1b0088146100515780639852a59c146100e1575b600080fd5b34801561005d57600080fd5b5061006661014a565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156100a657808201518184015260208101905061008b565b50505050905090810190601f1680156100d35780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b3480156100ed57600080fd5b50610148600480360381019080803590602001908201803590602001908080601f01602080910402602001604051908101604052809392919081815260200183838082843782019150505050505091929192905050506101e8565b005b60008054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156101e05780601f106101b5576101008083540402835291602001916101e0565b820191906000526020600020905b8154815290600101906020018083116101c357829003601f168201915b505050505081565b80600090805190602001906101fe929190610202565b5050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061024357805160ff1916838001178555610271565b82800160010185558215610271579182015b82811115610270578251825591602001919060010190610255565b5b50905061027e9190610282565b5090565b6102a491905b808211156102a0576000816000905550600101610288565b5090565b905600a165627a7a7230582077c82ef119abfdc7b878c00ae3eecab046292f5ae50debffda83d81b9a336ccd0029",
-  "sourceMap": "133:157:12:-;;;159:32;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;133:157;8:9:-1;5:2;;;30:1;27;20:12;5:2;133:157:12;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;",
-  "deployedSourceMap": "133:157:12:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;159:32;;8:9:-1;5:2;;;30:1;27;20:12;5:2;159:32:12;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;159:32:12;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;198:90;;8:9:-1;5:2;;;30:1;27;20:12;5:2;198:90:12;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;159:32;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;198:90::-;272:9;257:12;:24;;;;;;;;;;;;:::i;:::-;;198:90;:::o;133:157::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
-  "source": "/*\nUsed in testing to see if the Handler properly fetches it.\nRelies on getPrice() to return a string.\n*/\npragma solidity ^0.4.21;\n\n\ncontract TestOracle {\n    string public ethUsdString = \"1\";\n\n    function setStringPrice(string _newPrice) public {\n        ethUsdString = _newPrice;\n    }\n}\n",
+  "bytecode": "0x60806040526040805190810160405280600181526020017f31000000000000000000000000000000000000000000000000000000000000008152506000908051906020019061004f929190610062565b5034801561005c57600080fd5b50610107565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106100a357805160ff19168380011785556100d1565b828001600101855582156100d1579182015b828111156100d05782518255916020019190600101906100b5565b5b5090506100de91906100e2565b5090565b61010491905b808211156101005760008160009055506001016100e8565b5090565b90565b610312806101166000396000f300608060405260043610610057576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806358836e9f1461005c5780635d1b0088146100875780639852a59c14610117575b600080fd5b34801561006857600080fd5b50610071610180565b6040518082815260200191505060405180910390f35b34801561009357600080fd5b5061009c610189565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156100dc5780820151818401526020810190506100c1565b50505050905090810190601f1680156101095780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b34801561012357600080fd5b5061017e600480360381019080803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509192919290505050610227565b005b60006001905090565b60008054600181600116156101000203166002900480601f01602080910402602001604051908101604052809291908181526020018280546001816001161561010002031660029004801561021f5780601f106101f45761010080835404028352916020019161021f565b820191906000526020600020905b81548152906001019060200180831161020257829003601f168201915b505050505081565b806000908051906020019061023d929190610241565b5050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061028257805160ff19168380011785556102b0565b828001600101855582156102b0579182015b828111156102af578251825591602001919060010190610294565b5b5090506102bd91906102c1565b5090565b6102e391905b808211156102df5760008160009055506001016102c7565b5090565b905600a165627a7a723058209ff8cf4afdc90c224e2b7781753a06269f02dd6b6093f19433f7db76e975fd990029",
+  "deployedBytecode": "0x608060405260043610610057576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806358836e9f1461005c5780635d1b0088146100875780639852a59c14610117575b600080fd5b34801561006857600080fd5b50610071610180565b6040518082815260200191505060405180910390f35b34801561009357600080fd5b5061009c610189565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156100dc5780820151818401526020810190506100c1565b50505050905090810190601f1680156101095780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b34801561012357600080fd5b5061017e600480360381019080803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509192919290505050610227565b005b60006001905090565b60008054600181600116156101000203166002900480601f01602080910402602001604051908101604052809291908181526020018280546001816001161561010002031660029004801561021f5780601f106101f45761010080835404028352916020019161021f565b820191906000526020600020905b81548152906001019060200180831161020257829003601f168201915b505050505081565b806000908051906020019061023d929190610241565b5050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061028257805160ff19168380011785556102b0565b828001600101855582156102b0579182015b828111156102af578251825591602001919060010190610294565b5b5090506102bd91906102c1565b5090565b6102e391905b808211156102df5760008160009055506001016102c7565b5090565b905600a165627a7a723058209ff8cf4afdc90c224e2b7781753a06269f02dd6b6093f19433f7db76e975fd990029",
+  "sourceMap": "133:234:2:-;;;159:32;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;133:234;8:9:-1;5:2;;;30:1;27;20:12;5:2;133:234:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;",
+  "deployedSourceMap": "133:234:2:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;294:71;;8:9:-1;5:2;;;30:1;27;20:12;5:2;294:71:2;;;;;;;;;;;;;;;;;;;;;;;159:32;;8:9:-1;5:2;;;30:1;27;20:12;5:2;159:32:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;159:32:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;198:90;;8:9:-1;5:2;;;30:1;27;20:12;5:2;198:90:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;294:71;334:4;357:1;350:8;;294:71;:::o;159:32::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;198:90::-;272:9;257:12;:24;;;;;;;;;;;;:::i;:::-;;198:90;:::o;133:234::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
+  "source": "/*\nUsed in testing to see if the Handler properly fetches it.\nRelies on getPrice() to return a string.\n*/\npragma solidity ^0.4.21;\n\n\ncontract TestOracle {\n    string public ethUsdString = \"1\";\n\n    function setStringPrice(string _newPrice) public {\n        ethUsdString = _newPrice;\n    }\n\n    function getUintPrice() public returns (uint) {\n        return 1;\n    }\n}\n",
   "sourcePath": "/Users/simondlr/code/ethereum/contracts-badges/contracts/TestOracle.sol",
   "ast": {
     "absolutePath": "/Users/simondlr/code/ethereum/contracts-badges/contracts/TestOracle.sol",
     "exportedSymbols": {
       "TestOracle": [
-        3544
+        150
       ]
     },
-    "id": 3545,
+    "id": 151,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3530,
+        "id": 128,
         "literals": [
           "solidity",
           "^",
@@ -55,7 +69,7 @@
           ".21"
         ],
         "nodeType": "PragmaDirective",
-        "src": "106:24:12"
+        "src": "106:24:2"
       },
       {
         "baseContracts": [],
@@ -63,20 +77,20 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 3544,
+        "id": 150,
         "linearizedBaseContracts": [
-          3544
+          150
         ],
         "name": "TestOracle",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 3533,
+            "id": 131,
             "name": "ethUsdString",
             "nodeType": "VariableDeclaration",
-            "scope": 3544,
-            "src": "159:32:12",
+            "scope": 150,
+            "src": "159:32:2",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -84,10 +98,10 @@
               "typeString": "string"
             },
             "typeName": {
-              "id": 3531,
+              "id": 129,
               "name": "string",
               "nodeType": "ElementaryTypeName",
-              "src": "159:6:12",
+              "src": "159:6:2",
               "typeDescriptions": {
                 "typeIdentifier": "t_string_storage_ptr",
                 "typeString": "string"
@@ -96,14 +110,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "31",
-              "id": 3532,
+              "id": 130,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "string",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "188:3:12",
+              "src": "188:3:2",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_stringliteral_c89efdaa54c0f20c7adf612882df0950f5a951637e0307cdcb4c672f298b8bc6",
@@ -115,26 +129,26 @@
           },
           {
             "body": {
-              "id": 3542,
+              "id": 140,
               "nodeType": "Block",
-              "src": "247:41:12",
+              "src": "247:41:2",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 3540,
+                    "id": 138,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 3538,
+                      "id": 136,
                       "name": "ethUsdString",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3533,
-                      "src": "257:12:12",
+                      "referencedDeclaration": 131,
+                      "src": "257:12:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_storage",
                         "typeString": "string storage ref"
@@ -144,31 +158,31 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 3539,
+                      "id": 137,
                       "name": "_newPrice",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3535,
-                      "src": "272:9:12",
+                      "referencedDeclaration": 133,
+                      "src": "272:9:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_memory_ptr",
                         "typeString": "string memory"
                       }
                     },
-                    "src": "257:24:12",
+                    "src": "257:24:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage",
                       "typeString": "string storage ref"
                     }
                   },
-                  "id": 3541,
+                  "id": 139,
                   "nodeType": "ExpressionStatement",
-                  "src": "257:24:12"
+                  "src": "257:24:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 3543,
+            "id": 141,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -176,16 +190,16 @@
             "name": "setStringPrice",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3536,
+              "id": 134,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3535,
+                  "id": 133,
                   "name": "_newPrice",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3543,
-                  "src": "222:16:12",
+                  "scope": 141,
+                  "src": "222:16:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -193,10 +207,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 3534,
+                    "id": 132,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "222:6:12",
+                    "src": "222:6:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -206,40 +220,126 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "221:18:12"
+              "src": "221:18:2"
             },
             "payable": false,
             "returnParameters": {
-              "id": 3537,
+              "id": 135,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "247:0:12"
+              "src": "247:0:2"
             },
-            "scope": 3544,
-            "src": "198:90:12",
+            "scope": 150,
+            "src": "198:90:2",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 148,
+              "nodeType": "Block",
+              "src": "340:25:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "hexValue": "31",
+                    "id": 146,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "number",
+                    "lValueRequested": false,
+                    "nodeType": "Literal",
+                    "src": "357:1:2",
+                    "subdenomination": null,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_rational_1_by_1",
+                      "typeString": "int_const 1"
+                    },
+                    "value": "1"
+                  },
+                  "functionReturnParameters": 145,
+                  "id": 147,
+                  "nodeType": "Return",
+                  "src": "350:8:2"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 149,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "getUintPrice",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 142,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "315:2:2"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 145,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 144,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 149,
+                  "src": "334:4:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 143,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "334:4:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "333:6:2"
+            },
+            "scope": 150,
+            "src": "294:71:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 3545,
-        "src": "133:157:12"
+        "scope": 151,
+        "src": "133:234:2"
       }
     ],
-    "src": "106:185:12"
+    "src": "106:262:2"
   },
   "legacyAST": {
     "absolutePath": "/Users/simondlr/code/ethereum/contracts-badges/contracts/TestOracle.sol",
     "exportedSymbols": {
       "TestOracle": [
-        3544
+        150
       ]
     },
-    "id": 3545,
+    "id": 151,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3530,
+        "id": 128,
         "literals": [
           "solidity",
           "^",
@@ -247,7 +347,7 @@
           ".21"
         ],
         "nodeType": "PragmaDirective",
-        "src": "106:24:12"
+        "src": "106:24:2"
       },
       {
         "baseContracts": [],
@@ -255,20 +355,20 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 3544,
+        "id": 150,
         "linearizedBaseContracts": [
-          3544
+          150
         ],
         "name": "TestOracle",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 3533,
+            "id": 131,
             "name": "ethUsdString",
             "nodeType": "VariableDeclaration",
-            "scope": 3544,
-            "src": "159:32:12",
+            "scope": 150,
+            "src": "159:32:2",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -276,10 +376,10 @@
               "typeString": "string"
             },
             "typeName": {
-              "id": 3531,
+              "id": 129,
               "name": "string",
               "nodeType": "ElementaryTypeName",
-              "src": "159:6:12",
+              "src": "159:6:2",
               "typeDescriptions": {
                 "typeIdentifier": "t_string_storage_ptr",
                 "typeString": "string"
@@ -288,14 +388,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "31",
-              "id": 3532,
+              "id": 130,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "string",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "188:3:12",
+              "src": "188:3:2",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_stringliteral_c89efdaa54c0f20c7adf612882df0950f5a951637e0307cdcb4c672f298b8bc6",
@@ -307,26 +407,26 @@
           },
           {
             "body": {
-              "id": 3542,
+              "id": 140,
               "nodeType": "Block",
-              "src": "247:41:12",
+              "src": "247:41:2",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 3540,
+                    "id": 138,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 3538,
+                      "id": 136,
                       "name": "ethUsdString",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3533,
-                      "src": "257:12:12",
+                      "referencedDeclaration": 131,
+                      "src": "257:12:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_storage",
                         "typeString": "string storage ref"
@@ -336,31 +436,31 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 3539,
+                      "id": 137,
                       "name": "_newPrice",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3535,
-                      "src": "272:9:12",
+                      "referencedDeclaration": 133,
+                      "src": "272:9:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_memory_ptr",
                         "typeString": "string memory"
                       }
                     },
-                    "src": "257:24:12",
+                    "src": "257:24:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage",
                       "typeString": "string storage ref"
                     }
                   },
-                  "id": 3541,
+                  "id": 139,
                   "nodeType": "ExpressionStatement",
-                  "src": "257:24:12"
+                  "src": "257:24:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 3543,
+            "id": 141,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -368,16 +468,16 @@
             "name": "setStringPrice",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3536,
+              "id": 134,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3535,
+                  "id": 133,
                   "name": "_newPrice",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3543,
-                  "src": "222:16:12",
+                  "scope": 141,
+                  "src": "222:16:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -385,10 +485,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 3534,
+                    "id": 132,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "222:6:12",
+                    "src": "222:6:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -398,27 +498,113 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "221:18:12"
+              "src": "221:18:2"
             },
             "payable": false,
             "returnParameters": {
-              "id": 3537,
+              "id": 135,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "247:0:12"
+              "src": "247:0:2"
             },
-            "scope": 3544,
-            "src": "198:90:12",
+            "scope": 150,
+            "src": "198:90:2",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 148,
+              "nodeType": "Block",
+              "src": "340:25:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "hexValue": "31",
+                    "id": 146,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "number",
+                    "lValueRequested": false,
+                    "nodeType": "Literal",
+                    "src": "357:1:2",
+                    "subdenomination": null,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_rational_1_by_1",
+                      "typeString": "int_const 1"
+                    },
+                    "value": "1"
+                  },
+                  "functionReturnParameters": 145,
+                  "id": 147,
+                  "nodeType": "Return",
+                  "src": "350:8:2"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 149,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "getUintPrice",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 142,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "315:2:2"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 145,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 144,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 149,
+                  "src": "334:4:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 143,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "334:4:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "333:6:2"
+            },
+            "scope": 150,
+            "src": "294:71:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 3545,
-        "src": "133:157:12"
+        "scope": 151,
+        "src": "133:234:2"
       }
     ],
-    "src": "106:185:12"
+    "src": "106:262:2"
   },
   "compiler": {
     "name": "solc",
@@ -426,5 +612,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-06-14T11:50:07.922Z"
+  "updatedAt": "2018-06-14T13:06:55.928Z"
 }
