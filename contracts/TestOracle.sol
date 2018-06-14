@@ -6,19 +6,13 @@ pragma solidity ^0.4.21;
 
 
 contract TestOracle {
-    uint public price = 1; // 1 eth = 1 usd for simplicity of testing.
-    uint256 public lastUpdated;
+    string public ethUsdString = "1";
 
-    function TestOracle() public {
-        lastUpdated = now; // solhint-disable-line not-rely-on-time
+    function setStringPrice(string _newPrice) public {
+        ethUsdString = _newPrice;
     }
 
-    function getUintPrice() public view returns (uint) {
-        return price;
-    }
-
-    function setPrice(uint _price) public {
-        lastUpdated = now; // solhint-disable-line not-rely-on-time
-        price = _price;
+    function getUintPrice() public returns (uint) {
+        return 1;
     }
 }
