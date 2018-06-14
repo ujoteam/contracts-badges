@@ -57,6 +57,7 @@ contract UjoPatronageBadges is EIP721 {
         //price of one wei for calculation purposes
         uint256 exchangeRate = oracle.getUintPrice(); // todo: what if this is broken?
         require(exchangeRate > 0);
+        require(_usdCost > 0);
         uint usdCostInWei = (1 ether / exchangeRate) * _usdCost;
 
         require(msg.value >= usdCostInWei);

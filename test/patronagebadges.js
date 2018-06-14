@@ -14,8 +14,15 @@ let oracle;
 // NOTE: This disable is for all the event logs args having underscores
 /* eslint-disable no-underscore-dangle */
 
+// test todos:
 // test token URIs
 // test get function
+// test changing oracle
+// test exchange rate that is broken (eg zero)
+// test if paying zero usd for a badge (should fail)
+// test paying less than specified amount
+// test paying with exact require amount
+// test admin change
 
 function removeLeadingZeros(hex) {
   if (hex.charAt(0) === '0') {
@@ -67,18 +74,10 @@ contract('Auto Badges', (accounts) => {
     assert.isTrue(checkHexEquality(web3.utils.toHex(computedID4), jscomputedid4));
 
 
-    // determine if the hashing is actually being done appropriately.
-    // it needs an external re-generation in Javascript to fully test.
-
-    // const totalSupply = await badges.totalSupply.call();
-    // const balance = await badges.balanceOf.call(accounts[0]);
-    // const owner = await badges.ownerOf.call(0);
-
-    // assert.strictEqual(totalSupply.toString(), '1');
-    // assert.strictEqual(adminBalance.toString(), '1');
-    // assert.strictEqual(accounts[0], owner);
+    // todo: test supply minting/burning works
   });
 
+  // todo
   // it('should fail if amount is less than $5', async() => {
   //   assertRevert(await badges.mint('cid', accounts[1], {from: accounts[0], value: web3.utils.toWei('4', 'ether')}));
   // })
