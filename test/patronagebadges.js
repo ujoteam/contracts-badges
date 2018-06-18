@@ -85,7 +85,7 @@ contract('Auto Badges', (accounts) => {
     await badges.burnToken(computedID1);
     assert.equal(await badges.totalSupply(), 3);
   });
-  
+
   it('sould get all tokens by an owner', async() => {
     await badges.mint('cid', accounts[1], 5, { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
     await badges.mint('cid2', accounts[2], 5, { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
@@ -117,16 +117,16 @@ contract('Auto Badges', (accounts) => {
   });
 
   it('should fail if amount is less than $5', async() => {
-    assertRevert(badges.mint('cid', accounts[1],5, {from: accounts[0], value: web3.utils.toWei('4', 'ether')}));
+    await assertRevert(badges.mint('cid', accounts[1],5, {from: accounts[0], value: web3.utils.toWei('4', 'ether')}));
   });
 
   it('should fail if usdCost is 0', async() => {
-    assertRevert(badges.mint('cid', accounts[1], 0, {from: accounts[0], value: web3.utils.toWei('0', 'ether')}));
+    await assertRevert(badges.mint('cid', accounts[1], 0, {from: accounts[0], value: web3.utils.toWei('0', 'ether')}));
   })
 
   it('should fail if exchange rate is 0', async() => {
     await oracle.setStringPrice("0");
-    assertRevert(badges.mint('cid', accounts[1], 5, {from: accounts[0], value: web3.utils.toWei('5', 'ether')}));
+    await assertRevert(badges.mint('cid', accounts[1], 5, {from: accounts[0], value: web3.utils.toWei('5', 'ether')}));
   });
 
 });
