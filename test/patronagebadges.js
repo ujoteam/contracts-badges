@@ -64,15 +64,18 @@ contract('Auto Badges', (accounts) => {
     await badges.mint('cid', accounts[1], 5, { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
     await badges.mint('cid2', accounts[2], 5, { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
     await badges.mint('cid2', accounts[2], 5, { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
+    await badges.mint('cid3', accounts[3], 5, { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
     const allTokens = await badges.getAllTokens.call(accounts[0]);
     const jscomputedid1 = web3.utils.soliditySha3('cid', accounts[1], 5, 0);
     const jscomputedid2 = web3.utils.soliditySha3('cid', accounts[1], 5, 1);
     const jscomputedid3 = web3.utils.soliditySha3('cid2', accounts[2], 5, 0);
     const jscomputedid4 = web3.utils.soliditySha3('cid2', accounts[2], 5, 1);
+    const jscomputedid5 = web3.utils.soliditySha3('cid3', accounts[3], 5, 0);
     const computedID1 = await badges.computeID.call('cid', accounts[1], 5, 0);
     const computedID2 = await badges.computeID.call('cid', accounts[1], 5, 1);
     const computedID3 = await badges.computeID.call('cid2', accounts[2], 5, 0);
     const computedID4 = await badges.computeID.call('cid2', accounts[2], 5, 1);
+    const computedID5 = await badges.computeID.call('cid3', accounts[3], 5, 0);
     console.log(allTokens[0]);
     console.log(web3.utils.toHex(computedID1));
     console.log(jscomputedid1);
@@ -80,10 +83,17 @@ contract('Auto Badges', (accounts) => {
     assert.isTrue(checkHexEquality(web3.utils.toHex(computedID2), jscomputedid2));
     assert.isTrue(checkHexEquality(web3.utils.toHex(computedID3), jscomputedid3));
     assert.isTrue(checkHexEquality(web3.utils.toHex(computedID4), jscomputedid4));
+    assert.isTrue(checkHexEquality(web3.utils.toHex(computedID5), jscomputedid5));
 
-    assert.equal(await badges.totalSupply(), 4);
+    assert.equal(await badges.totalSupply(), 5);
     await badges.burnToken(computedID1);
-    assert.equal(await badges.totalSupply(), 3);
+    await badges.burnToken(computedID2);
+    await badges.burnToken(computedID3);
+    assert.equal(await badges.totalSupply(), 2);
+    await badges.mint('cid', accounts[1], 5, { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
+    await badges.mint('cid', accounts[1], 5, { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
+    await badges.mint('cid2', accounts[2], 5, { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
+    assert.equal(await badges.totalSupply(), 5);
   });
 
   it('sould get all tokens by an owner', async() => {
