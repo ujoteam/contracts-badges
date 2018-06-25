@@ -6,7 +6,7 @@
   "scripts": {
     "coverage": "./node_modules/.bin/solidity-coverage",
     "lint": "npm run lint:js && npm run lint:sol",
-    "lint:js": "eslint test/**/*.js migrations/**/*.js",
+    "lint:js": "eslint test/**/*.js test/*.js migrations/*.js",
     "lint:sol": "solhint contracts/*.sol",
     "pretest": "npm run lint",
     "test": "truffle test"
