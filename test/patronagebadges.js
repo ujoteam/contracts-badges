@@ -47,14 +47,16 @@ contract('Auto Badges', (accounts) => {
     const beforeBalanceSender = await web3.eth.getBalance(accounts[0]);
     const beforeBalanceBen = await web3.eth.getBalance(accounts[1]);
     const result = await badges.mint('cid', accounts[1], 5, { from: accounts[0], value: web3.utils.toWei('6', 'ether') });
+    /* eslint-disable prefer-destructuring */
     const gasPrice = (await web3.eth.getTransaction(result.tx)).gasPrice;
     const gasUsed = (await web3.eth.getTransactionReceipt(result.tx)).gasUsed;
     const gasCost = gasUsed * gasPrice;
     const newBalSender = await web3.eth.getBalance(accounts[0]);
     const newBalBen = await web3.eth.getBalance(accounts[1]);
     const fiveEther = web3.utils.toWei('5', 'ether');
-    const expectedBalSender = parseInt(beforeBalanceSender) - parseInt(fiveEther) - parseInt(gasCost);
-    const expectedBalBen = parseInt(beforeBalanceBen) + parseInt(fiveEther);
+    /* eslint-disable max-len */
+    const expectedBalSender = parseInt(beforeBalanceSender, 10) - parseInt(fiveEther, 10) - parseInt(gasCost, 10);
+    const expectedBalBen = parseInt(beforeBalanceBen, 10) + parseInt(fiveEther, 10);
     assert.equal(newBalSender.toString(), expectedBalSender.toString());
     assert.equal(newBalBen, expectedBalBen);
   });
@@ -65,7 +67,6 @@ contract('Auto Badges', (accounts) => {
     await badges.mint('cid2', accounts[2], 5, { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
     await badges.mint('cid2', accounts[2], 5, { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
     await badges.mint('cid3', accounts[3], 5, { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
-    const allTokens = await badges.getAllTokens.call(accounts[0]);
     const jscomputedid1 = web3.utils.soliditySha3('cid', accounts[1], 5, 0);
     const jscomputedid2 = web3.utils.soliditySha3('cid', accounts[1], 5, 1);
     const jscomputedid3 = web3.utils.soliditySha3('cid2', accounts[2], 5, 0);
@@ -76,15 +77,11 @@ contract('Auto Badges', (accounts) => {
     const computedID3 = await badges.computeID.call('cid2', accounts[2], 5, 0);
     const computedID4 = await badges.computeID.call('cid2', accounts[2], 5, 1);
     const computedID5 = await badges.computeID.call('cid3', accounts[3], 5, 0);
-    console.log(allTokens[0]);
-    console.log(web3.utils.toHex(computedID1));
-    console.log(jscomputedid1);
     assert.isTrue(checkHexEquality(web3.utils.toHex(computedID1), jscomputedid1));
     assert.isTrue(checkHexEquality(web3.utils.toHex(computedID2), jscomputedid2));
     assert.isTrue(checkHexEquality(web3.utils.toHex(computedID3), jscomputedid3));
     assert.isTrue(checkHexEquality(web3.utils.toHex(computedID4), jscomputedid4));
     assert.isTrue(checkHexEquality(web3.utils.toHex(computedID5), jscomputedid5));
-
     assert.equal(await badges.totalSupply(), 5);
     await badges.burnToken(computedID1);
     await badges.burnToken(computedID2);
@@ -96,7 +93,7 @@ contract('Auto Badges', (accounts) => {
     assert.equal(await badges.totalSupply(), 5);
   });
 
-  it('sould get all tokens by an owner', async() => {
+  it('sould get all tokens by an owner', async () => {
     await badges.mint('cid', accounts[1], 5, { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
     await badges.mint('cid2', accounts[2], 5, { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
     const allbadges = await badges.getAllTokens(accounts[0]);
@@ -104,8 +101,9 @@ contract('Auto Badges', (accounts) => {
     const id2 = await badges.computeID.call('cid2', accounts[2], 5, 0);
     const array = [id1, id2];
     assert.deepEqual(allbadges, array);
-  })
-  it('should allow setting URI', async() => {
+  });
+
+  it('should allow setting URI', async () => {
     await badges.mint('cid', accounts[1], 5, { from: accounts[0], value: web3.utils.toWei('5', 'ether') });
     const id = await badges.computeID.call('cid', accounts[1], 5, 0);
     await badges.setTokenURI(id, 'cid1');
@@ -113,30 +111,29 @@ contract('Auto Badges', (accounts) => {
     assert.equal(newURI, 'cid1');
   });
 
-  it('should allow admin change', async() => {
-    await badges.changeAdmin(accounts[1], {from: accounts[0]});
+  it('should allow admin change', async () => {
+    await badges.changeAdmin(accounts[1], { from: accounts[0] });
     const newAdmin = await badges.admin.call();
     assert.equal(newAdmin, accounts[1]);
   });
 
-  it('should allow oracle to be changed', async() => {
+  it('should allow oracle to be changed', async () => {
     const newOracle = await testOracle.new();
-    await badges.setOracle(newOracle.address, {from: accounts[0]});
+    await badges.setOracle(newOracle.address, { from: accounts[0] });
     const checkOracle = await badges.oracle.call();
     assert.equal(checkOracle, newOracle.address);
   });
 
-  it('should fail if amount is less than $5', async() => {
-    await assertRevert(badges.mint('cid', accounts[1],5, {from: accounts[0], value: web3.utils.toWei('4', 'ether')}));
+  it('should fail if amount is less than $5', async () => {
+    await assertRevert(badges.mint('cid', accounts[1], 5, { from: accounts[0], value: web3.utils.toWei('4', 'ether') }));
   });
 
-  it('should fail if usdCost is 0', async() => {
-    await assertRevert(badges.mint('cid', accounts[1], 0, {from: accounts[0], value: web3.utils.toWei('0', 'ether')}));
-  })
-
-  it('should fail if exchange rate is 0', async() => {
-    await oracle.setStringPrice("0");
-    await assertRevert(badges.mint('cid', accounts[1], 5, {from: accounts[0], value: web3.utils.toWei('5', 'ether')}));
+  it('should fail if usdCost is 0', async () => {
+    await assertRevert(badges.mint('cid', accounts[1], 0, { from: accounts[0], value: web3.utils.toWei('0', 'ether') }));
   });
 
+  it('should fail if exchange rate is 0', async () => {
+    await oracle.setStringPrice('0');
+    await assertRevert(badges.mint('cid', accounts[1], 5, { from: accounts[0], value: web3.utils.toWei('5', 'ether') }));
+  });
 });

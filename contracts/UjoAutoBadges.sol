@@ -12,7 +12,6 @@ contract UjoAutoBadges is EIP721 {
     mapping (uint256 => address[]) public verifiedBy;
 
     event LogVerify(address indexed verifier, uint256 indexed tokenId);
-
     /* struct AdditionalTokenData {
         string cid;
         address[] beneficiaries;
@@ -91,11 +90,12 @@ contract UjoAutoBadges is EIP721 {
         admin = _newAdmin;
     }
 
-    function setTokenURI(uint256 _tokenID, string URI) public {
+    function setTokenURI(uint256 _tokenID, string URI) public { /* solhint-disable func-param-name-mixedcase */
         require(msg.sender == admin);
         tokenURIs[_tokenID] = URI;
     }
 
+    /* solhint-disable no-unused-vars */ 
     function receiveNotification(string _cid,
     address _oracle,
     address _buyer,
