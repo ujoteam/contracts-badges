@@ -6,8 +6,6 @@ import "./IUSDETHOracle.sol";
 
 contract UjoPatronageBadges is EIP721 {
     using SafeMath for uint256;
-    using SafeMath for uint24;
-    // enumeration
 
     // hash(cid -> beneficiary -> usd) -> total
     mapping (bytes32 => uint256) public totalMintedBadgesPerCombination;
@@ -80,7 +78,7 @@ contract UjoPatronageBadges is EIP721 {
 
     // URI is the CID
     // solhint-disable-next-line func-param-name-mixedcase
-    function setTokenURI(uint256 _tokenID, string URI) public {
+    function setTokenURI(uint256 _tokenID, string URI) public tokenExists(_tokenID) {
         require(msg.sender == admin);
         tokenURIs[_tokenID] = URI;
     }
