@@ -1,4 +1,4 @@
-pragma solidity ^0.4.21;
+pragma solidity ^0.4.24;
 import "./eip721/EIP721.sol";
 import "./utils/SafeMath.sol";
 import "./IUSDETHOracle.sol";
@@ -16,7 +16,7 @@ contract UjoPatronageBadges is EIP721 {
 
     IUSDETHOracle public oracle;
 
-    function UjoPatronageBadges(address _admin) public {
+    constructor(address _admin) public {
         admin = _admin; // sets oracle used.
         name = "Patronage Badges";
         symbol = "PATRON";
