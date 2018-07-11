@@ -16,10 +16,11 @@ contract UjoPatronageBadges is EIP721 {
 
     IUSDETHOracle public oracle;
 
-    constructor(address _admin) public {
+    constructor(address _admin, address _initialOracle) public {
         admin = _admin; // sets oracle used.
         name = "Patronage Badges";
         symbol = "PATRON";
+        oracle = IUSDETHOracle(_initialOracle);
     }
 
     function setOracle(address _oracle) public onlyAdmin {

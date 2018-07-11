@@ -37,13 +37,13 @@ let oracle;
 
 contract('Patronage Badges', (accounts) => {
   beforeEach(async () => {
-    const gasEstimate = await web3.eth.estimateGas({ data: ujoBadges.bytecode });
-    // eslint-disable-next-line max-len
-    badges = await ujoBadges.new(accounts[0], { gas: parseInt((gasEstimate * 110) / 100, 0), from: accounts[0] });
     const gasEstimate2 = await web3.eth.estimateGas({ data: testOracle.bytecode });
     // eslint-disable-next-line max-len
     oracle = await testOracle.new({ gas: parseInt((gasEstimate2 * 110) / 100, 0), from: accounts[1] });
-    await badges.setOracle(oracle.address, { from: accounts[0] });
+
+    const gasEstimate = await web3.eth.estimateGas({ data: ujoBadges.bytecode });
+    // eslint-disable-next-line max-len
+    badges = await ujoBadges.new(accounts[0], oracle.address, { gas: parseInt((gasEstimate * 110) / 100, 0), from: accounts[0] });
   });
 
   it('minting: mint and test events', async () => {
