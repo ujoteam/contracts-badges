@@ -39,7 +39,7 @@ contract UjoPatronageBadges is EIP721 {
 
         // this issues a delegatecall in case there needs to be an initial setup the badges.
         // eg, creating 100 initial badges for example.
-        _initialiseBadges.delegatecall(bytes4(keccak256(abi.encode("initialise()"))));
+        // _initialiseBadges.delegatecall(bytes4(keccak256(abi.encode("initialise()"))));
     }
 
     // overload inherited tokenURI
