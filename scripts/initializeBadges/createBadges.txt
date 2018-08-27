@@ -1,3 +1,5 @@
+// function createBadge(address _buyer, string _mgCid, string _nftCid, address _beneficiary, uint256 _usdCost)
+createBadge("0x9Fd5cc5E68796f08EDC54e738585227AD2B6c03F", "zdpuAsok5kEw6R8f6RTKw7Q7du8X9wXzFmHqR9Jk6NAypWkFr", "zdpuAsBz6mFdiewFmg8JxsXc3eQEopJ78QySkY97sRRpuMfqc", "0x76bc4C780Dd85558Bc4B24a4f262f4eB0bE78ca7", 5);
 createBadge("0x1318d3420b0169522eB8F3EF0830aceE700A2eda", "zdpuAoPsAtLav11fkmN59AXtTb4syxM8XxdrzL7Wb7gJv6R6D", "zdpuB1PLgCbfKFJDJxKzdbH3JSeh56GmDD83TdR5AQ2fKK1d8", "0x2ABfE45394Df8dCEA4BC8006bab2cc5A850a9305", 5);
 createBadge("0x07A93218F692e18Dd77D693D84568A5042df667b", "zdpuAoPsAtLav11fkmN59AXtTb4syxM8XxdrzL7Wb7gJv6R6D", "zdpuAqHbwJyBiD4s6FjDGUqBGidbq7cydf5dqW78SbjLQ4iGn", "0x2ABfE45394Df8dCEA4BC8006bab2cc5A850a9305", 5);
 createBadge("0x9e56625509c2F60aF937F23B7b532600390e8C8B", "zdpuAs4oSTUXz9wJX8mY7LTztmrG6i6p1hjmMELgBV9iS1KdG", "zdpuAwGwPLnuArnuDjWvE7aDLripd9NXd8UkqZvPhzaSKwHe1", "0x1875e398cD7FdcE8fF5C9d4ce1Ec904caE51692c", 5);

@@ -61,7 +61,7 @@ const pinToInfura = async (formattedData) => {
 };
 
 const writeData = async (dataWithCids) => {
-  let functionsToWrite = '';
+  let functionsToWrite = '// function createBadge(address _buyer, string _mgCid, string _nftCid, address _beneficiary, uint256 _usdCost)\n';
   dataWithCids.forEach(({
     buyer, beneficiaryOfBadge, mgCid, nftCid,
   }) => {
