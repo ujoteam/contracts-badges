@@ -29,7 +29,7 @@ contract('Patronage Badges', (accounts) => {
   it('minting: mint and test events', async () => {
     const result = await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid1', 'qmxnftqmxnftqmxnftqmxnft1', accounts[1], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
     const jscomputedid1 = web3.utils.soliditySha3('cidcidcidcidcidcidcidcid1', 'qmxnftqmxnftqmxnftqmxnft1', accounts[1], 1, 1);
-    assert.equal(web3.utils.toHex(result.logs[0].args.tokenId), jscomputedid1);
+    assert.equal(web3.utils.padLeft(web3.utils.toHex(result.logs[0].args.tokenId), 64), jscomputedid1); // eslint-disable-line max-len
     assert.equal(result.logs[0].args.mgcid, 'cidcidcidcidcidcidcidcid1');
     assert.equal(result.logs[0].args.nftcid, 'qmxnftqmxnftqmxnftqmxnft1');
     assert.equal(result.logs[0].args.beneficiaryOfBadge, accounts[1]);
@@ -105,9 +105,10 @@ contract('Patronage Badges', (accounts) => {
     await badges.mint(accounts[0], 'cid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
     await badges.mint(accounts[0], 'cid2', 'qmxnftqmxnftqmxnftqmxnft2', accounts[2], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
     const allbadges = await badges.getAllTokens(accounts[0]);
-    const revisedAllBadges = [web3.utils.toHex(allbadges[0]), web3.utils.toHex(allbadges[1])];
+    const revisedAllBadges = [web3.utils.padLeft(web3.utils.toHex(allbadges[0]), 64), web3.utils.padLeft(web3.utils.toHex(allbadges[1]), 64)];
     const id1 = web3.utils.soliditySha3('cid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, 1);
     const id2 = web3.utils.soliditySha3('cid2', 'qmxnftqmxnftqmxnftqmxnft2', accounts[2], 1, 1);
+    console.log(id1);
     const array = [id1, id2];
     assert.deepEqual(revisedAllBadges, array);
   });
