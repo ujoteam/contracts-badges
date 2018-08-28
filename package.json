@@ -26,7 +26,6 @@
     "axios": "^0.18.0",
     "bignumber.js": "^6.0.0",
     "file-system": "^2.2.2",
-    "moment": "^2.22.2",
     "truffle": "4.1.13",
     "truffle-contract": "3.0.1",
     "truffle-hdwallet-provider": "0.0.3",

@@ -1,7 +1,11 @@
+/*
+A once-off script to port over the minted badges from the old Patronage Badges
+to the new Patronage Badges.
+*/
+
 const fs = require('file-system');
 const Web3 = require('web3');
 const axios = require('axios');
-const moment = require('moment');
 
 const ujoBadges = require('../../build/contracts/UjoPatronageBadges.json');
 
@@ -14,31 +18,21 @@ const promisifedGetPastEvents = (contract, event, options) => new Promise((resol
   });
 });
 
-const promisifiedGetBlock = blockNumber => new Promise((resolve, reject) => (
-  web3.eth.getBlock(blockNumber, (err, res) => {
-    if (err) reject(err);
-    else resolve(res);
-  })
-))
-
-const getListOfBadges = async () => {
+const getListOfBadges = async () => { // eslint-disable-line consistent-return
   console.log('Instantiating badge contract and getting events');
   const patronageBadgeInstance = new web3.eth.Contract(ujoBadges.abi, '0xc45e027f0f9d7e90e612be02d4e710a632a9dba9');
 
   try {
     const eventData = await promisifedGetPastEvents(patronageBadgeInstance, 'LogBadgeMinted', { fromBlock: '5985366', toBlock: 'latest' });
     console.log('Successfully retrieved your contracts events');
-    return Promise.all(eventData.map(async ({ blockNumber, returnValues }) => {
-      const { timestamp } = await promisifiedGetBlock(blockNumber);
-      const dateCreated = moment.unix(timestamp).format();
-
+    return eventData.map(({ returnValues }) => {
       const {
         buyer, beneficiaryOfBadge, cid, usdCostOfBadge,
       } = returnValues;
       return {
-        buyer, beneficiaryOfBadge, mgCid: cid, usdCostOfBadge, dateCreated,
+        buyer, beneficiaryOfBadge, mgCid: cid, usdCostOfBadge,
       };
-    }));
+    });
   } catch (err) {
     console.log('ERROR GETTING EVENT DATA: ', err);
   }
@@ -46,7 +40,7 @@ const getListOfBadges = async () => {
 
 const getDataFromApi = async formattedData =>
   Promise.all(formattedData.map(async (singleBadgeData) => {
-    const { mgCid, beneficiaryOfBadge, buyer, dateCreated } = singleBadgeData;
+    const { mgCid, beneficiaryOfBadge, buyer } = singleBadgeData; // eslint-disable-line object-curly-newline, max-len
     const { data } = await axios.get(`https://www.ujomusic.com/api/musicgroups/cid/${mgCid}`);
     const objectForIPFS = {
       name: `${data.name} Patronage Badge`,
@@ -55,7 +49,6 @@ const getDataFromApi = async formattedData =>
       beneficiaryOfBadge,
       musicgroup: mgCid,
       usdCostOfBadge: 5,
-      dateCreated,
       // buyer will be removed when pushing to ipfs, but we need to retain reference to it
       buyer,
     };
@@ -73,7 +66,7 @@ const pinToInfura = async (formattedData) => {
   const sendRequest = async (dataArray) => {
     if (dataArray.length) {
       const { buyer } = dataArray[dataArray.length - 1];
-      delete dataArray[dataArray.length - 1].buyer;
+      delete dataArray[dataArray.length - 1].buyer; // eslint-disable-line no-param-reassign
       const response = await axios({
         method: 'post',
         url: 'https://api.dev.ujomusic.com/api/dag/put',
