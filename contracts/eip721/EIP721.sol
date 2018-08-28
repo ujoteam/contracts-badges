@@ -37,6 +37,7 @@ contract EIP721 is EIP721Interface, EIP721MetadataInterface, EIP721EnumerableInt
     bytes4 internal constant ERC721_METADATA_INTERFACE_SIGNATURE = 0x5b5e139f;
     bytes4 internal constant ERC721_ENUMERABLE_INTERFACE_SIGNATURE = 0x780e9d63;
     bytes4 internal constant ONERC721RECEIVED_FUNCTION_SIGNATURE = 0x150b7a02;
+    bytes4 internal constant ERC165_INTERFACE_SIGNATURE = 0x01ffc9a7;
 
     /* Modifiers */
     modifier tokenExists(uint256 _tokenId) {
@@ -232,7 +233,8 @@ contract EIP721 is EIP721Interface, EIP721MetadataInterface, EIP721EnumerableInt
 
         if (interfaceID == ERC721_BASE_INTERFACE_SIGNATURE ||
         interfaceID == ERC721_METADATA_INTERFACE_SIGNATURE ||
-        interfaceID == ERC721_ENUMERABLE_INTERFACE_SIGNATURE) {
+        interfaceID == ERC721_ENUMERABLE_INTERFACE_SIGNATURE ||
+        interfaceID == ERC165_INTERFACE_SIGNATURE) {
             return true;
         } else { return false; }
     }

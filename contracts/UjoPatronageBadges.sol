@@ -13,10 +13,7 @@ contract UjoPatronageBadges is EIP721 {
     using SafeMath for uint256;
     using strings for *;
 
-    // hash(mgcid -> nftcid -> beneficiary -> usd) -> total
-    mapping (bytes32 => uint256) public totalMintedBadgesPerCombination;
-
-    event LogBadgeMinted(uint256 indexed tokenId, string mgcid, string nftcid, address indexed beneficiaryOfBadge, uint256 usdCostOfBadge, uint256 badgeNumber, address indexed buyer, address issuer);
+    event LogBadgeMinted(uint256 indexed tokenId, string mgcid, string nftcid, address indexed beneficiaryOfBadge, uint256 indexed usdCostOfBadge, uint256 timeMinted, address buyer, address issuer);
 
     address public admin;
     bool public locked = false;
@@ -25,7 +22,7 @@ contract UjoPatronageBadges is EIP721 {
     string public tokenURISuffix;
     mapping (uint256 => string) public tokenURIIDs;
 
-    // uint256 public exchangeRate = 0;
+    uint256 public totalMinted = 0;
 
     IUSDETHOracle public oracle;
 
@@ -89,6 +86,11 @@ contract UjoPatronageBadges is EIP721 {
         tokenURISuffix = _newURISuffix;
     }
 
+    /* in the unlikely event that a badge needs to be minted but not paid for */
+    function adminCreateBadge(address _buyer, string _mgCid, string _nftCid, address _beneficiary, uint256 _usdCost) public onlyAdmin notLocked returns (uint256 tokenId) {
+        return createBadge(_buyer, _mgCid, _nftCid, _beneficiary, _usdCost);
+    }
+
     function lockAdmin() public onlyAdmin {
         locked = true; // lock admin functionality forever.
     }
@@ -125,15 +127,12 @@ contract UjoPatronageBadges is EIP721 {
     }
 
     function createBadge(address _buyer, string _mgCid, string _nftCid, address _beneficiary, uint256 _usdCost) internal returns (uint256) {
-        bytes32 _hash = keccak256(abi.encodePacked(_mgCid, _nftCid, _beneficiary, _usdCost));
-        totalMintedBadgesPerCombination[_hash] = totalMintedBadgesPerCombination[_hash].add(1);
-        uint256 badgeNumber = totalMintedBadgesPerCombination[_hash];
-        uint256 tokenId = uint256(keccak256(abi.encodePacked(_mgCid, _nftCid, _beneficiary, _usdCost, badgeNumber)));
-
+        uint256 tokenId = totalMinted;
+        totalMinted = totalMinted.add(1); // basically impossible to overflow, but still keeping SafeMath.
         tokenURIIDs[tokenId] = _nftCid;
 
         addToken(_buyer, tokenId);
-        emit LogBadgeMinted(tokenId, _mgCid, _nftCid, _beneficiary, _usdCost, badgeNumber, _buyer, msg.sender);
+        emit LogBadgeMinted(tokenId, _mgCid, _nftCid, _beneficiary, _usdCost, now, _buyer, msg.sender); // solhint-disable-line not-rely-on-time
         return tokenId;
     }
 }

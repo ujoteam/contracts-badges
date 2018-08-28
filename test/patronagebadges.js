@@ -28,13 +28,14 @@ contract('Patronage Badges', (accounts) => {
 
   it('minting: mint and test events', async () => {
     const result = await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid1', 'qmxnftqmxnftqmxnftqmxnft1', accounts[1], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
-    const jscomputedid1 = web3.utils.soliditySha3('cidcidcidcidcidcidcidcid1', 'qmxnftqmxnftqmxnftqmxnft1', accounts[1], 1, 1);
-    assert.equal(web3.utils.padLeft(web3.utils.toHex(result.logs[0].args.tokenId), 64), jscomputedid1); // eslint-disable-line max-len
+    console.log(result);
+    const block = await web3.eth.getBlock(result.receipt.blockNumber);
+    assert.equal(result.logs[0].args.tokenId, 0); // eslint-disable-line max-len
     assert.equal(result.logs[0].args.mgcid, 'cidcidcidcidcidcidcidcid1');
     assert.equal(result.logs[0].args.nftcid, 'qmxnftqmxnftqmxnftqmxnft1');
     assert.equal(result.logs[0].args.beneficiaryOfBadge, accounts[1]);
     assert.equal(result.logs[0].args.usdCostOfBadge.toString(), '1');
-    assert.equal(result.logs[0].args.badgeNumber.toString(), '1');
+    assert.equal(result.logs[0].args.timeMinted.toString(), block.timestamp);
     assert.equal(result.logs[0].args.buyer, accounts[0]);
     assert.equal(result.logs[0].args.issuer, accounts[0]);
   });
@@ -77,12 +78,9 @@ contract('Patronage Badges', (accounts) => {
     await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid2', 'qmxnftqmxnftqmxnftqmxnft2', accounts[2], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
     await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid3', 'qmxnftqmxnftqmxnftqmxnft3', accounts[3], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
     assert.equal(await badges.totalSupply(), 5);
-    const jscomputedid1 = web3.utils.soliditySha3('cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, 1);
-    const jscomputedid2 = web3.utils.soliditySha3('cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, 2);
-    const jscomputedid3 = web3.utils.soliditySha3('cidcidcidcidcidcidcidcid2', 'qmxnftqmxnftqmxnftqmxnft2', accounts[2], 1, 1);
-    await badges.burnToken(jscomputedid1);
-    await badges.burnToken(jscomputedid2);
-    await badges.burnToken(jscomputedid3);
+    await badges.burnToken(0);
+    await badges.burnToken(1);
+    await badges.burnToken(2);
     assert.equal(await badges.totalSupply(), 2);
     await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
     await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
@@ -92,8 +90,13 @@ contract('Patronage Badges', (accounts) => {
 
   it('minting: mint 1 token for another buyer', async () => {
     await badges.mint(accounts[2], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
-    const jscomputedid1 = web3.utils.soliditySha3('cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, 1);
-    const owner = await badges.ownerOf.call(jscomputedid1);
+    const owner = await badges.ownerOf.call(0);
+    assert.equal(owner, accounts[2]);
+  });
+
+  it('minting: minting through admin', async () => {
+    await badges.adminCreateBadge(accounts[2], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, { from: accounts[4] });
+    const owner = await badges.ownerOf.call(0);
     assert.equal(owner, accounts[2]);
   });
 
@@ -104,40 +107,32 @@ contract('Patronage Badges', (accounts) => {
   it('minting: should store & get all tokens by an owner', async () => {
     await badges.mint(accounts[0], 'cid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
     await badges.mint(accounts[0], 'cid2', 'qmxnftqmxnftqmxnftqmxnft2', accounts[2], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
-    const allbadges = await badges.getAllTokens(accounts[0]);
-    const revisedAllBadges = [web3.utils.padLeft(web3.utils.toHex(allbadges[0]), 64), web3.utils.padLeft(web3.utils.toHex(allbadges[1]), 64)];
-    const id1 = web3.utils.soliditySha3('cid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, 1);
-    const id2 = web3.utils.soliditySha3('cid2', 'qmxnftqmxnftqmxnftqmxnft2', accounts[2], 1, 1);
-    console.log(id1);
-    const array = [id1, id2];
-    assert.deepEqual(revisedAllBadges, array);
+    const allBadges = await badges.getAllTokens(accounts[0]);
+    const allBadgesRevised = [allBadges[0].toNumber(), allBadges[1].toNumber()];
+    const array = [0, 1];
+    assert.deepEqual(allBadgesRevised, array);
   });
 
   it('URI: should allow setting URI ID & fail when set by non-admin', async () => {
     await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
-    const id = web3.utils.soliditySha3('cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, 1);
-    await badges.setTokenURIID(id, 'qmxnftqmxnftqmxnftqmxnft2', { from: accounts[4] });
-    const newURI = await badges.tokenURI.call(id);
+    await badges.setTokenURIID(0, 'qmxnftqmxnftqmxnftqmxnft2', { from: accounts[4] });
+    const newURI = await badges.tokenURI.call(0);
     assert.equal(newURI, 'https://ipfs.infura.io:5001/api/v0/dag/get?arg=qmxnftqmxnftqmxnftqmxnft2');
-    await assertRevert(badges.setTokenURIID(id, 'cid32', { from: accounts[1] }));
+    await assertRevert(badges.setTokenURIID(0, 'cid32', { from: accounts[1] }));
   });
 
   it('URI: should allow setting URI Base & fail when set by non-admin', async () => {
-    const newBalSender = await web3.eth.getBalance(accounts[0]);
-    console.log(newBalSender);
     await badges.mint(accounts[2], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, { from: accounts[2], value: web3.utils.toWei('2', 'ether') });
-    const id = web3.utils.soliditySha3('cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, 1);
     await badges.setTokenURIBase('new_base?=', { from: accounts[4] });
-    const newURI = await badges.tokenURI.call(id);
+    const newURI = await badges.tokenURI.call(0);
     assert.equal(newURI, 'new_base?=qmxnftqmxnftqmxnftqmxnft');
     await assertRevert(badges.setTokenURIBase('cid32', { from: accounts[1] }));
   });
 
   it('URI: should allow setting URI Suffix & fail when set by non-admin', async () => {
     await badges.mint(accounts[2], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, { from: accounts[2], value: web3.utils.toWei('2', 'ether') });
-    const id = web3.utils.soliditySha3('cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, 1);
     await badges.setTokenURISuffix('.json', { from: accounts[4] });
-    const newURI = await badges.tokenURI.call(id);
+    const newURI = await badges.tokenURI.call(0);
     assert.equal(newURI, 'https://ipfs.infura.io:5001/api/v0/dag/get?arg=qmxnftqmxnftqmxnftqmxnft.json');
     await assertRevert(badges.setTokenURISuffix('cid32', { from: accounts[1] }));
   });
@@ -149,14 +144,13 @@ contract('Patronage Badges', (accounts) => {
 
   it('URI: test locks on ID, Base & Suffix setting', async () => {
     await badges.mint(accounts[2], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, { from: accounts[2], value: web3.utils.toWei('2', 'ether') });
-    const id = web3.utils.soliditySha3('cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, 1);
-    await badges.setTokenURIID(id, 'qmxnftqmxnftqmxnftqmxnft2', { from: accounts[4] });
+    await badges.setTokenURIID(0, 'qmxnftqmxnftqmxnftqmxnft2', { from: accounts[4] });
     await badges.setTokenURIBase('new_base?=', { from: accounts[4] });
     await badges.setTokenURISuffix('.json', { from: accounts[4] });
-    const newURI = await badges.tokenURI.call(id);
+    const newURI = await badges.tokenURI.call(0);
     assert.equal(newURI, 'new_base?=qmxnftqmxnftqmxnftqmxnft2.json');
     await badges.lockAdmin({ from: accounts[4] });
-    await assertRevert(badges.setTokenURIID(id, 'qmxnftqmxnftqmxnftqmxnft2', { from: accounts[4] }));
+    await assertRevert(badges.setTokenURIID(0, 'qmxnftqmxnftqmxnftqmxnft2', { from: accounts[4] }));
     await assertRevert(badges.setTokenURIBase('new_base?=', { from: accounts[4] }));
     await assertRevert(badges.setTokenURISuffix('.json', { from: accounts[4] }));
   });
