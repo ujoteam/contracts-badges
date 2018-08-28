@@ -45,9 +45,9 @@ const getDataFromApi = async formattedData =>
     const objectForIPFS = {
       name: `${data.name} Patronage Badge`,
       description: `A collectible patronage badge for ${data.name}`,
-      image: `https://www.dev.ujomusic.com/image/600x600/${data.image.contentURL}`,
+      image: `https://ujomusic.com/image/600x600/${data.image.contentURL}`,
       beneficiaryOfBadge,
-      musicgroup: mgCid,
+      MusicGroup: mgCid,
       usdCostOfBadge: 5,
       // buyer will be removed when pushing to ipfs, but we need to retain reference to it
       buyer,
@@ -87,9 +87,9 @@ const pinToInfura = async (formattedData) => {
 const writeData = async (dataWithCids) => {
   let functionsToWrite = '// function createBadge(address _buyer, string _mgCid, string _nftCid, address _beneficiary, uint256 _usdCost)\n';
   dataWithCids.forEach(({
-    buyer, beneficiaryOfBadge, musicgroup, nftCid,
+    buyer, beneficiaryOfBadge, MusicGroup, nftCid,
   }) => {
-    functionsToWrite += `createBadge("${buyer}", "${musicgroup}", "${nftCid}", "${beneficiaryOfBadge}", 5);\n`;
+    functionsToWrite += `createBadge("${buyer}", "${MusicGroup}", "${nftCid}", "${beneficiaryOfBadge}", 5);\n`;
   });
 
   fs.writeFile('scripts/initializeBadges/createBadges.txt', functionsToWrite, (err) => {
