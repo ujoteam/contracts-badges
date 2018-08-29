@@ -1,4 +1,4 @@
 module.exports = {
-    testrpcOptions: '-p 8555 -l 0x4C4B400', // 70 million
-    skipFiles: ['utils/strings.sol']
+    testrpcOptions: '-p 8555 -l 0xBEBC200', // 200 million
+    skipFiles: ['utils/strings.sol', 'utils/SafeMath.sol', 'OldUjoPatronageBadges.sol', 'InitBadges.sol']
 };
