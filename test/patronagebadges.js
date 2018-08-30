@@ -4,7 +4,7 @@ const { assertJump } = require('./helpers/assertJump');
 
 const ujoBadges = artifacts.require('UjoPatronageBadges');
 const testOracle = artifacts.require('TestOracle');
-// const strings = artifacts.require('strings');
+const testInit = artifacts.require('TestInitialise.sol');
 
 const BigNumber = require('bignumber.js');
 
@@ -23,12 +23,39 @@ contract('Patronage Badges', (accounts) => {
 
     const gasEstimate = await web3.eth.estimateGas({ data: ujoBadges.bytecode });
     // eslint-disable-next-line max-len
-    badges = await ujoBadges.new(accounts[4], oracle.address, '0x0', { gas: parseInt((gasEstimate * 120) / 100, 0), from: accounts[4] });
+    badges = await ujoBadges.new(accounts[4], oracle.address, { gas: parseInt((gasEstimate * 120) / 100, 0), from: accounts[4] });
+  });
+
+  it('initialization: test appropriate initialization', async () => {
+    const gasEstimate = await web3.eth.estimateGas({ data: ujoBadges.bytecode });
+    // eslint-disable-next-line max-len
+    const gasForTestInit = await web3.eth.estimateGas({ data: testInit.bytecode });
+    const deployedTest = await testInit.new({
+      gas: parseInt((gasForTestInit * 120) / 100, 0),
+      from: accounts[4],
+    });
+    const badges2 = await ujoBadges.new(accounts[4], oracle.address, {
+      gas: parseInt((gasEstimate * 120) / 100, 0),
+      from: accounts[4],
+    });
+    const setup = await badges2.setupBadges(deployedTest.address, { from: accounts[4] });
+    const block = await web3.eth.getBlock(setup.receipt.blockNumber);
+    // eslint-disable-next-line max-len
+    // address(this).delegatecall(abi.encodeWithSignature("adminCreateBadge(address,string,string,address,uint256)", 0x9Fd5cc5E68796f08EDC54e738585227AD2B6c03F, "zdpuAsok5kEw6R8f6RTKw7Q7du8X9wXzFmHqR9Jk6NAypWkFr", "zdpuAq9k81LYpjJaSKy988Egy9V6GLMnAVSX6wLSkseRLBPUb", 0x76bc4C780Dd85558Bc4B24a4f262f4eB0bE78ca7, 5));
+    assert.equal(setup.logs[0].args.tokenId, 0); // eslint-disable-line max-len
+    assert.equal(setup.logs[0].args.mgcid, 'zdpuAsok5kEw6R8f6RTKw7Q7du8X9wXzFmHqR9Jk6NAypWkFr');
+    assert.equal(setup.logs[0].args.nftcid, 'zdpuAq9k81LYpjJaSKy988Egy9V6GLMnAVSX6wLSkseRLBPUb');
+    assert.equal(web3.utils.toChecksumAddress(setup.logs[0].args.beneficiaryOfBadge), '0x76bc4C780Dd85558Bc4B24a4f262f4eB0bE78ca7');
+    assert.equal(setup.logs[0].args.usdCostOfBadge.toString(), '5');
+    assert.equal(setup.logs[0].args.timeMinted.toString(), block.timestamp);
+    assert.equal(web3.utils.toChecksumAddress(setup.logs[0].args.buyer), '0x9Fd5cc5E68796f08EDC54e738585227AD2B6c03F');
+    assert.equal(setup.logs[0].args.issuer, accounts[4]);
+    const totalTokens = await badges2.totalSupply.call();
+    assert.equal(totalTokens.toNumber(), 13);
   });
 
   it('minting: mint and test events', async () => {
     const result = await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid1', 'qmxnftqmxnftqmxnftqmxnft1', accounts[1], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
-    console.log(result);
     const block = await web3.eth.getBlock(result.receipt.blockNumber);
     assert.equal(result.logs[0].args.tokenId, 0); // eslint-disable-line max-len
     assert.equal(result.logs[0].args.mgcid, 'cidcidcidcidcidcidcidcid1');

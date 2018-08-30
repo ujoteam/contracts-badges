@@ -18,8 +18,7 @@ module.exports = {
     rinkeby: {
       network_id: 4,
       provider: new HDWalletProvider(mnemonic, rinkebyProviderUrl, 1),
-      gas: 4700000,
-      gasPrice: 20000000000,
+      gasPrice: 10000000000,
     },
     coverage: {
       host: 'localhost',

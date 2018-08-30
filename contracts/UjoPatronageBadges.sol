@@ -26,17 +26,23 @@ contract UjoPatronageBadges is EIP721 {
 
     IUSDETHOracle public oracle;
 
-    constructor(address _admin, address _initialOracle, address _initialiseBadges) public {
+    bool internal setup = false;
+
+    constructor(address _admin, address _initialOracle) public {
         admin = _admin; // sets oracle used.
         name = "Patronage Badges";
         symbol = "PATRON";
         tokenURIBase = "https://ipfs.infura.io:5001/api/v0/dag/get?arg=";
         tokenURISuffix = "";
         oracle = IUSDETHOracle(_initialOracle);
+    }
 
+    function setupBadges(address _initialiseBadges) external onlyAdmin notLocked {
+        require(!setup);
         // this issues a delegatecall in case there needs to be an initial setup the badges.
         // eg, creating 100 initial badges for example.
-        // _initialiseBadges.delegatecall(bytes4(keccak256(abi.encode("initialise()"))));
+        _initialiseBadges.delegatecall(abi.encodeWithSignature("initialise()")); // solhint-disable-line avoid-low-level-calls
+        setup = true;
     }
 
     // overload inherited tokenURI

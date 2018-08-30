@@ -7,7 +7,7 @@ const fs = require('file-system');
 const Web3 = require('web3');
 const axios = require('axios');
 
-const ujoBadges = require('../../build/contracts/UjoPatronageBadges.json');
+const ujoBadges = require('../../build/contracts/OldUjoPatronageBadges.json');
 
 const web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/'));
 
@@ -89,7 +89,7 @@ const writeData = async (dataWithCids) => {
   dataWithCids.forEach(({
     buyer, beneficiaryOfBadge, MusicGroup, nftCid,
   }) => {
-    functionsToWrite += `createBadge("${buyer}", "${MusicGroup}", "${nftCid}", "${beneficiaryOfBadge}", 5);\n`;
+    functionsToWrite += `address(this).delegatecall(abi.encodeWithSignature("adminCreateBadge(address,string,string,address,uint256)", ${buyer}, "${MusicGroup}", "${nftCid}", ${beneficiaryOfBadge}, 5));\n`;
   });
 
   fs.writeFile('scripts/initializeBadges/createBadges.txt', functionsToWrite, (err) => {
