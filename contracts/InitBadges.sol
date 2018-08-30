@@ -4,10 +4,11 @@ pragma solidity ^0.4.24;
 This re-adds badges that were minted in:
 https://etherscan.io/address/0xc45e027f0f9d7e90e612be02d4e710a632a9dba9
 13 badges
+Up to: https://etherscan.io/tx/0x7040fe01a5c0044ba86d04a73cd38c7ff5746fa7517985adae0120d2374013b5
 */
 
 // solhint-disable avoid-low-level-calls
-contract TestInitialise {
+contract InitBadges {
     function initialise() public {
         // function createBadge(address _buyer, string _mgCid, string _nftCid, address _beneficiary, uint256 _usdCost)
         address(this).delegatecall(abi.encodeWithSignature("adminCreateBadge(address,string,string,address,uint256)", 0x9Fd5cc5E68796f08EDC54e738585227AD2B6c03F, "zdpuAsok5kEw6R8f6RTKw7Q7du8X9wXzFmHqR9Jk6NAypWkFr", "zdpuAq9k81LYpjJaSKy988Egy9V6GLMnAVSX6wLSkseRLBPUb", 0x76bc4C780Dd85558Bc4B24a4f262f4eB0bE78ca7, 5));

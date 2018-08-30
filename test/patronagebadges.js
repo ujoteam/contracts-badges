@@ -38,11 +38,20 @@ contract('Patronage Badges', (accounts) => {
       gas: parseInt((gasEstimate * 120) / 100, 0),
       from: accounts[4],
     });
-    await badges2.setupBadges(deployedTest.address, { from: accounts[4] });
+    const setup = await badges2.setupBadges(deployedTest.address, { from: accounts[4] });
+    const block = await web3.eth.getBlock(setup.receipt.blockNumber);
+    // eslint-disable-next-line max-len
+    // address(this).delegatecall(abi.encodeWithSignature("adminCreateBadge(address,string,string,address,uint256)", 0x9Fd5cc5E68796f08EDC54e738585227AD2B6c03F, "zdpuAsok5kEw6R8f6RTKw7Q7du8X9wXzFmHqR9Jk6NAypWkFr", "zdpuAq9k81LYpjJaSKy988Egy9V6GLMnAVSX6wLSkseRLBPUb", 0x76bc4C780Dd85558Bc4B24a4f262f4eB0bE78ca7, 5));
+    assert.equal(setup.logs[0].args.tokenId, 0); // eslint-disable-line max-len
+    assert.equal(setup.logs[0].args.mgcid, 'zdpuAsok5kEw6R8f6RTKw7Q7du8X9wXzFmHqR9Jk6NAypWkFr');
+    assert.equal(setup.logs[0].args.nftcid, 'zdpuAq9k81LYpjJaSKy988Egy9V6GLMnAVSX6wLSkseRLBPUb');
+    assert.equal(web3.utils.toChecksumAddress(setup.logs[0].args.beneficiaryOfBadge), '0x76bc4C780Dd85558Bc4B24a4f262f4eB0bE78ca7');
+    assert.equal(setup.logs[0].args.usdCostOfBadge.toString(), '5');
+    assert.equal(setup.logs[0].args.timeMinted.toString(), block.timestamp);
+    assert.equal(web3.utils.toChecksumAddress(setup.logs[0].args.buyer), '0x9Fd5cc5E68796f08EDC54e738585227AD2B6c03F');
+    assert.equal(setup.logs[0].args.issuer, accounts[4]);
     const totalTokens = await badges2.totalSupply.call();
     assert.equal(totalTokens.toNumber(), 13);
-
-    // todo: find events to test.
   });
 
   it('minting: mint and test events', async () => {
