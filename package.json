@@ -30,7 +30,8 @@
     "truffle-contract": "3.0.1",
     "truffle-hdwallet-provider": "0.0.3",
     "ujo-contracts-handlers": "git+ssh://git@github.com:UjoTeam/contracts-handlers.git#3441d55",
-    "web3": "^1.0.0-beta.34"
+    "web3": "^1.0.0-beta.34",
+    "websocket": "^1.0.26"
   },
   "devDependencies": {
     "eslint": "4.13.1",
@@ -40,6 +41,6 @@
     "eslint-plugin-react": "7.5.1",
     "eth-gas-reporter": "^0.1.7",
     "solhint": "1.2.1",
-    "solidity-coverage": "0.5.4"
+    "solidity-coverage": "^0.5.10"
   }
 }
