@@ -1,10 +1,5 @@
 pragma solidity ^0.4.24;
 
-/*
-This re-adds badges that were minted in:
-https://etherscan.io/address/0xc45e027f0f9d7e90e612be02d4e710a632a9dba9
-13 badges
-*/
 
 // solhint-disable avoid-low-level-calls
 contract TestInitialise {
