@@ -13,7 +13,7 @@ contract Proxy {
      * @dev Fallback function.
      * Implemented entirely in `_fallback`.
      */
-    function () payable external {
+    function () external payable {
         _fallback();
     }
 
@@ -29,7 +29,7 @@ contract Proxy {
      * @param implementation Address to delegate.
      */
     function _delegate(address implementation) internal {
-        assembly {
+        assembly { //solhint-disable-line no-inline-assembly
             // Copy msg.data. We take full control of memory in this inline assembly
             // block because it will not return to Solidity code. We overwrite the
             // Solidity scratch pad at memory position 0.
@@ -54,7 +54,7 @@ contract Proxy {
      * Can be redefined in derived contracts to add functionality.
      * Redefinitions must call super._willFallback().
      */
-    function _willFallback() internal { }
+    function _willFallback() internal { } //solhint-disable-line no-empty-blocks
 
     /**
      * @dev fallback implementation.
