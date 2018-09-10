@@ -1,8 +1,9 @@
 
 const { assertRevert } = require('./helpers/assertRevert');
-const { assertJump } = require('./helpers/assertJump');
+// const { assertJump } = require('./helpers/assertJump');
 
 const ujoBadges = artifacts.require('UjoPatronageBadges');
+const ujoBadgesFunctions = artifacts.require('UjoPatronageBadgesFunctions');
 const testOracle = artifacts.require('TestOracle');
 const testInit = artifacts.require('TestInitialise.sol');
 
@@ -12,18 +13,27 @@ const Web3 = require('web3');
 
 const web3 = new Web3(Web3.givenProvider || 'ws://localhost:8545');
 let badges;
+let badgesProxy;
 let oracle;
-
+let functions;
 
 contract('Patronage Badges', (accounts) => {
   beforeEach(async () => {
-    const gasEstimate2 = await web3.eth.estimateGas({ data: testOracle.bytecode });
+    const gasEstimateFunctions = await web3.eth.estimateGas({ data: ujoBadgesFunctions.bytecode });
     // eslint-disable-next-line max-len
-    oracle = await testOracle.new({ gas: parseInt((gasEstimate2 * 120) / 100, 0), from: accounts[1] });
+    functions = await ujoBadgesFunctions.new(accounts[1], { gas: parseInt((gasEstimateFunctions * 120) / 100, 0), from: accounts[1] });
 
-    const gasEstimate = await web3.eth.estimateGas({ data: ujoBadges.bytecode });
+    const gasEstimateOracle = await web3.eth.estimateGas({ data: testOracle.bytecode });
     // eslint-disable-next-line max-len
-    badges = await ujoBadges.new(accounts[4], oracle.address, { gas: parseInt((gasEstimate * 120) / 100, 0), from: accounts[4] });
+    oracle = await testOracle.new({ gas: parseInt((gasEstimateOracle * 120) / 100, 0), from: accounts[1] });
+
+    const gasEstimateBadgesProxy = await web3.eth.estimateGas({ data: ujoBadges.bytecode });
+
+    // eslint-disable-next-line max-len
+    badgesProxy = await ujoBadges.new(accounts[4], functions.address, { gas: parseInt((gasEstimateBadgesProxy * 120) / 100, 0), from: accounts[4] });
+    badges = await ujoBadgesFunctions.at(badgesProxy.address);
+
+    await badges.setupBadges('0x0', oracle.address, { from: accounts[4] });
   });
 
   it('initialization: test appropriate initialization', async () => {
@@ -34,11 +44,14 @@ contract('Patronage Badges', (accounts) => {
       gas: parseInt((gasForTestInit * 120) / 100, 0),
       from: accounts[4],
     });
-    const badges2 = await ujoBadges.new(accounts[4], oracle.address, {
+    const badgesProxy2 = await ujoBadges.new(accounts[4], functions.address, {
       gas: parseInt((gasEstimate * 120) / 100, 0),
       from: accounts[4],
     });
-    const setup = await badges2.setupBadges(deployedTest.address, { from: accounts[4] });
+
+    const badges2 = ujoBadgesFunctions.at(badgesProxy2.address);
+    // eslint-disable-next-line max-len
+    const setup = await badges2.setupBadges(deployedTest.address, oracle.address, { from: accounts[4] });
     const block = await web3.eth.getBlock(setup.receipt.blockNumber);
     // eslint-disable-next-line max-len
     // address(this).delegatecall(abi.encodeWithSignature("adminCreateBadge(address,string,string,address,uint256)", 0x9Fd5cc5E68796f08EDC54e738585227AD2B6c03F, "zdpuAsok5kEw6R8f6RTKw7Q7du8X9wXzFmHqR9Jk6NAypWkFr", "zdpuAq9k81LYpjJaSKy988Egy9V6GLMnAVSX6wLSkseRLBPUb", 0x76bc4C780Dd85558Bc4B24a4f262f4eB0bE78ca7, 5));
@@ -71,14 +84,15 @@ contract('Patronage Badges', (accounts) => {
     const beforeBalanceSender = await web3.eth.getBalance(accounts[0]);
     const beforeBalanceBen = await web3.eth.getBalance(accounts[1]);
     const result = await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
-    /* eslint-disable prefer-destructuring */
+    // eslint-disable-next-line prefer-destructuring
     const gasPrice = (await web3.eth.getTransaction(result.tx)).gasPrice;
+    // eslint-disable-next-line prefer-destructuring
     const gasUsed = (await web3.eth.getTransactionReceipt(result.tx)).gasUsed;
     const gasCost = gasUsed * gasPrice;
     const newBalSender = await web3.eth.getBalance(accounts[0]);
     const newBalBen = await web3.eth.getBalance(accounts[1]);
     const oneEther = web3.utils.toWei('1', 'ether');
-    /* eslint-disable max-len */
+    // eslint-disable-next-line max-len
     const expectedBalSender = BigNumber(beforeBalanceSender).minus(BigNumber(oneEther)).minus(BigNumber(gasCost));
     const expectedBalBen = BigNumber(beforeBalanceBen).plus(BigNumber(oneEther));
     assert.equal(newBalSender.toString(), expectedBalSender.toString());
@@ -128,7 +142,7 @@ contract('Patronage Badges', (accounts) => {
   });
 
   it('minting: mint should fail due to overflow in multiplication', async () => {
-    await assertJump(badges.mint(accounts[2], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], '115792089237316195423570985008687907853269984665640564039457584007913129639935', { from: accounts[0], value: web3.utils.toWei('2', 'ether') }));
+    await assertRevert(badges.mint(accounts[2], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], '115792089237316195423570985008687907853269984665640564039457584007913129639935', { from: accounts[0], value: web3.utils.toWei('2', 'ether') }));
   });
 
   it('minting: should store & get all tokens by an owner', async () => {
@@ -169,24 +183,33 @@ contract('Patronage Badges', (accounts) => {
     await assertRevert(badges.setTokenURIID(32, 'newcid', { from: accounts[2] }));
   });
 
-  it('URI: test locks on ID, Base & Suffix setting', async () => {
+  it('URI: test transfer to 0x0 [locking] on ID, Base & Suffix setting', async () => {
     await badges.mint(accounts[2], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', accounts[1], 1, { from: accounts[2], value: web3.utils.toWei('2', 'ether') });
     await badges.setTokenURIID(0, 'qmxnftqmxnftqmxnftqmxnft2', { from: accounts[4] });
     await badges.setTokenURIBase('new_base?=', { from: accounts[4] });
     await badges.setTokenURISuffix('.json', { from: accounts[4] });
     const newURI = await badges.tokenURI.call(0);
+
+    /* separate test for making sure delegate wasn't overwritten and it is using correct
+    storage */
+    // const delegate = await badges.testGetDelegate.call();
+    // assert.equal(delegate, functions.address);
+    /* --- */
+
     assert.equal(newURI, 'new_base?=qmxnftqmxnftqmxnftqmxnft2.json');
-    await badges.lockAdmin({ from: accounts[4] });
+
+    // effectively locking it, but not accidentally setting to zeroth address.
+    await badgesProxy.transferOwnership('0x0000000000000000000000000000000000000001', { from: accounts[4] });
     await assertRevert(badges.setTokenURIID(0, 'qmxnftqmxnftqmxnftqmxnft2', { from: accounts[4] }));
     await assertRevert(badges.setTokenURIBase('new_base?=', { from: accounts[4] }));
     await assertRevert(badges.setTokenURISuffix('.json', { from: accounts[4] }));
   });
 
   it('admin: should allow admin change & fail when setting by someone else', async () => {
-    await badges.changeAdmin(accounts[1], { from: accounts[4] });
-    const newAdmin = await badges.admin.call();
+    await badgesProxy.transferOwnership(accounts[1], { from: accounts[4] });
+    const newAdmin = await badges.owner.call();
     assert.equal(newAdmin, accounts[1]);
-    await assertRevert(badges.changeAdmin(accounts[2], { from: accounts[0] }));
+    await assertRevert(badgesProxy.transferOwnership(accounts[2], { from: accounts[0] }));
   });
 
   it('oracle: should allow oracle to be changed & fail when changed by someone else', async () => {
