@@ -8,6 +8,7 @@ Old Patronage Badges.
 Does not contain a tokenURI refactor.
 And does not contain Badge Number refactor.
 Deprecated on 22 Aug 2018.
+DO NOT USE THIS.
 */
 
 contract OldUjoPatronageBadges is EIP721 {

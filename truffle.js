@@ -25,7 +25,12 @@ module.exports = {
       network_id: '*',
       port: 8555, // If you change this, also set the port option in .solcover.js.
       gas: 0xfffffffffff,
-      gasPrice: 0x01
+      gasPrice: 0x01,
+    },
+    ganache: {
+      host: 'localhost',
+      network_id: '*',
+      port: '8545',
     },
   },
   mocha: {

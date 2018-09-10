@@ -206,7 +206,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "506:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -258,7 +258,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "487:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -481,7 +481,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "823:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -533,7 +533,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "804:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -756,7 +756,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "1140:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -808,7 +808,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "1121:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -1031,7 +1031,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "1457:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -1083,7 +1083,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "1438:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -1306,7 +1306,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "1774:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -1358,7 +1358,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "1755:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -1581,7 +1581,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "2091:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -1633,7 +1633,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "2072:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -1856,7 +1856,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "2408:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -1908,7 +1908,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "2389:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -2131,7 +2131,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "2725:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -2183,7 +2183,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "2706:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -2406,7 +2406,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "3042:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -2458,7 +2458,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "3023:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -2681,7 +2681,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "3359:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -2733,7 +2733,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "3340:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -2956,7 +2956,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "3676:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -3008,7 +3008,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "3657:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -3231,7 +3231,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "3993:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -3283,7 +3283,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "3974:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -3506,7 +3506,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "4310:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -3558,7 +3558,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "4291:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -3857,7 +3857,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "506:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -3909,7 +3909,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "487:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -4132,7 +4132,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "823:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -4184,7 +4184,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "804:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -4407,7 +4407,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "1140:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -4459,7 +4459,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "1121:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -4682,7 +4682,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "1457:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -4734,7 +4734,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "1438:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -4957,7 +4957,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "1774:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -5009,7 +5009,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "1755:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -5232,7 +5232,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "2091:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -5284,7 +5284,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "2072:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -5507,7 +5507,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "2408:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -5559,7 +5559,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "2389:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -5782,7 +5782,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "2725:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -5834,7 +5834,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "2706:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -6057,7 +6057,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "3042:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -6109,7 +6109,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "3023:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -6332,7 +6332,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "3359:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -6384,7 +6384,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "3340:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -6607,7 +6607,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "3676:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -6659,7 +6659,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "3657:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -6882,7 +6882,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "3993:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -6934,7 +6934,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "3974:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -7157,7 +7157,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3943,
+                            "referencedDeclaration": 3910,
                             "src": "4310:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -7209,7 +7209,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3971,
+                            "referencedDeclaration": 3938,
                             "src": "4291:4:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_InitBadges_$229",
@@ -7332,5 +7332,5 @@
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-08-30T11:23:00.389Z"
+  "updatedAt": "2018-09-10T15:39:02.174Z"
 }
