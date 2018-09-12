@@ -54,7 +54,7 @@ contract UjoPatronageBadgesFunctions is ProxyState, EIP721 {
         _;
     }
 
-    event LogBadgeMinted(uint256 indexed tokenId, string mgcid, string nftcid, address indexed beneficiaryOfBadge, uint256 indexed usdCostOfBadge, uint256 timeMinted, address buyer, address issuer);
+    event LogBadgeMinted(uint256 indexed tokenId, string mgcid, string nftcid, bytes32 indexed recipientsHash, uint256 indexed usdCostOfBadge, uint256 timeMinted, address buyer, address issuer);
 
     // overload inherited tokenURI
     function tokenURI(uint256 _tokenId) external view returns (string) {
@@ -106,48 +106,73 @@ contract UjoPatronageBadgesFunctions is ProxyState, EIP721 {
     }
 
     /* in the unlikely event that a badge needs to be minted but not paid for */
-    function adminCreateBadge(address _buyer, string _mgCid, string _nftCid, address _beneficiary, uint256 _usdCost) public onlyProxyOwner returns (uint256 tokenId) {
-        return createBadge(_buyer, _mgCid, _nftCid, _beneficiary, _usdCost);
+    function adminCreateBadge(address _buyer, string _mgCid, string _nftCid, bytes32 _recipientsHash, uint256 _usdCost) public onlyProxyOwner returns (uint256 tokenId) {
+        return createBadge(_buyer, _mgCid, _nftCid, _recipientsHash, _usdCost);
     }
 
-    function mint(address _buyer, string _mgCid, string _nftCid, address _beneficiary, uint256 _usdCost) public payable returns (uint256 tokenId) {
-        processPayment(_beneficiary, _usdCost);
-        return createBadge(_buyer, _mgCid, _nftCid, _beneficiary, _usdCost);
+    function mint(address _buyer, string _mgCid, string _nftCid, address[] _beneficiaries, uint256[] _splits, uint256 _usdCost) public payable returns (uint256 tokenId) {
+        processPayment(_beneficiaries, _splits, _usdCost);
+        return createBadge(_buyer, _mgCid, _nftCid, getRecipientsHash(_beneficiaries, _splits), _usdCost);
     }
 
     function burnToken(uint256 _tokenId) public {
-        require(ownerOfToken[_tokenId] == msg.sender); //token should be in control of owner
+        require(ownerOfToken[_tokenId] == msg.sender); //token should be in control of owner [OR operator?]
         removeToken(msg.sender, _tokenId);
         emit Transfer(msg.sender, 0, _tokenId);
     }
 
+    function getRecipientsHash(address[] _beneficiaries, uint256[] _splits) public view returns (bytes32) {
+        return keccak256(abi.encodePacked(_beneficiaries, _splits));
+    }
+
     /* internal functions */
-    function processPayment(address _beneficiary, uint256 _usdCost) internal {
+    function processPayment(address[] _beneficiaries, uint256[] _splits, uint256 _usdCost) internal {
         uint256 exchangeRate = oracle.getUintPrice();
 
         require(exchangeRate > 0);
         require(_usdCost > 0);
+
         // note: division is not done with SafeMath because 1 ether in Solidity is int_const
-        // also: impossible to over/underflow
-        uint256 usdCostInWei = (1 ether / exchangeRate).mul(_usdCost);
-        require(msg.value >= usdCostInWei);
+        // also: divs impossible to over/underflow
+        uint256 totalWei = (1 ether / exchangeRate).mul(_usdCost);
+        require(msg.value >= totalWei);
 
-        //  check if paid enough through oracle price
         //  Send back remainder.
-        if (msg.value > usdCostInWei) {
-            msg.sender.transfer(msg.value - usdCostInWei);
-        }
+        msg.sender.transfer(msg.value - totalWei); // if it is zero, it's still cheaper than an if statement.
 
-        _beneficiary.transfer(usdCostInWei);
+        // transfer funds
+        if (_beneficiaries.length > 1) {
+            processMultiplePayments(_beneficiaries, _splits, totalWei);
+        } else {
+            proccessSinglePayment(_beneficiaries[0], totalWei);
+        }
     }
 
-    function createBadge(address _buyer, string _mgCid, string _nftCid, address _beneficiary, uint256 _usdCost) internal returns (uint256) {
-        uint256 tokenId = totalMinted;
+    function proccessSinglePayment(address _beneficiary, uint256 _totalWei) internal {
+        _beneficiary.transfer(_totalWei);
+    }
+
+    function processMultiplePayments(address[] _beneficiaries, uint256[] _splits, uint256 _totalWei) internal {
+        require(_beneficiaries.length == _splits.length);
+
+        // note: allowing a split to be zero.
+
+        uint256 totalSplits = 0;
+        for (uint256 i = 0; i < _beneficiaries.length; i += 1) {
+            _beneficiaries[i].transfer(_splits[i].mul(_totalWei).div(100));
+            totalSplits = totalSplits.add(_splits[i]);
+        }
+
+        require(totalSplits == 100);
+    }
+
+    function createBadge(address _buyer, string _mgCid, string _nftCid, bytes32 _recipientsHash, uint256 _usdCost) internal returns (uint256) {
         totalMinted = totalMinted.add(1); // basically impossible to overflow, but still keeping SafeMath.
+        uint256 tokenId = totalMinted; // start IDs at 1, since returning 0 could be confusing.
         tokenURIIDs[tokenId] = _nftCid;
 
         addToken(_buyer, tokenId);
-        emit LogBadgeMinted(tokenId, _mgCid, _nftCid, _beneficiary, _usdCost, now, _buyer, msg.sender); // solhint-disable-line not-rely-on-time
+        emit LogBadgeMinted(tokenId, _mgCid, _nftCid, _recipientsHash, _usdCost, now, _buyer, msg.sender); // solhint-disable-line not-rely-on-time
         return tokenId;
     }
 }
