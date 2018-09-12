@@ -1,7 +1,5 @@
 
 const { assertRevert } = require('./helpers/assertRevert');
-const { assertJump } = require('./helpers/assertJump');
-const { expectThrow } = require('./helpers/expectThrow');
 
 const ujoBadges = artifacts.require('UjoPatronageBadges');
 const ujoBadgesFunctions = artifacts.require('UjoPatronageBadgesFunctions');
