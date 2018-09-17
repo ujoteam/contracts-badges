@@ -51,40 +51,41 @@ contract('Patronage Badges', (accounts) => {
     const badges2 = ujoBadgesFunctions.at(badgesProxy2.address);
     // eslint-disable-next-line max-len
     const setup = await badges2.setupBadges(deployedTest.address, oracle.address, { from: accounts[4] });
-    const recipientsHash = await badges2.getRecipientsHash.call(['0x6c0a787BBAB04F9882e88adD5bdF5d04C9aa650A'], [100]);
     const block = await web3.eth.getBlock(setup.receipt.blockNumber);
     // eslint-disable-next-line max-len
-    // address(this).delegatecall(abi.encodeWithSignature("adminCreateBadge(address,string,string,address,uint256)", 0x9Fd5cc5E68796f08EDC54e738585227AD2B6c03F, "zdpuAsok5kEw6R8f6RTKw7Q7du8X9wXzFmHqR9Jk6NAypWkFr", "zdpuAq9k81LYpjJaSKy988Egy9V6GLMnAVSX6wLSkseRLBPUb", 0x76bc4C780Dd85558Bc4B24a4f262f4eB0bE78ca7, 5));
-    assert.equal(setup.logs[3].args.tokenId.toNumber(), 4); // eslint-disable-line max-len
-    assert.equal(setup.logs[3].args.mgcid, 'zdpuArsRXAHbxxTWcW7Ztu8sVTP2Tk5GTq5T1NBoze4eS5HuK');
-    assert.equal(setup.logs[3].args.nftcid, 'zdpuAuaMv3aYFu2CGTxb5gUza82BJtiPhUkHZgAn3V98W6bQW');
-    assert.equal(setup.logs[3].args.recipientsHash, recipientsHash);
-    assert.equal(setup.logs[3].args.usdCostOfBadge.toString(), '5');
-    assert.equal(setup.logs[3].args.timeMinted.toString(), block.timestamp);
-    assert.equal(web3.utils.toChecksumAddress(setup.logs[3].args.buyer), '0x6c0a787BBAB04F9882e88adD5bdF5d04C9aa650A');
-    assert.equal(setup.logs[3].args.issuer, accounts[4]);
+    assert.equal(setup.logs[6].args.tokenId.toNumber(), 4); // eslint-disable-line max-len
+    assert.equal(setup.logs[6].args.nftcid, 'zdpuAs68Gq3tWg81Bmf1J1b8WCgTDtJpVYqV4BvwoMW6RRUF8');
+    assert.equal(setup.logs[6].args.timeMinted.toString(), block.timestamp);
+    assert.equal(web3.utils.toChecksumAddress(setup.logs[6].args.buyer), '0x6c0a787BBAB04F9882e88adD5bdF5d04C9aa650A');
+    assert.equal(setup.logs[6].args.issuer, accounts[4]);
     const totalTokens = await badges2.totalSupply.call();
     assert.equal(totalTokens.toNumber(), 17);
   });
 
+  // eslint-disable-next-line max-len
   it('minting: mint and test events', async () => {
-    const recipientsHash = await badges.getRecipientsHash.call([accounts[1]], [100]);
-    const result = await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid1', 'qmxnftqmxnftqmxnftqmxnft1', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
+    const result = await badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft1', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
     const block = await web3.eth.getBlock(result.receipt.blockNumber);
+
+    // BadgeMinted
     assert.equal(result.logs[0].args.tokenId.toNumber(), 1);
-    assert.equal(result.logs[0].args.mgcid, 'cidcidcidcidcidcidcidcid1');
     assert.equal(result.logs[0].args.nftcid, 'qmxnftqmxnftqmxnftqmxnft1');
-    assert.equal(result.logs[0].args.recipientsHash, recipientsHash);
-    assert.equal(result.logs[0].args.usdCostOfBadge.toString(), '1');
     assert.equal(result.logs[0].args.timeMinted.toString(), block.timestamp);
     assert.equal(result.logs[0].args.buyer, accounts[0]);
     assert.equal(result.logs[0].args.issuer, accounts[0]);
+
+    // PaymentProcessed
+    assert.equal(result.logs[1].args.tokenId.toNumber(), 1);
+    assert.deepEqual(result.logs[1].args.beneficiaries, [accounts[1]]);
+    const eventSplits = [result.logs[1].args.splits[0].toNumber()];
+    assert.deepEqual(eventSplits, [100]);
+    assert.equal(result.logs[1].args.usdCostOfBadge.toNumber(), 1);
   });
 
   it('minting: should send the right amount of money to the benficiary and to the payer (paid more)', async () => {
     const beforeBalanceSender = await web3.eth.getBalance(accounts[0]);
     const beforeBalanceBen = await web3.eth.getBalance(accounts[1]);
-    const result = await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
+    const result = await badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
     // eslint-disable-next-line prefer-destructuring
     const gasPrice = (await web3.eth.getTransaction(result.tx)).gasPrice;
     // eslint-disable-next-line prefer-destructuring
@@ -103,7 +104,7 @@ contract('Patronage Badges', (accounts) => {
   it('minting: should send the right amount of money to the benficiary and to the payer (equal payment)', async () => {
     const beforeBalanceSender = await web3.eth.getBalance(accounts[0]);
     const beforeBalanceBen = await web3.eth.getBalance(accounts[1]);
-    const result = await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') });
+    const result = await badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') });
     // eslint-disable-next-line prefer-destructuring
     const gasPrice = (await web3.eth.getTransaction(result.tx)).gasPrice;
     // eslint-disable-next-line prefer-destructuring
@@ -120,37 +121,37 @@ contract('Patronage Badges', (accounts) => {
   });
 
   it('minting: should fail if amount is less than specified USD (1 usd, paying 0.5 usd).', async () => {
-    await assertRevert(badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('0.5', 'ether') }));
+    await assertRevert(badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('0.5', 'ether') }));
   });
 
   it('minting: should fail if usdCost is 0', async () => {
-    await assertRevert(badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 0, { from: accounts[0], value: web3.utils.toWei('1', 'ether') }));
+    await assertRevert(badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 0, { from: accounts[0], value: web3.utils.toWei('1', 'ether') }));
   });
 
   it('minting: should fail if exchange rate is 0', async () => {
     await oracle.setStringPrice('0');
-    await assertRevert(badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') }));
+    await assertRevert(badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') }));
   });
 
   it('minting/burning: create 5 tokens, burn 3, create 3 more.', async () => {
-    await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
-    await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
-    await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid2', 'qmxnftqmxnftqmxnftqmxnft2', [accounts[2]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
-    await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid2', 'qmxnftqmxnftqmxnftqmxnft2', [accounts[2]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
-    await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid3', 'qmxnftqmxnftqmxnftqmxnft3', [accounts[3]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
+    await badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
+    await badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
+    await badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft2', [accounts[2]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
+    await badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft2', [accounts[2]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
+    await badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft3', [accounts[3]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
     assert.equal(await badges.totalSupply(), 5);
     await badges.burnToken(1);
     await badges.burnToken(2);
     await badges.burnToken(3);
     assert.equal(await badges.totalSupply(), 2);
-    await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
-    await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
-    await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid2', 'qmxnftqmxnftqmxnftqmxnft2', [accounts[2]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
+    await badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
+    await badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
+    await badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft2', [accounts[2]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
     assert.equal(await badges.totalSupply(), 5);
   });
 
   it('minting: mint 1 token for another buyer', async () => {
-    await badges.mint(accounts[2], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
+    await badges.mint(accounts[2], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
     const owner = await badges.ownerOf.call(1);
     assert.equal(owner, accounts[2]);
   });
@@ -160,7 +161,7 @@ contract('Patronage Badges', (accounts) => {
     const beforeBalanceSender = await web3.eth.getBalance(accounts[0]);
     const beforeBalanceBen1 = await web3.eth.getBalance(accounts[1]);
     const beforeBalanceBen2 = await web3.eth.getBalance(accounts[2]);
-    const result = await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', [accounts[1], accounts[2]], [50, 50], 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') });
+    const result = await badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1], accounts[2]], [50, 50], 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') });
     // eslint-disable-next-line prefer-destructuring
     const gasPrice = (await web3.eth.getTransaction(result.tx)).gasPrice;
     // eslint-disable-next-line prefer-destructuring
@@ -184,7 +185,7 @@ contract('Patronage Badges', (accounts) => {
     const beforeBalanceSender = await web3.eth.getBalance(accounts[0]);
     const beforeBalanceBen1 = await web3.eth.getBalance(accounts[1]);
     const beforeBalanceBen2 = await web3.eth.getBalance(accounts[2]);
-    const result = await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', [accounts[1], accounts[2]], [33, 67], 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') });
+    const result = await badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1], accounts[2]], [33, 67], 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') });
     // eslint-disable-next-line prefer-destructuring
     const gasPrice = (await web3.eth.getTransaction(result.tx)).gasPrice;
     // eslint-disable-next-line prefer-destructuring
@@ -217,7 +218,7 @@ contract('Patronage Badges', (accounts) => {
     const beforeBalanceBen5 = await web3.eth.getBalance(accounts[5]);
     const beneficiaries = [accounts[1], accounts[2], accounts[3], accounts[4], accounts[5]];
     const splits = [20, 20, 20, 20, 20];
-    const result = await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', beneficiaries, splits, 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') });
+    const result = await badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', beneficiaries, splits, 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') });
     // eslint-disable-next-line prefer-destructuring
     const gasPrice = (await web3.eth.getTransaction(result.tx)).gasPrice;
     // eslint-disable-next-line prefer-destructuring
@@ -250,43 +251,43 @@ contract('Patronage Badges', (accounts) => {
   it('minting: mint 1 badge to 5 beneficiaries, split not adding to 100.', async () => {
     const beneficiaries = [accounts[1], accounts[2], accounts[3], accounts[4], accounts[5]];
     const splits = [20, 20, 20, 20, 10];
-    await assertRevert(badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', beneficiaries, splits, 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') }));
+    await assertRevert(badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', beneficiaries, splits, 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') }));
   });
 
   it('minting: mint 1 badge to 5 beneficiaries, split over 100.', async () => {
     const beneficiaries = [accounts[1], accounts[2], accounts[3], accounts[4], accounts[5]];
     const splits = [20, 20, 20, 20, 10];
-    await assertRevert(badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', beneficiaries, splits, 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') }));
+    await assertRevert(badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', beneficiaries, splits, 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') }));
   });
 
   it('minting: mint 1 badge to 5 beneficiaries, splits are only 3 length.', async () => {
     const beneficiaries = [accounts[1], accounts[2], accounts[3], accounts[4], accounts[5]];
     const splits = [20, 20, 20];
-    await assertRevert(badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', beneficiaries, splits, 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') }));
+    await assertRevert(badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', beneficiaries, splits, 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') }));
   });
 
   it('minting: mint 1 badge to 5 beneficiaries, beneficiaries are only 3 length.', async () => {
     const beneficiaries = [accounts[1], accounts[2], accounts[3]];
     const splits = [20, 20, 20, 20, 20];
-    await assertRevert(badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', beneficiaries, splits, 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') }));
+    await assertRevert(badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', beneficiaries, splits, 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') }));
   });
 
   it('minting: mint 1 badge to 5 beneficiaries, splits are zero length.', async () => {
     const beneficiaries = [accounts[1], accounts[2], accounts[3]];
     const splits = [];
-    await assertRevert(badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', beneficiaries, splits, 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') }));
+    await assertRevert(badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', beneficiaries, splits, 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') }));
   });
 
   it('minting: mint 1 badge to 0 beneficiaries, splits are zero length.', async () => {
     const beneficiaries = [];
     const splits = [];
-    await assertRevert(badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', beneficiaries, splits, 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') }));
+    await assertRevert(badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', beneficiaries, splits, 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') }));
   });
 
   it('minting: mint 1 badge to 0 beneficiaries, splits are 5 length.', async () => {
     const beneficiaries = [];
     const splits = [20, 20, 20, 20, 20];
-    await assertRevert(badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', beneficiaries, splits, 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') }));
+    await assertRevert(badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', beneficiaries, splits, 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') }));
   });
 
   it('minting: mint 1 badge to 2 beneficiaries, splits are 100 & 0.', async () => {
@@ -295,7 +296,7 @@ contract('Patronage Badges', (accounts) => {
     const beforeBalanceBen2 = await web3.eth.getBalance(accounts[2]);
     const beneficiaries = [accounts[1], accounts[2]];
     const splits = [100, 0];
-    const result = await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', beneficiaries, splits, 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') });
+    const result = await badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', beneficiaries, splits, 1, { from: accounts[0], value: web3.utils.toWei('1', 'ether') });
     // eslint-disable-next-line prefer-destructuring
     const gasPrice = (await web3.eth.getTransaction(result.tx)).gasPrice;
     // eslint-disable-next-line prefer-destructuring
@@ -314,19 +315,18 @@ contract('Patronage Badges', (accounts) => {
   });
 
   it('minting: minting through admin', async () => {
-    const recipientsHash = await badges.getRecipientsHash.call([accounts[1]], [100]);
-    await badges.adminCreateBadge(accounts[2], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', recipientsHash, 1, { from: accounts[4] });
+    await badges.adminMintWithoutPayment(accounts[2], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[4] });
     const owner = await badges.ownerOf.call(1);
     assert.equal(owner, accounts[2]);
   });
 
   it('minting: mint should fail due to overflow in multiplication', async () => {
-    await assertRevert(badges.mint(accounts[2], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], '115792089237316195423570985008687907853269984665640564039457584007913129639935', { from: accounts[0], value: web3.utils.toWei('2', 'ether') }));
+    await assertRevert(badges.mint(accounts[2], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], '115792089237316195423570985008687907853269984665640564039457584007913129639935', { from: accounts[0], value: web3.utils.toWei('2', 'ether') }));
   });
 
   it('minting: should store & get all tokens by an owner', async () => {
-    await badges.mint(accounts[0], 'cid', 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
-    await badges.mint(accounts[0], 'cid2', 'qmxnftqmxnftqmxnftqmxnft2', [accounts[2]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
+    await badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
+    await badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft2', [accounts[2]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
     const allBadges = await badges.getAllTokens(accounts[0]);
     const allBadgesRevised = [allBadges[0].toNumber(), allBadges[1].toNumber()];
     const array = [1, 2];
@@ -334,7 +334,7 @@ contract('Patronage Badges', (accounts) => {
   });
 
   it('URI: should allow setting URI ID & fail when set by non-admin', async () => {
-    await badges.mint(accounts[0], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
+    await badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') });
     await badges.setTokenURIID(1, 'qmxnftqmxnftqmxnftqmxnft2', { from: accounts[4] });
     const newURI = await badges.tokenURI.call(1);
     assert.equal(newURI, 'https://ipfs.infura.io:5001/api/v0/dag/get?arg=qmxnftqmxnftqmxnftqmxnft2');
@@ -342,7 +342,7 @@ contract('Patronage Badges', (accounts) => {
   });
 
   it('URI: should allow setting URI Base & fail when set by non-admin', async () => {
-    await badges.mint(accounts[2], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[2], value: web3.utils.toWei('2', 'ether') });
+    await badges.mint(accounts[2], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[2], value: web3.utils.toWei('2', 'ether') });
     await badges.setTokenURIBase('new_base?=', { from: accounts[4] });
     const newURI = await badges.tokenURI.call(1);
     assert.equal(newURI, 'new_base?=qmxnftqmxnftqmxnftqmxnft');
@@ -350,7 +350,7 @@ contract('Patronage Badges', (accounts) => {
   });
 
   it('URI: should allow setting URI Suffix & fail when set by non-admin', async () => {
-    await badges.mint(accounts[2], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[2], value: web3.utils.toWei('2', 'ether') });
+    await badges.mint(accounts[2], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[2], value: web3.utils.toWei('2', 'ether') });
     await badges.setTokenURISuffix('.json', { from: accounts[4] });
     const newURI = await badges.tokenURI.call(1);
     assert.equal(newURI, 'https://ipfs.infura.io:5001/api/v0/dag/get?arg=qmxnftqmxnftqmxnftqmxnft.json');
@@ -358,22 +358,21 @@ contract('Patronage Badges', (accounts) => {
   });
 
   it('URI: should revert if URI ID set for a token that doesnt exist', async () => {
-    await badges.mint(accounts[2], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[2], value: web3.utils.toWei('2', 'ether') });
+    await badges.mint(accounts[2], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[2], value: web3.utils.toWei('2', 'ether') });
     await assertRevert(badges.setTokenURIID(32, 'newcid', { from: accounts[2] }));
   });
 
   it('URI: test transfer to 0x0 [locking] on ID, Base & Suffix setting', async () => {
-    await badges.mint(accounts[2], 'cidcidcidcidcidcidcidcid', 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[2], value: web3.utils.toWei('2', 'ether') });
+    await badges.mint(accounts[2], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[2], value: web3.utils.toWei('2', 'ether') });
     await badges.setTokenURIID(1, 'qmxnftqmxnftqmxnftqmxnft2', { from: accounts[4] });
     await badges.setTokenURIBase('new_base?=', { from: accounts[4] });
     await badges.setTokenURISuffix('.json', { from: accounts[4] });
     const newURI = await badges.tokenURI.call(1);
 
-    /* separate test for making sure delegate wasn't overwritten and it is using correct
-    storage */
+    // separate test for making sure delegate wasn't overwritten and it is using correct storage
     // const delegate = await badges.testGetDelegate.call();
     // assert.equal(delegate, functions.address);
-    /* --- */
+
 
     assert.equal(newURI, 'new_base?=qmxnftqmxnftqmxnftqmxnft2.json');
 
