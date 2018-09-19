@@ -128,9 +128,19 @@ contract('Patronage Badges', (accounts) => {
     await assertRevert(badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 0, { from: accounts[0], value: web3.utils.toWei('1', 'ether') }));
   });
 
-  it('minting: should fail if exchange rate is 0', async () => {
+  it('minting: should fail if exchange rate is 0. Should return 2 ETH paid.', async () => {
     await oracle.setStringPrice('0');
+    const beforeBalanceSender = await web3.eth.getBalance(accounts[0]);
     await assertRevert(badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') }));
+    // eslint-disable-next-line max-len
+    const postBalanceSender = await web3.eth.getBalance(accounts[0]); // should have received the 2 ETH back minus gas costs.
+    const twoEther = web3.utils.toWei('2', 'ether');
+    // eslint-disable-next-line max-len
+    const diff = BigNumber(beforeBalanceSender).minus(BigNumber(postBalanceSender));
+
+    // difference should be less than 2 ETH.
+    // eslint-disable-next-line
+    assert.isAbove(parseInt(twoEther), diff.toNumber());
   });
 
   it('minting/burning: create 5 tokens, burn 3, create 3 more.', async () => {
