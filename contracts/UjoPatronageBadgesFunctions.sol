@@ -109,6 +109,8 @@ contract UjoPatronageBadgesFunctions is ProxyState, EIP721 {
     /* in the unlikely event that a badge needs to be minted but not paid for */
     function adminMintWithoutPayment(address _buyer, string _nftCid, address[] _beneficiaries, uint256[] _splits, uint256 _usdCost) public onlyProxyOwner returns (uint256 tokenId) {
         tokenId = createBadge(_buyer, _nftCid);
+
+        // there's no payment, but log as if it occurred.
         emit LogPaymentProcessed(tokenId, _beneficiaries, _splits, _usdCost);
     }
 
@@ -118,8 +120,7 @@ contract UjoPatronageBadgesFunctions is ProxyState, EIP721 {
         // note: tokenId is automatically returned due to naming.
     }
 
-    function burnToken(uint256 _tokenId) public {
-        require(ownerOfToken[_tokenId] == msg.sender); //token should be in control of owner [OR operator?]
+    function burnToken(uint256 _tokenId) public allowedToOperate(_tokenId) {
         removeToken(msg.sender, _tokenId);
         emit Transfer(msg.sender, 0, _tokenId);
     }
@@ -137,7 +138,9 @@ contract UjoPatronageBadgesFunctions is ProxyState, EIP721 {
         require(msg.value >= totalWei);
 
         //  Send back remainder.
-        msg.sender.transfer(msg.value - totalWei); // if it is zero, it's still cheaper than an if statement.
+        if (msg.value > totalWei) {
+            msg.sender.transfer(msg.value - totalWei);
+        }
 
         // transfer funds
         if (_beneficiaries.length > 1) {
