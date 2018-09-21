@@ -46,7 +46,10 @@ const getDataFromApi = async formattedData =>
       name: `${data.name} Patronage Badge`,
       description: `A collectible patronage badge for ${data.name}`,
       image: `https://ujomusic.com/image/600x600/${data.image.contentURL}`,
-      beneficiaryOfBadge,
+      recipients: {
+        beneficiaries: [beneficiaryOfBadge],
+        splits: [100],
+      },
       MusicGroup: mgCid,
       usdCostOfBadge: 5,
       // buyer will be removed when pushing to ipfs, but we need to retain reference to it
@@ -85,11 +88,11 @@ const pinToInfura = async (formattedData) => {
 };
 
 const writeData = async (dataWithCids) => {
-  let functionsToWrite = '// function createBadge(address _buyer, string _mgCid, string _nftCid, address _beneficiary, uint256 _usdCost)\n';
+  let functionsToWrite = '// function adminMintWithoutPayment(address _buyer, string _nftCid, address[] _beneficiaries, uint256[] _splits, uint256 _usdCost)\n';
   dataWithCids.forEach(({
-    buyer, beneficiaryOfBadge, MusicGroup, nftCid,
+    buyer, recipients, nftCid,
   }) => {
-    functionsToWrite += `address(this).delegatecall(abi.encodeWithSignature("adminCreateBadge(address,string,string,address,uint256)", ${buyer}, "${MusicGroup}", "${nftCid}", ${beneficiaryOfBadge}, 5));\n`;
+    functionsToWrite += `beneficiaries[0] = address(${recipients.beneficiaries[0]});address(this).delegatecall(abi.encodeWithSignature("adminMintWithoutPayment(address,string,address[],uint256[],uint256)", ${buyer}, "${nftCid}", beneficiaries, splits, 5));\n`;
   });
 
   fs.writeFile('scripts/initializeBadges/createBadges.txt', functionsToWrite, (err) => {
