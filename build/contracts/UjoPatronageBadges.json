@@ -1260,8 +1260,80 @@
       "links": {},
       "address": "0x0d17a902a416649dfac87258d356f7fc73920260",
       "transactionHash": "0xbb3fb21179d3830347ec1e242669d2d2f036242f350e2cef49add537b2efcef1"
+    },
+    "1537898234584": {
+      "events": {
+        "0xf8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c64820": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "previousOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipRenounced",
+          "type": "event"
+        },
+        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x2c473c2156f57a84246626352bc5bb7e5cda652f",
+      "transactionHash": "0x1d6c2515db7742b43ce80dc81d621f9357cc174b4372791db22d8a34af0e803a"
+    },
+    "1537898840747": {
+      "events": {
+        "0xf8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c64820": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "previousOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipRenounced",
+          "type": "event"
+        },
+        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xcf24a1cb9deb49208c1c8701c565f253a38be87d",
+      "transactionHash": "0x343bbeddf4b1a19b5ddf7d1e6a950ce2daef28c9a7085cd50bb635632086f3ae"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-09-21T22:34:00.035Z"
+  "updatedAt": "2018-09-25T18:07:48.019Z"
 }
