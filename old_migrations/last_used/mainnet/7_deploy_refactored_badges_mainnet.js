@@ -9,7 +9,7 @@ module.exports = async (deployer, network) => {
   // 3) deploy proxy [with 0xfc as owner -> acc 1 on mnemonic]
   // 4) set up badges [with 0xfc as owner -> acc 1 on mnemonic]
   // 5) change proxy owner to multi-sig
-  if (network === 'mainnet') {
+  if (network === 'ganache') {
     const deployingAdmin = '0xfc14d974220678049ad4f8199386fe8f2784a0ff';
     const finalAdmin = '0x5DedA52Dc2b3A565d77E10F0f8D4Bd738401D7d3'; // ujo multisig
     const mainnetOracle = '0x57257EDE587dd4dDF99Cf95DbE308830e154acF7';
