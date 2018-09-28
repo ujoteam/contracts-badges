@@ -42,12 +42,13 @@ const getDataFromApi = async formattedData =>
   Promise.all(formattedData.map(async (singleBadgeData) => {
     const { mgCid, beneficiaryOfBadge, buyer } = singleBadgeData; // eslint-disable-line object-curly-newline, max-len
     const { data } = await axios.get(`https://www.ujomusic.com/api/musicgroups/cid/${mgCid}`);
+    console.log(beneficiaryOfBadge);
     const objectForIPFS = {
       name: `${data.name} Patronage Badge`,
       description: `A collectible patronage badge for ${data.name}`,
-      image: `https://ujomusic.com/image/600x600/${data.image.contentURL}`,
+      image: `https://www.ujomusic.com/image/600x600/${data.image.contentURL}`,
       beneficiaries: [{ address: beneficiaryOfBadge, split: 100 }],
-      MusicGroup: mgCid,
+      MusicGroup: data.cid,
       usdCostOfBadge: 5,
       // buyer will be removed when pushing to ipfs, but we need to retain reference to it
       buyer,

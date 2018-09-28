@@ -3,7 +3,7 @@ const Functions = artifacts.require('./UjoPatronageBadgesFunctions.sol');
 const InitBadges = artifacts.require('./InitBadges.sol');
 
 module.exports = async (deployer, network) => {
-  // admin: 0x1fbeC754f37fC179d5332c2cA9131B19Ce6AE862 [account 1 on mnemomic]
+  // admin: 0xfc14d974220678049ad4f8199386fe8f2784a0ff [account 1 on mnemomic]
   // rinkeby oracle: 0x928f3D0659404AbB6C79E4b6390D72F3913D7D0B [manually setting it atm]
   if (network === 'rinkeby') {
     let deployedFunctionsInstance;
@@ -13,7 +13,7 @@ module.exports = async (deployer, network) => {
       return deployer.deploy(InitBadges);
     }).then((deployedInit) => {
       initInstance = deployedInit;
-      return deployer.deploy(BadgesProxy, '0x1fbeC754f37fC179d5332c2cA9131B19Ce6AE862', deployedFunctionsInstance.address);
+      return deployer.deploy(BadgesProxy, '0xfc14d974220678049ad4f8199386fe8f2784a0ff', deployedFunctionsInstance.address);
     }).then((deployedProxy) => {
       console.log(deployedProxy.address);
       return Functions.at(deployedProxy.address);
