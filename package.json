@@ -10,7 +10,8 @@
     "lint:sol": "solhint contracts/*.sol",
     "pretest": "npm run lint",
     "test": "truffle test",
-    "initialize-badges": "node scripts/initializeBadges"
+    "initialize-badges": "node scripts/initializeBadges",
+    "test-match": "node scripts/initializeBadges/testMatch.js"
   },
   "repository": {
     "type": "git",
@@ -29,7 +30,7 @@
     "file-system": "^2.2.2",
     "truffle": "4.1.14",
     "truffle-contract": "3.0.1",
-    "truffle-hdwallet-provider": "0.0.3",
+    "truffle-hdwallet-provider": "0.0.6",
     "ujo-contracts-handlers": "git+ssh://git@github.com:UjoTeam/contracts-handlers.git#3441d55",
     "web3": "^1.0.0-beta.34",
     "websocket": "^1.0.26"

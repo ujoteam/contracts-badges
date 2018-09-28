@@ -31,14 +31,14 @@
     "absolutePath": "/Users/simondlr/code/ethereum/contracts-badges/contracts/eip721/EIP721MetadataInterface.sol",
     "exportedSymbols": {
       "EIP721MetadataInterface": [
-        2316
+        1892
       ]
     },
-    "id": 2317,
+    "id": 1893,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 2308,
+        "id": 1884,
         "literals": [
           "solidity",
           "^",
@@ -46,7 +46,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:7"
+        "src": "0:24:6"
       },
       {
         "baseContracts": [],
@@ -54,9 +54,9 @@
         "contractKind": "interface",
         "documentation": "@title ERC-721 Non-Fungible Token Standard, optional metadata extension\n @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md\n  Note: the ERC-165 identifier for this interface is 0x5b5e139f",
         "fullyImplemented": false,
-        "id": 2316,
+        "id": 1892,
         "linearizedBaseContracts": [
-          2316
+          1892
         ],
         "name": "EIP721MetadataInterface",
         "nodeType": "ContractDefinition",
@@ -64,7 +64,7 @@
           {
             "body": null,
             "documentation": "@notice A distinct Uniform Resource Identifier (URI) for a given asset.\n @dev Throws if `_tokenId` is not a valid NFT. URIs are defined in RFC\n  3986. The URI may point to a JSON file that conforms to the \"ERC721\n  Metadata JSON Schema\".",
-            "id": 2315,
+            "id": 1891,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -72,16 +72,16 @@
             "name": "tokenURI",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 2311,
+              "id": 1887,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2310,
+                  "id": 1886,
                   "name": "_tokenId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2315,
-                  "src": "836:16:7",
+                  "scope": 1891,
+                  "src": "836:16:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -89,10 +89,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 2309,
+                    "id": 1885,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "836:7:7",
+                    "src": "836:7:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -102,20 +102,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "835:18:7"
+              "src": "835:18:6"
             },
             "payable": false,
             "returnParameters": {
-              "id": 2314,
+              "id": 1890,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2313,
+                  "id": 1889,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2315,
-                  "src": "877:6:7",
+                  "scope": 1891,
+                  "src": "877:6:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -123,10 +123,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 2312,
+                    "id": 1888,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "877:6:7",
+                    "src": "877:6:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -136,33 +136,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "876:8:7"
+              "src": "876:8:6"
             },
-            "scope": 2316,
-            "src": "818:67:7",
+            "scope": 1892,
+            "src": "818:67:6",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 2317,
-        "src": "244:643:7"
+        "scope": 1893,
+        "src": "244:643:6"
       }
     ],
-    "src": "0:888:7"
+    "src": "0:888:6"
   },
   "legacyAST": {
     "absolutePath": "/Users/simondlr/code/ethereum/contracts-badges/contracts/eip721/EIP721MetadataInterface.sol",
     "exportedSymbols": {
       "EIP721MetadataInterface": [
-        2316
+        1892
       ]
     },
-    "id": 2317,
+    "id": 1893,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 2308,
+        "id": 1884,
         "literals": [
           "solidity",
           "^",
@@ -170,7 +170,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:7"
+        "src": "0:24:6"
       },
       {
         "baseContracts": [],
@@ -178,9 +178,9 @@
         "contractKind": "interface",
         "documentation": "@title ERC-721 Non-Fungible Token Standard, optional metadata extension\n @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md\n  Note: the ERC-165 identifier for this interface is 0x5b5e139f",
         "fullyImplemented": false,
-        "id": 2316,
+        "id": 1892,
         "linearizedBaseContracts": [
-          2316
+          1892
         ],
         "name": "EIP721MetadataInterface",
         "nodeType": "ContractDefinition",
@@ -188,7 +188,7 @@
           {
             "body": null,
             "documentation": "@notice A distinct Uniform Resource Identifier (URI) for a given asset.\n @dev Throws if `_tokenId` is not a valid NFT. URIs are defined in RFC\n  3986. The URI may point to a JSON file that conforms to the \"ERC721\n  Metadata JSON Schema\".",
-            "id": 2315,
+            "id": 1891,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -196,16 +196,16 @@
             "name": "tokenURI",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 2311,
+              "id": 1887,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2310,
+                  "id": 1886,
                   "name": "_tokenId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2315,
-                  "src": "836:16:7",
+                  "scope": 1891,
+                  "src": "836:16:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -213,10 +213,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 2309,
+                    "id": 1885,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "836:7:7",
+                    "src": "836:7:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -226,20 +226,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "835:18:7"
+              "src": "835:18:6"
             },
             "payable": false,
             "returnParameters": {
-              "id": 2314,
+              "id": 1890,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2313,
+                  "id": 1889,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2315,
-                  "src": "877:6:7",
+                  "scope": 1891,
+                  "src": "877:6:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -247,10 +247,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 2312,
+                    "id": 1888,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "877:6:7",
+                    "src": "877:6:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -260,20 +260,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "876:8:7"
+              "src": "876:8:6"
             },
-            "scope": 2316,
-            "src": "818:67:7",
+            "scope": 1892,
+            "src": "818:67:6",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 2317,
-        "src": "244:643:7"
+        "scope": 1893,
+        "src": "244:643:6"
       }
     ],
-    "src": "0:888:7"
+    "src": "0:888:6"
   },
   "compiler": {
     "name": "solc",
@@ -281,5 +281,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-09-25T16:32:27.807Z"
+  "updatedAt": "2018-09-28T18:43:43.861Z"
 }
