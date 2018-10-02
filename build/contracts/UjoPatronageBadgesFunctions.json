@@ -15166,6 +15166,138 @@
     "version": "0.4.24+commit.e67f0147.Emscripten.clang"
   },
   "networks": {
+    "1": {
+      "events": {
+        "0xad88641bd8ec9883a05edcba738abf72feac570215ea7a9361c88f6ddd687b5d": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "tokenId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "nftcid",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "name": "timeMinted",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "buyer",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "issuer",
+              "type": "address"
+            }
+          ],
+          "name": "LogBadgeMinted",
+          "type": "event"
+        },
+        "0xd77a837eeb922067313247d8638ceb6590d3f462cf40aedb03538c2e47d4a1de": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "tokenId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "beneficiaries",
+              "type": "address[]"
+            },
+            {
+              "indexed": false,
+              "name": "splits",
+              "type": "uint256[]"
+            },
+            {
+              "indexed": false,
+              "name": "usdCostOfBadge",
+              "type": "uint256"
+            }
+          ],
+          "name": "LogPaymentProcessed",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "_to",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "_tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        },
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "_approved",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "_tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        "0x17307eab39ab6107e8899845ad3d59bd9653f200f220920489ca2b5937696c31": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "_operator",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_approved",
+              "type": "bool"
+            }
+          ],
+          "name": "ApprovalForAll",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x74a81f1d462aef1521fdaad9c5fcc32167f976fe",
+      "transactionHash": "0x8aa1f17876fc983a7d3f433cfe23bd65aed8e94a1fb24ab4454673819d322d41"
+    },
     "4": {
       "events": {
         "0xad88641bd8ec9883a05edcba738abf72feac570215ea7a9361c88f6ddd687b5d": {
@@ -15570,5 +15702,5 @@
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-09-28T18:47:52.568Z"
+  "updatedAt": "2018-10-02T19:33:05.869Z"
 }

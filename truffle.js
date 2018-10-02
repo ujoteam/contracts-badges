@@ -5,7 +5,8 @@ const mnemonic = ''; // this mnemonic for deployment is secret.
 
 // Get the first account using the standard hd path.
 const rinkebyProviderUrl = 'https://rinkeby.infura.io';
-const mainnetProviderUrl = 'https://mainnet.infura.io';
+// const mainnetProviderUrl = 'https://mainnet.infura.io';
+const mainnetProviderUrl = 'https://api.dev.blockscale.net/dev/parity';
 
 module.exports = {
   networks: {
