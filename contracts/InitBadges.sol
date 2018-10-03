@@ -12,6 +12,7 @@ contract InitBadges {
     uint256[] memory splits = new uint256[](1);
     splits[0] = 100;
     // function adminMintWithoutPayment(address _buyer, string _nftCid, address[] _beneficiaries, uint256[] _splits, uint256 _usdCost)
+    beneficiaries[0] = address(0x48c856F10d5930DaE3CF338173247aB8DA94d308);address(this).delegatecall(abi.encodeWithSignature("adminMintWithoutPayment(address,string,address[],uint256[],uint256)", 0x497e90a0414e1f07cD39416D09F27DC62098bc14, "zdpuAoKFJ5jGSiGCjLBNCA3QjSWwMT5PrWar5X2F69E2auEmU", beneficiaries, splits, 5));
     beneficiaries[0] = address(0x804A981c929C133cfC95e0094495325F5D84Fdd3);address(this).delegatecall(abi.encodeWithSignature("adminMintWithoutPayment(address,string,address[],uint256[],uint256)", 0xAAA8a090E78724c8E3f3dE407205fff160017568, "zdpuAtEcodozzUGvSdZaqYKE8PdoWxGdqMHHyVEsAeDos6nvo", beneficiaries, splits, 5));
     beneficiaries[0] = address(0xd1C2388c9B40a1c1D4340924b8cc8dC9876499b4);address(this).delegatecall(abi.encodeWithSignature("adminMintWithoutPayment(address,string,address[],uint256[],uint256)", 0xAAA8a090E78724c8E3f3dE407205fff160017568, "zdpuAyn6PQhfXVbk8vjVuLfinUQscxyn8JNdEJrSyeAw7kDDn", beneficiaries, splits, 5));
     beneficiaries[0] = address(0x66bE39D22b9E7177096Db4C96aeE4106E44D4910);address(this).delegatecall(abi.encodeWithSignature("adminMintWithoutPayment(address,string,address[],uint256[],uint256)", 0xAAA8a090E78724c8E3f3dE407205fff160017568, "zdpuAvrUFv5qSzFwTj1GDro38kSjV4TzMjKQk4BpydpR8hycc", beneficiaries, splits, 5));
