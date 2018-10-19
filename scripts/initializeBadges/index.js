@@ -73,7 +73,6 @@ const pinToInfura = async (formattedData) => {
         url: 'https://api.dev.ujomusic.com/api/dag/put',
         data: JSON.stringify(dataArray[dataArray.length - 1]),
       });
-
       dataWithCids.push({ ...dataArray[dataArray.length - 1], nftCid: response.data, buyer });
       dataArray.pop();
       await sendRequest(dataArray);
