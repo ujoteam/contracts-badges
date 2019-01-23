@@ -165,3 +165,7 @@ For example, if only functions are changed in `UjoPatronageBadgeFunctions`, it's
 It is thus VERY important to test the changes when upgrading functions. eg Deploy initial functions -> do actions -> upgrade functions -> do new actions.
 
 The owner on mainnet is the Ujo MultiSig.
+
+### Upgrading
+
+To upgrade on Mainnet, the Ujo MultiSig needs to send a transaction using `setDelegate` function on the proxy. The Ujo MultiSig is usually used through Gnosis Wallet interface. https://wallet.gnosis.pm/
