@@ -115,3 +115,57 @@ Currently, we also have control over the tokenURI base [if it needs to change in
 The NFT CID has a URI that contains an Ujo Music address. Ideally, we would simply be using the content hash and retrieve as such. If in the future that Ujo would remove its API, the badges would still work if the data was persisted on IPFS, given that the content hash is scraped off from the URL.
 
 In the future, when we feel that it's sufficient, we will remove any owner or admin functionality from the Badges Proxy.
+
+### Understanding the Proxy Code.
+
+The structure of the code looks as follows. If you were send a mint function, the call stack would look like this:  
+  
+tx.origin -> proxy (UjoPatronageBadges) -(delegatecall)-> UjoPatronageBadgesFunctions.
+
+With delegatecall, it executes the called code (functions) inside the context of the caller (proxy). In other words, the function executes on storage that exists in the proxy contract. Traditionally, libraries are written in such a way that when you use them, one usually passes through the storage slot to manipulate. eg:  
+  
+```
+  function insert(Data storage self, uint value)
+      public
+      returns (bool)
+  {
+      if (self.flags[value])
+          return false; // already there
+      self.flags[value] = true;
+      return true;
+  }
+```
+
+However, this contract is written a bit differently, staying natively, closer to EIP specifications and not rewriting the standard according to a library. This means, the approach is a bit different. Libraries aren't used. Libraries adds some restrictions such as not being able to inherit or automatically reverting on any other interaction besides DELEGATECALL (since 0.5).  
+  
+Thus, it is important to understand how the contract code is executed when using DELEGATECALL on an arbitrary piece of code. The biggest factor is how Solidity manages its storage slots.  
+  
+Storage in solidity is allocated sequentially. The variable names won't map to the same storage slots in every contract. It depends in what order the variables are declared. This quirk can sometimes cause confusion when using delegatecall, since the storage slots in the calling contract (proxy) wouldn't be in the same order in the delegatecalled contract (functions), EVEN when the variables have the same names. For example, in the functions contract, if it is manipulating say `owner`, it won't write to the same storage slot, depending on where `owner` is declared in the proxy contract.
+
+So, in order to ensure that when interacting with storage through delegatecalling, the delegatecalled contract (functions) need to ensure that the storage variables are assigned in the same way. In that case, when the delegatecalled contract (functions) interacts with storage, it would write and read from the expected storage slots.
+
+In utilising a proxy pattern, it's important to take into account what variables have already been assigned storage slots. In upgrading the functions, one needs to keep tabs on what variables have already been assigned when aiming to update the functions.  
+
+In this case, the proxy has two variables assigned that it, itself uses:  
+1) `owner`, which is inherited from Ownable.  
+2) `delegate`, which is the address of the functions.  
+  
+The functions are at the delegate address. When updating the functions (`setDelegate`), the `delegate` address changes. It is thus important the delegatecalled contract does not write or read from storage in the first two slots. It needs to essentially assign it. Any new variables would then get storage slots AFTER the first two assigned storage slots. This would then mean that storage variables would read and write from the correct ones.  
+  
+Thus: There is a contract that `UjoPatronageBadgeFunctions` extends, which is called `ProxyState`, which does this assignment. This mean now that any variables in the functions code wouldn't write to these slots when delegatecalled. The order of storage slots are thus:
+
+Ownable -> Proxy -> EIP721 -> UjoPatronageBadgeFunctions.  
+
+The only order that will change (most likely) are any variables declared in UjoPatronageBadgeFunctions.
+
+When upgrading or changing functions one needs to take into account how storage slots have already been allocated. Any changes to the functions wrt storage variables need to keep this order. 
+
+For example, if only functions are changed in `UjoPatronageBadgeFunctions`, it's important to not mess with the variable order (eg, perhaps wanting to do a bit of a refactor). In some future case, it might mean that some variables might not be used anymore, in which case they need to stay "allocated". It can't be removed, otherwise it will mess up the storage order. Any NEW storage variables need to be added after the existing set of storage variables. It might be that new storage variables are added, and then removed in a future update. In that case, it is important that these slots STAY allocated even though it is dormant/unused.
+
+It is thus VERY important to test the changes when upgrading functions. eg Deploy initial functions -> do actions -> upgrade functions -> do new actions.
+
+The owner on mainnet is the Ujo MultiSig.
+
+### Upgrading
+
+To upgrade on Mainnet, the Ujo MultiSig needs to send a transaction using `setDelegate` function on the proxy. The Ujo MultiSig is usually used through Gnosis Wallet interface. https://wallet.gnosis.pm/
