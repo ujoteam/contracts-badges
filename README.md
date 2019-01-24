@@ -118,6 +118,10 @@ In the future, when we feel that it's sufficient, we will remove any owner or ad
 
 ### Understanding the Proxy Code.
 
+Variables in storage are stored contiguously: https://solidity.readthedocs.io/en/v0.5.3/miscellaneous.html#layout-of-state-variables-in-storage.
+
+---
+
 The structure of the code looks as follows. If you were send a mint function, the call stack would look like this:  
   
 tx.origin -> proxy (UjoPatronageBadges) -(delegatecall)-> UjoPatronageBadgesFunctions.
@@ -161,6 +165,20 @@ The only order that will change (most likely) are any variables declared in UjoP
 When upgrading or changing functions one needs to take into account how storage slots have already been allocated. Any changes to the functions wrt storage variables need to keep this order. 
 
 For example, if only functions are changed in `UjoPatronageBadgeFunctions`, it's important to not mess with the variable order (eg, perhaps wanting to do a bit of a refactor). In some future case, it might mean that some variables might not be used anymore, in which case they need to stay "allocated". It can't be removed, otherwise it will mess up the storage order. Any NEW storage variables need to be added after the existing set of storage variables. It might be that new storage variables are added, and then removed in a future update. In that case, it is important that these slots STAY allocated even though it is dormant/unused.
+
+### Naming?
+
+Naming should not affect the storage slot used. It is only important what type is used. That shouldn't change.
+
+### Memory Slots?
+
+Variables declared as `memory` should not affect this since variables declared as `memory` are stored only temporary (like RAM). Once the full transaction is done, the slots are erased.
+
+### Functions
+
+The parameters of a function does not affect the storage slots either. These are hardcoded into the `callstack`. They act more similar to `memory`.
+
+With regards to the order of the functions: this does NOT matter. Functions can be more readily added and replaced when upgrading.
 
 It is thus VERY important to test the changes when upgrading functions. eg Deploy initial functions -> do actions -> upgrade functions -> do new actions.
 
