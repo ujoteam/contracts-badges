@@ -184,6 +184,45 @@ It is thus VERY important to test the changes when upgrading functions. eg Deplo
 
 The owner on mainnet is the Ujo MultiSig.
 
-### Upgrading
+### Upgrading & Interacting with Patronage Badges
+
+To edit & upgrade on Rinkeby & Mainnet is a bit different. Rinkeby's Proxy is owned through an external account. On Mainnet it is under the Ujo MultiSig.
+
+### Upgrading Rinkeby.
+
+To upgrade the badges on Rinkeby, the easiest process is to use Remix: https://remix.ethereum.org/
+
+1) On the "Run" tab, make sure it is set to default to using the injected web3. Using MetaMask, if you are on Rinkeby, it will display correctly. Make sure it is the correct mnemnonic being used. It's not stored in public repos for safety and security over this address. The owner is: 0xfc14d974220678049ad4f8199386fe8f2784a0ff.
+
+2) In order to interact with the Proxy on Rinkeby, you don't have to paste in ALL the contract information, merely the API. This allowes Remix to format the inputs into a message CALL to Ethereum Rinkeby.
+
+3) Thus: if the delegate is not changed through a migration/deployment script, you need to add the following contract into the Remix editor:
+
+```
+contract PatronageBadgesProxyAPI {
+    function setDelegate(address _delegate) public {}
+}
+``` 
+4. Then, using "At", put in the address of the current Rinkeby Proxy: 0xf9a924e07592e98be7b3beb9020ef5371d770755 (as of 25/01/2019).
+   
+5. Under "Deployed Contracts", a tab will appear with the `setDelegate` function available. Inputting the updated address of the new Functions contract in there, and submitting the transaction, will issue it to Rinkeby.
+
+### Editing Patronage Badges on Rinkeby
+
+If you want to edit something on the Patronage Badges, say, the oracle being used, then it works in a similar manner to above. In Remix, you would do the following:
+
+1. Add in the following API to edit the oracle.
+
+```
+contract PatronageBadgesFunctionsAPI {
+    function setOracle(address _oracle) {}
+}
+```
+
+2. Now: this part is important to understand. As said above, the proxy will delegatecall any function call that is NOT in the contract itself. So, you should put in the proxy address, NOT the functions address. The proxy address is (as of 25/01/2019): 0xf9a924e07592e98be7b3beb9020ef5371d770755. Again, this is owned by the address -> 0xfc14d974220678049ad4f8199386fe8f2784a0ff. You need to ensure that MetaMask is on the right mnemonic. This mnemonic is not stored in a public repo for safety and security reasons. 
+
+3. Then, same as above, you send an update with the appropriate inputs.
+
+Here's a sample process to change the  ((wip))
 
 To upgrade on Mainnet, the Ujo MultiSig needs to send a transaction using `setDelegate` function on the proxy. The Ujo MultiSig is usually used through Gnosis Wallet interface. https://wallet.gnosis.pm/
