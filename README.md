@@ -118,6 +118,10 @@ In the future, when we feel that it's sufficient, we will remove any owner or ad
 
 ### Understanding the Proxy Code.
 
+Variables in storage are stored contiguously: https://solidity.readthedocs.io/en/v0.5.3/miscellaneous.html#layout-of-state-variables-in-storage.
+
+---
+
 The structure of the code looks as follows. If you were send a mint function, the call stack would look like this:  
   
 tx.origin -> proxy (UjoPatronageBadges) -(delegatecall)-> UjoPatronageBadgesFunctions.
@@ -162,10 +166,907 @@ When upgrading or changing functions one needs to take into account how storage 
 
 For example, if only functions are changed in `UjoPatronageBadgeFunctions`, it's important to not mess with the variable order (eg, perhaps wanting to do a bit of a refactor). In some future case, it might mean that some variables might not be used anymore, in which case they need to stay "allocated". It can't be removed, otherwise it will mess up the storage order. Any NEW storage variables need to be added after the existing set of storage variables. It might be that new storage variables are added, and then removed in a future update. In that case, it is important that these slots STAY allocated even though it is dormant/unused.
 
+### Naming?
+
+Naming should not affect the storage slot used. It is only important what type is used. That shouldn't change.
+
+### Memory Slots?
+
+Variables declared as `memory` should not affect this since variables declared as `memory` are stored only temporary (like RAM). Once the full transaction is done, the slots are erased.
+
+### Functions
+
+The parameters of a function does not affect the storage slots either. These are hardcoded into the `callstack`. They act more similar to `memory`.
+
+With regards to the order of the functions: this does NOT matter. Functions can be more readily added and replaced when upgrading.
+
 It is thus VERY important to test the changes when upgrading functions. eg Deploy initial functions -> do actions -> upgrade functions -> do new actions.
 
 The owner on mainnet is the Ujo MultiSig.
 
-### Upgrading
+### Upgrading & Interacting with Patronage Badges
+
+To edit & upgrade on Rinkeby & Mainnet is a bit different. Rinkeby's Proxy is owned through an external account. On Mainnet it is under the Ujo MultiSig.
+
+### Upgrading Rinkeby.
+
+To upgrade the badges on Rinkeby, the easiest process is to use Remix: https://remix.ethereum.org/
+
+1) On the "Run" tab, make sure it is set to default to using the injected web3. Using MetaMask, if you are on Rinkeby, it will display correctly. Make sure it is the correct mnemnonic being used. It's not stored in public repos for safety and security over this address. The owner is: 0xfc14d974220678049ad4f8199386fe8f2784a0ff.
+
+2) In order to interact with the Proxy on Rinkeby, you don't have to paste in ALL the contract information, merely the API. This allowes Remix to format the inputs into a message CALL to Ethereum Rinkeby.
+
+3) Thus: if the delegate is not changed through a migration/deployment script, you need to add the following contract into the Remix editor:
+
+```
+contract PatronageBadgesProxyAPI {
+    function setDelegate(address _delegate) public {}
+}
+``` 
+4. Then, using "At", put in the address of the current Rinkeby Proxy: 0xf9a924e07592e98be7b3beb9020ef5371d770755 (as of 25/01/2019).
+   
+5. Under "Deployed Contracts", a tab will appear with the `setDelegate` function available. Inputting the updated address of the new Functions contract in there, and submitting the transaction, will issue it to Rinkeby.
+
+### Editing Patronage Badges on Rinkeby
+
+If you want to edit something on the Patronage Badges, say, the oracle being used, then it works in a similar manner to above. In Remix, you would do the following:
+
+1. Add in the following API to edit the oracle.
+
+```
+contract PatronageBadgesFunctionsAPI {
+    function setOracle(address _oracle) {}
+}
+```
+
+2. Now: this part is important to understand. As said above, the proxy will delegatecall any function call that is NOT in the contract itself. So, you should put in the proxy address, NOT the functions address. The proxy address is (as of 25/01/2019): 0xf9a924e07592e98be7b3beb9020ef5371d770755. Again, this is owned by the address -> 0xfc14d974220678049ad4f8199386fe8f2784a0ff. You need to ensure that MetaMask is on the right mnemonic. This mnemonic is not stored in a public repo for safety and security reasons. 
+
+3. Then, same as above, you send an update with the appropriate inputs.
+
+### Editing Patronage Badges on Mainnet
+
+Unlike using Rinkeby with just an external account, Patronage Badges is managed by the Ujo MultiSig.
+
+Here's the process to upgrade the Badges on Mainnet:
 
 To upgrade on Mainnet, the Ujo MultiSig needs to send a transaction using `setDelegate` function on the proxy. The Ujo MultiSig is usually used through Gnosis Wallet interface. https://wallet.gnosis.pm/
+
+1) Head to https://wallet.gnosis.pm/ and make sure you are unlocked and on mainnet.
+2) On the "Wallets" tab, click "Add" on the right.
+3) Click: "Restored Deployed Wallet".
+4) Add in a custom name (doesn't matter, it's store locally) and the address: 0x5deda52dc2b3a565d77e10f0f8d4bd738401d7d3.
+5) Go to the wallet: https://wallet.gnosis.pm/#/wallet/0x5deda52dc2b3a565d77e10f0f8d4bd738401d7d3. You will see three tabs: Owners, Tokens & MultiSig Transactions.
+6) There are currently 3 owners of the MultiSig. In order to send transactions through, you need to be an owner.
+7) On MultiSig Transactions, click "Add".
+8) In Destination, you need to specify the Proxy address, which is: 0x2897137df67b209be4a7e20f654dadca720dd113.
+9) The name is optional, but for clarity, it would if called called "Patronage Badges (Proxy)".
+10) The ABI String is the Proxy ABI. This is found in the build file, but for clarity it is (as of 2019/01/29):
+
+```
+[
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "name": "_delegate",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "fallback"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "previousOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipRenounced",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_delegate",
+          "type": "address"
+        }
+      ],
+      "name": "setDelegate",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+  ```
+  11) The methods will appear. If `setDelegate` is chosen, it will open up the options for the parameters (`_delegate`). Paste the address in there and click "Send MultiSig Transaction".
+  12) It will thus chain the transaction from external account (owner) -> Ujo  MultiSig -> UjoPatronagesBadges (Proxy).
+
+### Editing Patronage Badges on Mainnet
+
+A similar process is followed to above if one wants to interact with the Patronage Badges as administrator (say, changing the oracle used).
+
+Similarly, when issuing a multi-sig transaction, the difference is that the Proxy ABI should not be inserted, BUT the UjoPatronageBadgesABI. This can be found in the build folder, but for ease, it is (as of 2019/01/29):
+
+```
+[
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "interfaceID",
+          "type": "bytes4"
+        }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "name",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getApproved",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_approved",
+          "type": "address"
+        },
+        {
+          "name": "_tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "approve",
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "totalSupply",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "tokenURIIDs",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_from",
+          "type": "address"
+        },
+        {
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "name": "_tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "transferFrom",
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "tokenURIBase",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "name": "_index",
+          "type": "uint256"
+        }
+      ],
+      "name": "tokenOfOwnerByIndex",
+      "outputs": [
+        {
+          "name": "_tokenId",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_from",
+          "type": "address"
+        },
+        {
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "name": "_tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "safeTransferFrom",
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_index",
+          "type": "uint256"
+        }
+      ],
+      "name": "tokenByIndex",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "ownerOf",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_owner",
+          "type": "address"
+        }
+      ],
+      "name": "balanceOf",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "oracle",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "symbol",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_operator",
+          "type": "address"
+        },
+        {
+          "name": "_approved",
+          "type": "bool"
+        }
+      ],
+      "name": "setApprovalForAll",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "totalMinted",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_from",
+          "type": "address"
+        },
+        {
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "name": "_tokenId",
+          "type": "uint256"
+        },
+        {
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "safeTransferFrom",
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "tokenURISuffix",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "name": "_operator",
+          "type": "address"
+        }
+      ],
+      "name": "isApprovedForAll",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "nftcid",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "timeMinted",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "buyer",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "issuer",
+          "type": "address"
+        }
+      ],
+      "name": "LogBadgeMinted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "beneficiaries",
+          "type": "address[]"
+        },
+        {
+          "indexed": false,
+          "name": "splits",
+          "type": "uint256[]"
+        },
+        {
+          "indexed": false,
+          "name": "usdCostOfBadge",
+          "type": "uint256"
+        }
+      ],
+      "name": "LogPaymentProcessed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_from",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "Transfer",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_approved",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "Approval",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_operator",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_approved",
+          "type": "bool"
+        }
+      ],
+      "name": "ApprovalForAll",
+      "type": "event"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "tokenURI",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_initialiseBadges",
+          "type": "address"
+        },
+        {
+          "name": "_initialOracle",
+          "type": "address"
+        }
+      ],
+      "name": "setupBadges",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_owner",
+          "type": "address"
+        }
+      ],
+      "name": "getAllTokens",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_oracle",
+          "type": "address"
+        }
+      ],
+      "name": "setOracle",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_tokenID",
+          "type": "uint256"
+        },
+        {
+          "name": "_newID",
+          "type": "string"
+        }
+      ],
+      "name": "setTokenURIID",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_newURIBase",
+          "type": "string"
+        }
+      ],
+      "name": "setTokenURIBase",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_newURISuffix",
+          "type": "string"
+        }
+      ],
+      "name": "setTokenURISuffix",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_buyer",
+          "type": "address"
+        },
+        {
+          "name": "_nftCid",
+          "type": "string"
+        },
+        {
+          "name": "_beneficiaries",
+          "type": "address[]"
+        },
+        {
+          "name": "_splits",
+          "type": "uint256[]"
+        },
+        {
+          "name": "_usdCost",
+          "type": "uint256"
+        }
+      ],
+      "name": "adminMintWithoutPayment",
+      "outputs": [
+        {
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_buyer",
+          "type": "address"
+        },
+        {
+          "name": "_nftCid",
+          "type": "string"
+        },
+        {
+          "name": "_beneficiaries",
+          "type": "address[]"
+        },
+        {
+          "name": "_splits",
+          "type": "uint256[]"
+        },
+        {
+          "name": "_usdCost",
+          "type": "uint256"
+        }
+      ],
+      "name": "mint",
+      "outputs": [
+        {
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "burnToken",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+  ```
+
+  ## Deploying/Migrations
+
+  Deployment is a bit complicated as Truffle/Migrations aren't sometimes forgiving, especially when a migration breaks or bails halfway through. So, migrations are primarily used to deploy the contracts, but then to have this information stored in a build file so that apps can detect and use the smart contracts.
+
+  If you look in the migrations folder, you won't see any migration in there. This can admittedly be confusing (and it is). Because of the complexity, the migration files are kept separate. When using migrations, it is moved to migrations folder and then using `truffle migrate --network rinkeby` or `truffle migrate --network mainnet`, it will be deployed.
+
+  If there's a desire to deploy this separately, on a clean network, one can utilise the truffle artifactor to create these build files. However, if it is manually deployed without the artifactor, one can instead use the `.at()` functionality to manually put in a address so that Truffle knows where the contract is.
