@@ -1065,4 +1065,8 @@ Similarly, when issuing a multi-sig transaction, the difference is that the Prox
 
   ## Deploying/Migrations
 
-  (todo)
+  Deployment is a bit complicated as Truffle/Migrations aren't sometimes forgiving, especially when a migration breaks or bails halfway through. So, migrations are primarily used to deploy the contracts, but then to have this information stored in a build file so that apps can detect and use the smart contracts.
+
+  If you look in the migrations folder, you won't see any migration in there. This can admittedly be confusing (and it is). Because of the complexity, the migration files are kept separate. When using migrations, it is moved to migrations folder and then using `truffle migrate --network rinkeby` or `truffle migrate --network mainnet`, it will be deployed.
+
+  If there's a desire to deploy this separately, on a clean network, one can utilise the truffle artifactor to create these build files. However, if it is manually deployed without the artifactor, one can instead use the `.at()` functionality to manually put in a address so that Truffle knows where the contract is.
