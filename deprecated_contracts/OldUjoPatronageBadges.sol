@@ -1,15 +1,13 @@
-pragma solidity ^0.4.24;
+/* pragma solidity ^0.4.24;
 import "./eip721/EIP721.sol";
 import "./utils/SafeMath.sol";
 import "./IUSDETHOracle.sol";
 
-/*
 Old Patronage Badges.
 Does not contain a tokenURI refactor.
 And does not contain Badge Number refactor.
 Deprecated on 22 Aug 2018.
 DO NOT USE THIS.
-*/
 
 contract OldUjoPatronageBadges is EIP721 {
     using SafeMath for uint256;
@@ -97,3 +95,4 @@ contract OldUjoPatronageBadges is EIP721 {
         emit Transfer(msg.sender, 0, _tokenId);
     }
 }
+*/

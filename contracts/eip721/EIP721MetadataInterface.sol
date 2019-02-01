@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.0;
 
 
 /// @title ERC-721 Non-Fungible Token Standard, optional metadata extension
@@ -15,5 +15,5 @@ interface EIP721MetadataInterface {
     /// @dev Throws if `_tokenId` is not a valid NFT. URIs are defined in RFC
     ///  3986. The URI may point to a JSON file that conforms to the "ERC721
     ///  Metadata JSON Schema".
-    function tokenURI(uint256 _tokenId) external view returns (string);
+    function tokenURI(uint256 _tokenId) external view returns (string memory);
 }
