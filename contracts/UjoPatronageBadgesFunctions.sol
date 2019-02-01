@@ -34,6 +34,7 @@ contract ProxyState {
     */
 }
 
+
 // solhint-disable max-states-count
 contract UjoPatronageBadgesFunctions is ProxyState, EIP721 {
     using SafeMath for uint256;

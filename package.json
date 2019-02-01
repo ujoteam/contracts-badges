@@ -42,7 +42,7 @@
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-react": "7.5.1",
     "eth-gas-reporter": "^0.1.12",
-    "solhint": "1.2.1",
+    "solhint": "1.5.1",
     "solidity-coverage": "0.5.11"
   }
 }
