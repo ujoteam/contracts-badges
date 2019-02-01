@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.0;
 import "./EIP721Interface.sol";
 import "./EIP721MetadataInterface.sol";
 import "./EIP721EnumerableInterface.sol";
@@ -41,7 +41,7 @@ contract EIP721 is EIP721Interface, EIP721MetadataInterface, EIP721EnumerableInt
 
     /* Modifiers */
     modifier tokenExists(uint256 _tokenId) {
-        require(ownerOfToken[_tokenId] != 0);
+        require(ownerOfToken[_tokenId] != address(0));
         _;
     }
 
@@ -55,7 +55,7 @@ contract EIP721 is EIP721Interface, EIP721MetadataInterface, EIP721EnumerableInt
     modifier allowedToTransfer(address _from, address _to, uint256 _tokenId) {
         require(checkIfAllowedToOperate(_tokenId) || approvedOwnerOfToken[_tokenId] == msg.sender);
         require(ownerOfToken[_tokenId] == _from);
-        require(_to != 0); //not allowed to burn in transfer method
+        require(_to != address(0)); //not allowed to burn in transfer method
         _;
     }
 
@@ -88,7 +88,7 @@ contract EIP721 is EIP721Interface, EIP721MetadataInterface, EIP721EnumerableInt
     /// @param _to The new owner
     /// @param _tokenId The NFT to transfer
     /// @param data Additional data with no specified format, sent in call to `_to`
-    function safeTransferFrom(address _from, address _to, uint256 _tokenId, bytes data) external payable
+    function safeTransferFrom(address _from, address _to, uint256 _tokenId, bytes calldata data) external payable
     tokenExists(_tokenId)
     allowedToTransfer(_from, _to, _tokenId) {
         settleTransfer(_from, _to, _tokenId);
@@ -194,7 +194,7 @@ contract EIP721 is EIP721Interface, EIP721MetadataInterface, EIP721EnumerableInt
     /// @param _owner An address for whom to query the balance
     /// @return The number of NFTs owned by `_owner`, possibly zero
     function balanceOf(address _owner) external view returns (uint256) {
-        require(_owner != 0);
+        require(_owner != address(0));
         return ownedTokens[_owner].length;
     }
 
@@ -219,7 +219,7 @@ contract EIP721 is EIP721Interface, EIP721MetadataInterface, EIP721EnumerableInt
     /// @dev Throws if `_tokenId` is not a valid NFT. URIs are defined in RFC
     ///  3986. The URI may point to a JSON file that conforms to the "ERC721
     ///  Metadata JSON Schema".
-    function tokenURI(uint256 _tokenId) external view returns (string) {
+    function tokenURI(uint256 _tokenId) external view returns (string memory) {
         return tokenURIs[_tokenId];
     }
 
@@ -249,7 +249,7 @@ contract EIP721 is EIP721Interface, EIP721MetadataInterface, EIP721EnumerableInt
 
         // Note: the following code is equivalent to: require(getApproved(_tokenId) != 0) || _approved != 0);
         // However: I found the following easier to read & understand.
-        if (approvedOwnerOfToken[_tokenId] == 0 && _approved == 0) {
+        if (approvedOwnerOfToken[_tokenId] == address(0) && _approved == address(0)) {
             revert(); // add reason for revert?
         } else {
             approvedOwnerOfToken[_tokenId] = _approved;
@@ -259,8 +259,8 @@ contract EIP721 is EIP721Interface, EIP721MetadataInterface, EIP721EnumerableInt
 
     function settleTransfer(address _from, address _to, uint256 _tokenId) internal {
         //clear pending approvals if there are any
-        if (approvedOwnerOfToken[_tokenId] != 0) {
-            internalApprove(_from, 0, _tokenId);
+        if (approvedOwnerOfToken[_tokenId] != address(0)) {
+            internalApprove(_from, address(0), _tokenId);
         }
 
         removeToken(_from, _tokenId);

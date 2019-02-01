@@ -1,4 +1,4 @@
-pragma solidity ^0.4.23;
+pragma solidity ^0.5.0;
 
 
 // Interface for the Oracle
@@ -13,8 +13,8 @@ contract IUSDETHOracle {
     string public url;
 
     // solhint-disable no-empty-blocks
-    function getPrice() public constant returns (string) {}
+    function getPrice() public view returns (string memory) {}
 
-    function getUintPrice() public constant returns (uint) { }
+    function getUintPrice() public view returns (uint) { }
     // solhint-enable
 }

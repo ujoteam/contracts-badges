@@ -2,28 +2,17 @@
 Used in testing to see if the Handler properly fetches it.
 Relies on getPrice() to return a string.
 */
-pragma solidity ^0.4.21;
+pragma solidity ^0.5.0;
 
 
 contract TestOracle {
-    string public ethUsdString = "1";
+    uint public price = 1;
 
-    function setStringPrice(string _newPrice) public {
-        ethUsdString = _newPrice;
+    function setPrice(uint _newPrice) public {
+        price = _newPrice;
     }
 
-    function getUintPrice() public returns (uint) {
-        return stringToUint(ethUsdString);
-    }
-
-    function stringToUint(string s) public constant returns (uint) {
-        bytes memory b = bytes(s);
-        uint result = 0;
-        for (uint i = 0; i < b.length; i++) { 
-            if (b[i] >= 48 && b[i] <= 57) {
-                result = result * 10 + (uint(b[i]) - 48);
-            }
-        }
-        return result;
+    function getUintPrice() public view returns (uint) {
+        return price;
     }
 }

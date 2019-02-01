@@ -32,7 +32,7 @@ contract('Patronage Badges', (accounts) => {
     badgesProxy = await ujoBadges.new(accounts[4], functions.address, { gas: parseInt((gasEstimateBadgesProxy * 120) / 100, 0), from: accounts[4] });
     badges = await ujoBadgesFunctions.at(badgesProxy.address);
 
-    await badges.setupBadges('0x0', oracle.address, { from: accounts[4] });
+    await badges.setupBadges('0xc1912fee45d61c87cc5ea59dae31190fffff2323', oracle.address, { from: accounts[4] });
   });
 
   it('initialization: test appropriate initialization', async () => {
@@ -48,7 +48,7 @@ contract('Patronage Badges', (accounts) => {
       from: accounts[4],
     });
 
-    const badges2 = ujoBadgesFunctions.at(badgesProxy2.address);
+    const badges2 = await ujoBadgesFunctions.at(badgesProxy2.address);
     // eslint-disable-next-line max-len
     const setup = await badges2.setupBadges(deployedTest.address, oracle.address, { from: accounts[4] });
     const block = await web3.eth.getBlock(setup.receipt.blockNumber);
@@ -129,7 +129,7 @@ contract('Patronage Badges', (accounts) => {
   });
 
   it('minting: should fail if exchange rate is 0. Should return 2 ETH paid.', async () => {
-    await oracle.setStringPrice('0');
+    await oracle.setPrice(0);
     const beforeBalanceSender = await web3.eth.getBalance(accounts[0]);
     await assertRevert(badges.mint(accounts[0], 'qmxnftqmxnftqmxnftqmxnft', [accounts[1]], [100], 1, { from: accounts[0], value: web3.utils.toWei('2', 'ether') }));
     // eslint-disable-next-line max-len

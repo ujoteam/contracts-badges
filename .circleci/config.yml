@@ -7,5 +7,4 @@ jobs:
       - checkout
       - run: npm install
       - run: npm run lint
-      - run: npm run coverage
       - run: bash <(curl -s https://codecov.io/bash)
